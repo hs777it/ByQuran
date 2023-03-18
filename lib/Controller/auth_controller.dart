@@ -15,7 +15,7 @@ import '../Views/login_screen.dart';
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
 
-  late Rx<User?> _user;
+  late Rx<bool?> _logged;
   final FirebaseAuth authFirebase = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
   final FacebookAuth facebookAuth = FacebookAuth.instance;
@@ -26,20 +26,33 @@ class AuthController extends GetxController {
   );
 
   @override
-  void onReady() {
-    super.onReady();
-    _user = Rx<User?>(authFirebase.currentUser);
-    _user.bindStream(authFirebase.userChanges());
-    ever(_user, _startScreen);
+  void onInit() {
+    loginAnon();
+    super.onInit();
   }
 
-  _startScreen(User? user) {
-    if (user?.email! != GetStorage().read("email")) {
-      Get.offAll(() => LoginScreen());
-    } else {
-      // Get.offAll(() => WelcomePage( email: user.email ?? 'Not Found',));
-      Get.offAll(() => HomeScreen());
-    }
+  @override
+  void onReady() {
+    GetStorage storage = GetStorage();
+
+    super.onReady();
+    _logged = Rx<bool?>(storage.read("logged"));
+    _logged.bindStream(
+      Stream.value(
+        storage.read("logged"),
+      ),
+    );
+    ever(_logged, _startScreen);
+  }
+
+  _startScreen(bool? logged) {
+    loginAnon();
+    Get.offAll(() => HomeScreen());
+    // if (logged != null && logged) {
+    //   Get.offAll(() => HomeScreen());
+    // } else {
+    //   Get.offAll(() => LoginScreen());
+    // }
   }
 
   void register(String email, password) async {
@@ -49,9 +62,10 @@ class AuthController extends GetxController {
         password: password,
       );
       final accountData = GetStorage();
-      accountData.write('email', cred.user!.email);
-      accountData.write('displayName', cred.user!.displayName);
-      accountData.write('photoUrl', cred.user!.photoURL);
+      await accountData.write('email', cred.user!.email);
+      await accountData.write('displayName', cred.user!.displayName);
+      await accountData.write('photoUrl', cred.user!.photoURL);
+      await accountData.write("logged", true);
     } catch (e) {
       Get.snackbar(
         'About User',
@@ -78,9 +92,10 @@ class AuthController extends GetxController {
     try {
       await authFirebase.signInAnonymously();
       final accountData = GetStorage();
-      accountData.write('email', null);
-      accountData.write('displayName', "مستخدم مجهول");
-      accountData.write('photoUrl', null);
+      await accountData.write('email', null);
+      await accountData.write('displayName', "مستخدم مجهول");
+      await accountData.write('photoUrl', null);
+      await accountData.write("logged", true);
     } catch (e) {
       print(e);
       rethrow;
@@ -116,9 +131,15 @@ class AuthController extends GetxController {
   }
 
   void logOut() async {
+    GetStorage accountData = GetStorage();
+    accountData.write("logged", false);
+
     await authFirebase.signOut();
     await googleSignIn.signOut();
     await facebookAuth.logOut();
+    Get.offAll(
+      () => LoginScreen(),
+    );
   }
 
   void googleSignUp() async {
@@ -141,18 +162,20 @@ class AuthController extends GetxController {
 
     /// Save User Data
     final accountData = GetStorage();
-    accountData.write(
+    await accountData.write(
       'email',
       cred.user!.email ?? accountData.read('email'),
     );
-    accountData.write(
+    await accountData.write(
       'displayName',
       cred.user!.displayName ?? accountData.read('displayName'),
     );
-    accountData.write(
+    await accountData.write(
       'photoUrl',
       cred.user!.photoURL,
     );
+    await accountData.write("logged", true);
+    Get.offAll(() => HomeScreen());
   }
 
   void facebookSignIn() async {
@@ -168,18 +191,20 @@ class AuthController extends GetxController {
 
     /// Save User Data
     final accountData = GetStorage();
-    accountData.write(
+    await accountData.write(
       'email',
       cred.user!.email ?? accountData.read('email'),
     );
-    accountData.write(
+    await accountData.write(
       'displayName',
       cred.user!.displayName ?? accountData.read('displayName'),
     );
-    accountData.write(
+    await accountData.write(
       'photoUrl',
       cred.user!.photoURL,
     );
+    await accountData.write("logged", true);
+    Get.offAll(() => HomeScreen());
   }
 
   void signInWithTwitter() async {
@@ -195,20 +220,19 @@ class AuthController extends GetxController {
     // Once signed in, return the UserCredential
     UserCredential cred = await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
     final accountData = GetStorage();
-    accountData.write(
+    await accountData.write(
       'email',
       cred.user!.email ?? accountData.read('email'),
     );
-    accountData.write(
+    await accountData.write(
       'displayName',
       cred.user!.displayName ?? accountData.read('displayName'),
     );
-    accountData.write(
+    await accountData.write(
       'photoUrl',
       cred.user!.photoURL,
     );
+    await accountData.write("logged", true);
+    Get.offAll(() => HomeScreen());
   }
 }
-
-  // auth2 is initialized with gapi.auth2.init() and a user is signed in.
-

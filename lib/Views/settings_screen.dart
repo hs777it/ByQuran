@@ -1,3 +1,4 @@
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Controller/SettingController.dart';
+import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Views/contact_us_screen.dart';
-import 'package:welivewithquran/Views/home_screen.dart';
+import 'package:welivewithquran/Views/downloads_view.dart';
+import 'package:welivewithquran/Views/library_screen.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/custom_widgets/custom_setting_item.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
@@ -20,16 +23,19 @@ class SettingsScreen extends StatelessWidget {
   final accountData = GetStorage();
   final String email = '';
 
-  final SettingController settingController =
-      GetInstance().put<SettingController>(SettingController());
+  final SettingController settingController = GetInstance().put<SettingController>(
+    SettingController(),
+  );
+  final BookController bookController = GetInstance().put<BookController>(
+    BookController(),
+  );
 
   @override
   Widget build(BuildContext context) {
+    // User? user = FirebaseAuth.instance.currentUser;
     return Container(
       decoration: BoxDecoration(
-        color: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? ThemeProvider.themeOf(context).data.colorScheme.background
-            : null,
+        color: ThemeProvider.themeOf(context).data.colorScheme.background,
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -45,53 +51,61 @@ class SettingsScreen extends StatelessWidget {
                   bottomRight: Radius.circular(50),
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(top: 40.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomText(
-                          text: accountData.read('displayName') ?? 'مستخدم',
-                          fontSize: 14.sp,
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? blueColor
-                              : mainColor,
-                        ),
-                        CustomText(
-                          text: accountData.read('email') ?? 'لم تسجل الدخول',
-                          fontSize: 14.sp,
-                          color: blueLightColor,
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 24.w),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        accountData.read('photoUrl') != null
-                            ? CircleAvatar(
-                                child: Image.network(
-                                  accountData.read(
-                                    'photoUrl',
-                                  ),
-                                ),
-                                maxRadius: 40,
-                              )
-                            : CircleAvatar(
-                                child: Icon(
-                                  Icons.person,
-                                  color: blueColor,
-                                  size: 40.w,
-                                ),
-                                backgroundColor: blueBackgroundColor,
-                                maxRadius: 30,
-                              ),
-                      ],
-                    ),
-                  ],
+              child: Align(
+                alignment: AlignmentDirectional.center,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 40.h),
+                  child: CustomText(
+                    text: "الإعدادات",
+                    fontSize: 30,
+                    color: whiteColor,
+                  ),
+                  // child: Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Column(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         CustomText(
+                  //           text: accountData.read('displayName') ?? 'مستخدم',
+                  //           fontSize: 14.sp,
+                  //           color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                  //               ? blueColor
+                  //               : mainColor,
+                  //         ),
+                  //         CustomText(
+                  //           text: accountData.read('email') ?? 'لم تسجل الدخول',
+                  //           fontSize: 14.sp,
+                  //           color: blueLightColor,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     SizedBox(width: 24.w),
+                  //     Column(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         accountData.read('photoUrl') != null
+                  //             ? CircleAvatar(
+                  //                 child: Image.network(
+                  //                   accountData.read(
+                  //                     'photoUrl',
+                  //                   ),
+                  //                 ),
+                  //                 maxRadius: 40,
+                  //               )
+                  //             : CircleAvatar(
+                  //                 child: Icon(
+                  //                   Icons.person,
+                  //                   color: blueColor,
+                  //                   size: 40.w,
+                  //                 ),
+                  //                 backgroundColor: blueBackgroundColor,
+                  //                 maxRadius: 30,
+                  //               ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ),
             ),
@@ -106,10 +120,20 @@ class SettingsScreen extends StatelessWidget {
                     title: 'المكتبة',
                     onPress: () {
                       Get.to(
-                        () => HomeScreen(
-                          index: 1,
+                        () => Scaffold(
+                          extendBodyBehindAppBar: true,
+                          body: LibraryScreen(),
+                          appBar: AppBar(
+                            foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? null
+                                : blueDarkColor,
+                            elevation: 0,
+                            backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? blueDarkColor
+                                : Colors.transparent,
+                          ),
                         ),
-                        preventDuplicates: false,
+                        preventDuplicates: true,
                       );
                     },
                     image: 'assets/icons/library_icon.svg',
@@ -119,7 +143,14 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   CustomSettingItem(
                     title: 'التحميلات',
-                    onPress: () {},
+                    onPress: () {
+                      Get.to(
+                        () => DownloadsScreen(
+                          // bookList: bookController.downloadedList.toList(),
+                          ctrl: bookController,
+                        ),
+                      );
+                    },
                     image: 'assets/icons/down_arrow.svg',
                   ),
                   const SizedBox(
@@ -135,14 +166,23 @@ class SettingsScreen extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
-                  CustomSettingItem(
-                    image: 'assets/icons/exit.svg',
-                    title: 'تسجيل خروج',
-                    onPress: () {
-                      logoutDialog(context);
-                    },
-                    icon: null,
-                  )
+                  // user != null && !user.isAnonymous
+                  //     ? CustomSettingItem(
+                  //         image: 'assets/icons/exit.svg',
+                  //         title: 'تسجيل خروج',
+                  //         onPress: () {
+                  //           logoutDialog(context);
+                  //         },
+                  //         icon: null,
+                  //       )
+                  //     : CustomSettingItem(
+                  //         image: 'assets/icons/exit.svg',
+                  //         title: 'تسجيل دخول',
+                  //         onPress: () {
+                  //           AuthController.instance.logOut();
+                  //         },
+                  //         icon: null,
+                  //       )
                 ],
               ),
             )

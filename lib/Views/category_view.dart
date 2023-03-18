@@ -1,83 +1,68 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:welivewithquran/Controller/ebook_controller.dart';
+import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
+import 'package:welivewithquran/Models/category.dart';
+import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-import '../Controller/ebook_controller.dart';
-import '../services/services.dart';
-
-class FavouriteScreen extends StatefulWidget {
-  FavouriteScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FavouriteScreen> createState() => _FavouriteScreenState();
-}
-
-class _FavouriteScreenState extends State<FavouriteScreen> {
-  final BookController bookController = Get.put(BookController());
+class CategoryScreen extends StatelessWidget {
+  final Category cat;
+  final BookController ctrl;
+  CategoryScreen({required this.cat, required this.ctrl});
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => bookController.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: blueColor,
-              ),
-            )
-          : bookController.bookMarks.isEmpty
-              ? Container(
-                  color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueDarkColor
-                      : whiteColor,
-                  child: Center(
-                    child: CustomText(
-                      text: "لا توجد سور مفضلة حتى الآن",
-                      fontSize: 26.sp,
-                      color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueLightColor
-                          : mainColor,
-                    ),
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: bookController.getBookmarks,
-                  child: Container(
-                    padding: EdgeInsets.zero,
-                    margin: EdgeInsets.zero,
-                    width: double.infinity,
-                    //height: double.infinity,
-                    decoration: BoxDecoration(
-                      color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueDarkColor
-                          : whiteColor,
-                      // image: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      //     ? null
-                      //     : DecorationImage(
-                      //         image: AssetImage('assets/images/main_background1.png'),
-                      //         fit: BoxFit.cover,
-                      //       ),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 70.h),
-                        CustomText(
-                          text: 'المفضلة',
-                          fontSize: 24.sp,
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? blueLightColor
-                              : mainColor,
-                        ),
-                        Expanded(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme") ? null : blueDarkColor,
+        elevation: 0,
+        backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+            ? blueDarkColor
+            : Colors.transparent,
+      ),
+      body: Container(
+        padding: EdgeInsets.zero,
+        margin: EdgeInsets.zero,
+        width: double.infinity,
+        //height: double.infinity,
+        decoration: BoxDecoration(
+          color: (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : whiteColor,
+          // image: (ThemeProvider.themeOf(context).id == "dark_theme")
+          //     ? null
+          //     : DecorationImage(
+          //         image: AssetImage('assets/images/main_background1.png'),
+          //         fit: BoxFit.cover,
+          //       ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 70.h),
+            CustomText(
+              text: cat.categoryName,
+              fontSize: 38.sp,
+              color:
+                  (ThemeProvider.themeOf(context).id == "dark_theme") ? blueLightColor : mainColor,
+            ),
+            FutureBuilder<List<Ebook>?>(
+              future: DataServices.getEbooksFromCat(cat.cid),
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                  List<Ebook> bookList = snapshot.data ?? [];
+                  return bookList.isNotEmpty
+                      ? Expanded(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 7.0),
                             child: GridView.builder(
                               padding: EdgeInsets.zero,
-                              itemCount: bookController.bookMarks.length,
+                              itemCount: bookList.length,
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2, //2
                                 childAspectRatio: .9, //.7
@@ -89,52 +74,44 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                       () => DetailsScreen(),
                                       arguments: [
                                         {
-                                          'id': bookController.bookMarks.toList()[index].id,
+                                          'id': bookList[index].id,
                                         },
                                         {
-                                          'title':
-                                              bookController.bookMarks.toList()[index].bookTitle,
+                                          'title': bookList[index].bookTitle,
                                         },
                                         {
-                                          'bookCover':
-                                              bookController.bookMarks.toList()[index].bookCoverImg,
+                                          'bookCover': bookList[index].bookCoverImg,
                                         },
                                         {
-                                          'bookPages':
-                                              bookController.bookMarks.toList()[index].bookPages,
+                                          'bookPages': bookList[index].bookPages,
                                         },
                                         {
-                                          'bookDescription': bookController.bookMarks
-                                              .toList()[index]
-                                              .bookDescription,
+                                          'bookDescription': bookList[index].bookDescription,
                                         },
                                         {
-                                          'bookFile':
-                                              bookController.bookMarks.toList()[index].bookFileUrl,
+                                          'bookFile': bookList[index].bookFileUrl,
                                         },
                                         {
-                                          'authorName':
-                                              bookController.bookMarks.toList()[index].authorName,
+                                          'authorName': bookList[index].authorName,
                                         },
                                         {
-                                          'categoryName':
-                                              bookController.bookMarks.toList()[index].categoryName,
+                                          'categoryName': bookList[index].categoryName,
                                         },
                                         {
-                                          "book": bookController.bookMarks.toList()[index],
+                                          "book": bookList[index],
                                         },
                                         {
-                                          "books": bookController,
+                                          "books": ctrl,
                                         },
                                         {
-                                          "condition": true,
+                                          "condition": false,
                                         },
                                       ],
                                     );
                                     // Navigator.of(context).push(_createRoute());
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(3.0),
                                     child: SizedBox(
                                       height: 0.1.sh,
                                       child: Column(
@@ -143,21 +120,19 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: mainColor,
-                                              borderRadius: BorderRadius.circular(
-                                                7,
-                                              ),
+                                              borderRadius: BorderRadius.circular(7),
                                             ),
                                             child: Center(
                                               child: Text(
-                                                bookController.bookMarks.toList()[index].bookTitle,
+                                                bookList[index].bookTitle,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 13.5.sp,
                                                   height: 1.5,
                                                 ),
+                                                textAlign: TextAlign.center,
                                               ),
                                             ),
                                           ),
@@ -171,10 +146,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(7.0),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: imagesUrl +
-                                                      bookController.bookMarks
-                                                          .toList()[index]
-                                                          .bookCoverImg,
+                                                  imageUrl:
+                                                      imagesUrl + bookList[index].bookCoverImg,
                                                   fit: BoxFit.fill,
                                                   progressIndicatorBuilder:
                                                       (context, url, downloadProgress) =>
@@ -186,10 +159,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                       Icon(Icons.error),
                                                 ),
                                                 // Image.network(
-                                                //   imagesUrl +
-                                                //       bookController.bookMarks
-                                                //           .toList()[index]
-                                                //           .bookCoverImg,
+                                                //   imagesUrl + bookList[index].bookCoverImg,
                                                 //   fit: BoxFit.fill,
                                                 // ),
                                               ),
@@ -204,10 +174,68 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                             ),
                           ),
                         )
-                      ],
-                    ),
+                      : Container(
+                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                              ? blueDarkColor
+                              : null,
+                          child: Center(
+                            child: CustomText(
+                              alignment: TextAlign.center,
+                              text: "لا توجد سور في هذا القسم حتى الآن",
+                              fontSize: 26.sp,
+                              color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                  ? blueLightColor
+                                  : mainColor,
+                            ),
+                          ),
+                        );
+                }
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: blueColor,
                   ),
-                ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Route _createRoute() {
+  //   return PageRouteBuilder(
+  //     pageBuilder: (context, animation, secondaryAnimation) => DetailsScreen(),
+  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  //       const begin = Offset(1.0, 1.0);
+  //       const end = Offset.zero;
+  //       const curve = Curves.ease;
+
+  //       var tween =
+  //           Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+  //       return SlideTransition(
+  //         position: animation.drive(tween),
+  //         child: child,
+  //       );
+  //     },
+  //   );
+  // }
+
+  BoxDecoration borderSide() {
+    return const BoxDecoration(
+      border: Border(
+        left: BorderSide(
+          //                   <--- left side
+          color: Colors.black,
+          width: 3.0,
+        ),
+        top: BorderSide(
+          //                    <--- top side
+          color: Colors.black,
+          width: 3.0,
+        ),
+      ),
     );
   }
 }

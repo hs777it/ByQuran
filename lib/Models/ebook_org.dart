@@ -5,8 +5,19 @@ import 'dart:convert';
 // json['EBOOK_APP'].map((x) => EbookApp.fromJson(x))),
 // );
 
-fromJsonAPI(Map<String, dynamic> json) =>
+fromJson(Map<String, dynamic> json) =>
     List<Ebook>.from(json['EBOOK_APP'].map((x) => Ebook.fromJson(x)));
+
+fromJsonPopularAPI(Map<String, dynamic> json) => List<Ebook>.from(
+      json['EBOOK_APP'][0]['popular_books'].map(
+        (x) => Ebook.fromJson(x),
+      ),
+    );
+fromJsonAPI(Map<String, dynamic> json) => List<Ebook>.from(
+      json['EBOOK_APP'][0]['featured_books'].map(
+        (x) => Ebook.fromJson(x),
+      ),
+    );
 //
 List<Ebook> fromJsonString(String str) => List<Ebook>.from(
       json.decode(str).map(
@@ -14,8 +25,7 @@ List<Ebook> fromJsonString(String str) => List<Ebook>.from(
           ),
     );
 
-String toJson(List<Ebook> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String toJson(List<Ebook> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Ebook {
   Ebook({
@@ -24,7 +34,7 @@ class Ebook {
     required this.catId,
     required this.aid,
     required this.bookTitle,
-    // required this.bookPages,
+    required this.bookPages,
     required this.bookDescription,
     required this.bookCoverImg,
     required this.bookBgImg,
@@ -46,7 +56,7 @@ class Ebook {
   String catId;
   String aid;
   String bookTitle;
-  // int bookPages;
+  int bookPages;
   String bookDescription;
   String bookCoverImg;
   String bookBgImg;
@@ -69,7 +79,7 @@ class Ebook {
         catId: json['cat_id'],
         aid: json['aid'],
         bookTitle: json['book_title'],
-        // bookPages: json['book_pages'],
+        bookPages: int.parse(json['book_pages']),
         bookDescription: json['book_description'],
         bookCoverImg: json['book_cover_img'].toString(),
         bookBgImg: json['book_bg_img'].toString(),
@@ -93,7 +103,7 @@ class Ebook {
         'cat_id': catId,
         'aid': aid,
         'book_title': bookTitle,
-        // 'book_pages': bookPages,
+        'book_pages': bookPages,
         'book_description': bookDescription,
         'book_cover_img': bookCoverImg,
         'book_bg_img': bookBgImg,
