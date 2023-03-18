@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,11 +16,7 @@ class LibraryScreen extends StatelessWidget {
     print(bookController.bookList.isEmpty);
     return Obx(
       () => bookController.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: blueColor,
-              ),
-            )
+          ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
               onRefresh: bookController.getAll,
               child: Container(
@@ -32,13 +27,13 @@ class LibraryScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? blueDarkColor
-                      : whiteColor,
-                  // image: (ThemeProvider.themeOf(context).id == "dark_theme")
-                  //     ? null
-                  //     : DecorationImage(
-                  //         image: AssetImage('assets/images/main_background1.png'),
-                  //         fit: BoxFit.cover,
-                  //       ),
+                      : mainColor,
+                  image: (ThemeProvider.themeOf(context).id == "dark_theme")
+                      ? null
+                      : DecorationImage(
+                          image: AssetImage('assets/images/main_background1.png'),
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 child: Column(
                   children: [
@@ -57,8 +52,9 @@ class LibraryScreen extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           itemCount: bookController.bookList.length,
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, //2
-                            childAspectRatio: .9, //.7
+                            crossAxisCount: 3, //2
+                            childAspectRatio: .5, //.7
+                            mainAxisExtent: 200,
                           ),
                           itemBuilder: (context, index) {
                             return GestureDetector(
@@ -76,7 +72,7 @@ class LibraryScreen extends StatelessWidget {
                                       'bookCover': bookController.bookList[index].bookCoverImg,
                                     },
                                     {
-                                      'bookPages': bookController.bookList[index].bookPages,
+                                      'bookPages': bookController.bookList[index].id,
                                     },
                                     {
                                       'bookDescription':
@@ -105,71 +101,40 @@ class LibraryScreen extends StatelessWidget {
                                 // Navigator.of(context).push(_createRoute());
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: SizedBox(
-                                  height: 0.1.sh,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          color: mainColor,
-                                          borderRadius: BorderRadius.circular(7),
-                                        ),
-                                        child: Center(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 30.h,
+                                      width: 100.w,
+                                      decoration: BoxDecoration(
+                                        color: mainColor,
+                                        borderRadius: BorderRadius.circular(7),
+                                      ),
+                                      child: Center(
                                           child: Text(
-                                            bookController.bookList[index].bookTitle,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13.5.sp,
-                                              height: 1.5,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 7.h),
-                                      Expanded(
-                                        child: SizedBox(
-                                          height: 210.h,
+                                        bookController.bookList[index].bookTitle,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16.sp, height: 1.0),
+                                      )),
+                                    ),
+                                    SizedBox(height: 7.h),
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 210.h,
 
-                                          /// lib book width
-                                          // width: 130.w,
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(7.0),
-                                            child: CachedNetworkImage(
-                                              imageUrl: imagesUrl +
-                                                  bookController.bookList[index].bookCoverImg,
-                                              fit: BoxFit.fill,
-                                              progressIndicatorBuilder:
-                                                  (context, url, downloadProgress) => Padding(
-                                                padding: const EdgeInsets.all(32.0).add(
-                                                  EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-                                                ),
-                                                child: SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: CircularProgressIndicator(
-                                                    value: downloadProgress.progress,
-                                                    color: blueDarkColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              errorWidget: (context, url, error) =>
-                                                  Icon(Icons.error),
-                                            ),
-                                            // Image.network(
-                                            //   imagesUrl +
-                                            //       bookController.bookList[index].bookCoverImg,
-                                            //   fit: BoxFit.fill,
-                                            // ),
+                                        /// lib book width
+                                        // width: 130.w,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(7.0),
+                                          child: Image.network(
+                                            imagesUrl + bookController.bookList[index].bookCoverImg,
+                                            fit: BoxFit.fill,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );

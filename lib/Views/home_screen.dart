@@ -1,9 +1,8 @@
-// import 'dart:io';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:theme_provider/theme_provider.dart';
 
 import 'package:welivewithquran/Views/favourite_screen.dart';
@@ -29,20 +28,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   PageController _pageController = PageController();
   GlobalKey<DrawerControllerState> drawerKey = GlobalKey<DrawerControllerState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  var appLink = 'https://smartmediakw.com/zbook/app/';
-
-  Future<bool> setPushState() async {
-    var device = await OneSignal.shared.getDeviceState();
-    return !device!.pushDisabled;
-  }
+  var androidLink = 'https://play.google.com/store/apps/details?id=com.smart.live_by_quran';
+  var iOSLink = 'https://apps.apple.com';
 
   @override
   void initState() {
     super.initState();
     currentIndex = widget.index ?? 0;
-    if (_pageController.hasClients) {
-      _pageController.jumpToPage(currentIndex);
-    }
+    _pageController = PageController();
   }
 
   @override
@@ -84,8 +77,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             /// AppBar
             appBar: AppBar(
               elevation: 0,
-              foregroundColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? null : blueDarkColor,
               backgroundColor: currentIndex == 0
                   ? (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? blueDarkColor
@@ -93,10 +84,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   : Colors.transparent,
               toolbarHeight: 85.h,
               title: Text(
-                'لنحيا بالقران\nد.فاطمة بنت عمر نصيف',
-                textAlign: TextAlign.center,
+                'لنحيا بالقران',
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 24.sp,
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? blueBackgroundColor
                       : mainColor,
@@ -117,184 +107,165 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             ),
 
             /// Drawer
-            drawer: FutureBuilder<bool>(
-              future: setPushState(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
-                  bool isListening = snapshot.data!;
-                  return Drawer(
-                    key: drawerKey,
-                    child: Column(
-                      children: [
-                        SizedBox(
+            drawer: Drawer(
+              key: drawerKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لنحيا بالقران',
+                        style: TextStyle(
+                            fontSize: 24.sp, color: mainColor, fontWeight: FontWeight.w700),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.0.w),
+                        child: Image.asset(
+                          'assets/images/app_bar_icon_new.png',
+                          width: 30.h,
                           height: 30.h,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'لنحيا بالقران',
-                              style: TextStyle(
-                                fontSize: 24.sp,
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                    ? blueLightColor
-                                    : mainColor,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.0.w),
-                              child: Image.asset(
-                                'assets/images/app_bar_icon_new.png',
-                                width: 30.h,
-                                height: 30.h,
-                              ),
-                            )
-                          ],
-                        ),
-                        CustomSettingItem(
-                          title: 'مشاركة التطبيق',
-                          onPress: () {
-                            zTools.share(
-                              'لنحيا بالقرآن',
-                              'لنحيا بالقرآن\n د. فاطمة بنت عمر نصيف',
-                              appLink,
-                              'مشاركة: لنحيا بالقرآن',
-                            );
-                          },
-                          image: 'assets/icons/share.svg',
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 55.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Switch(
-                                  activeColor: blueColor,
-                                  value: isListening,
-                                  onChanged: (value) async {
-                                    await OneSignal.shared.disablePush(!value);
-                                    setState(() {});
-                                  },
-                                ),
-                                CustomText(
-                                  text: 'تفعيل الاشعارات',
-                                  color: blueColor,
-                                  fontSize: 17.sp,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 55.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Switch(
-                                  activeColor: blueColor,
-                                  value: (ThemeProvider.themeOf(context).id == "dark_theme"),
-                                  onChanged: (bool val) {
-                                    val
-                                        ? ThemeProvider.controllerOf(context).setTheme("dark_theme")
-                                        : ThemeProvider.controllerOf(context)
-                                            .setTheme("light_theme");
-                                    // settingController.changeMode();
-                                  },
-                                ),
-                                CustomText(
-                                  text: 'الوضع الليلي',
-                                  color: blueColor,
-                                  fontSize: 17.sp,
-                                ),
-                                // Obx(() => CupertinoSwitch(
-                                //     onChanged: (bool _) => settingController.changeMode(),
-                                //     value: settingController.isDark.value,
-                                //   ),),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        // CustomSettingItem(
-                        //   image: 'assets/icons/exit.svg',
-                        //   title: 'تسجيل خروج',
-                        //   onPress: () {
-                        //     logoutDialog(context);
-                        //   },
-                        //   icon: null,
-                        // )
-                      ],
-                    ),
-                  );
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: blueColor,
+                      )
+                    ],
                   ),
-                );
-              },
+                  CustomSettingItem(
+                    title: 'مشاركة التطبيق',
+                    onPress: () {
+                      if (Platform.isAndroid)
+                        zTools.share(
+                          'لنحيا بالقرآن',
+                          'لنحيا بالقرآن\n د. فاطمة بنت عمر نصيف',
+                          androidLink,
+                          'مشاركة: لنحيا بالقرآن',
+                        );
+                      else if (Platform.isIOS)
+                        zTools.share(
+                          'لنحيا بالقرآن',
+                          'لنحيا بالقرآن\n د. فاطمة بنت عمر نصيف',
+                          iOSLink,
+                          'مشاركة: لنحيا بالقرآن',
+                        );
+                    },
+                    image: 'assets/icons/share.svg',
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 55.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          Switch(
+                            activeColor: blueColor,
+                            value: true,
+                            onChanged: (value) {},
+                          ),
+                          CustomText(
+                            text: 'تفعيل الاشعارات',
+                            color: blueColor,
+                            fontSize: 17.sp,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      height: 55.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          Switch(
+                            activeColor: blueColor,
+                            value: (ThemeProvider.themeOf(context).id == "dark_theme"),
+                            onChanged: (bool val) {
+                              val
+                                  ? ThemeProvider.controllerOf(context).setTheme("dark_theme")
+                                  : ThemeProvider.controllerOf(context).setTheme("light_theme");
+                              // settingController.changeMode();
+                            },
+                          ),
+                          CustomText(
+                            text: 'الوضع الليلي',
+                            color: blueColor,
+                            fontSize: 17.sp,
+                          ),
+                          // Obx(() => CupertinoSwitch(
+                          //     onChanged: (bool _) => settingController.changeMode(),
+                          //     value: settingController.isDark.value,
+                          //   ),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  CustomSettingItem(
+                    image: 'assets/icons/exit.svg',
+                    title: 'تسجيل خروج',
+                    onPress: () {
+                      logoutDialog(context);
+                    },
+                    icon: null,
+                  )
+                ],
+              ),
             ),
 
             ///BottomNavigationBar
             bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: currentIndex,
-              unselectedFontSize: 15.sp,
-              selectedFontSize: 17.sp,
-              selectedItemColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? blueColor : blueDarkColor,
-              unselectedItemColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? Colors.white : Colors.grey,
-              onTap: (index) {
-                checkCurrentIndex(index);
-              },
-              // selectedItemColor: mainColor,
+                type: BottomNavigationBarType.fixed,
+                currentIndex: currentIndex,
+                unselectedFontSize: 15.sp,
+                selectedFontSize: 16.sp,
+                onTap: (index) {
+                  checkCurrentIndex(index);
+                },
+                // selectedItemColor: mainColor,
 
-              /// ----------- Bottom Bar Items ------------------------
-              items: [
-                BottomNavigationBarItem(
-                  label: 'الرئيسية',
-                  icon: SvgPicture.asset('assets/icons/main_icon.svg', height: 23),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-                BottomNavigationBarItem(
-                  label: 'المكتبة',
-                  icon: SvgPicture.asset('assets/icons/library_icon.svg', height: 23),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-                const BottomNavigationBarItem(
-                  label: 'المفضلة',
-                  icon: Icon(
-                    Icons.bookmark,
-                    color: Color(0xff305F71),
+                /// ----------- Bottom Bar Items ------------------------
+                items: [
+                  BottomNavigationBarItem(
+                    label: 'الرئيسية',
+                    icon: SvgPicture.asset('assets/icons/main_icon.svg', height: 23),
+                    // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
                   ),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-                const BottomNavigationBarItem(
-                  label: 'الاعدادات',
-                  icon: Icon(
-                    Icons.settings,
-                    color: Color(0xff305F71),
+                  BottomNavigationBarItem(
+                    label: 'المكتبة',
+                    icon: SvgPicture.asset('assets/icons/library_icon.svg', height: 23),
+                    // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
                   ),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-              ],
-            ),
+                  const BottomNavigationBarItem(
+                    label: 'المفضلة',
+                    icon: Icon(
+                      Icons.bookmark,
+                      color: Color(0xff305F71),
+                    ),
+                    // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
+                  ),
+                  const BottomNavigationBarItem(
+                    label: 'الاعدادات',
+                    icon: Icon(
+                      Icons.settings,
+                      color: Color(0xff305F71),
+                    ),
+                    // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
+                  ),
+                ]),
             // --------------------------------------------------------
             /// Body
             body: PageView(

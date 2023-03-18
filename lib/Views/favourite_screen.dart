@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -24,24 +23,15 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
   Widget build(BuildContext context) {
     return Obx(
       () => bookController.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: blueColor,
-              ),
-            )
+          ? const Center(child: CircularProgressIndicator())
           : bookController.bookMarks.isEmpty
-              ? Container(
-                  color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueDarkColor
-                      : whiteColor,
-                  child: Center(
-                    child: CustomText(
-                      text: "لا توجد سور مفضلة حتى الآن",
-                      fontSize: 26.sp,
-                      color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueLightColor
-                          : mainColor,
-                    ),
+              ? Center(
+                  child: CustomText(
+                    text: "لا توجد سور مفضلة حتى الآن",
+                    fontSize: 26.sp,
+                    color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                        ? blueLightColor
+                        : mainColor,
                   ),
                 )
               : RefreshIndicator(
@@ -54,13 +44,13 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     decoration: BoxDecoration(
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
                           ? blueDarkColor
-                          : whiteColor,
-                      // image: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      //     ? null
-                      //     : DecorationImage(
-                      //         image: AssetImage('assets/images/main_background1.png'),
-                      //         fit: BoxFit.cover,
-                      //       ),
+                          : mainColor,
+                      image: (ThemeProvider.themeOf(context).id == "dark_theme")
+                          ? null
+                          : DecorationImage(
+                              image: AssetImage('assets/images/main_background1.png'),
+                              fit: BoxFit.cover,
+                            ),
                     ),
                     child: Column(
                       children: [
@@ -79,8 +69,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                               padding: EdgeInsets.zero,
                               itemCount: bookController.bookMarks.length,
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, //2
-                                childAspectRatio: .9, //.7
+                                crossAxisCount: 3, //2
+                                childAspectRatio: .5, //.7
+                                mainAxisExtent: 200,
                               ),
                               itemBuilder: (context, index) {
                                 return GestureDetector(
@@ -100,8 +91,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               bookController.bookMarks.toList()[index].bookCoverImg,
                                         },
                                         {
-                                          'bookPages':
-                                              bookController.bookMarks.toList()[index].bookPages,
+                                          'bookPages': bookController.bookMarks.toList()[index].id,
                                         },
                                         {
                                           'bookDescription': bookController.bookMarks
@@ -134,78 +124,49 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                     // Navigator.of(context).push(_createRoute());
                                   },
                                   child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: SizedBox(
-                                      height: 0.1.sh,
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            padding: EdgeInsets.all(8),
-                                            decoration: BoxDecoration(
-                                              color: mainColor,
-                                              borderRadius: BorderRadius.circular(
-                                                7,
-                                              ),
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 30.h,
+                                          width: 100.w,
+                                          decoration: BoxDecoration(
+                                            color: mainColor,
+                                            borderRadius: BorderRadius.circular(
+                                              7,
                                             ),
-                                            child: Center(
-                                              child: Text(
-                                                bookController.bookMarks.toList()[index].bookTitle,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 13.5.sp,
-                                                  height: 1.5,
-                                                ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              bookController.bookMarks.toList()[index].bookTitle,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.sp,
+                                                height: 1.0,
                                               ),
                                             ),
                                           ),
-                                          SizedBox(height: 7.h),
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 210.h,
+                                        ),
+                                        SizedBox(height: 7.h),
+                                        Expanded(
+                                          child: SizedBox(
+                                            height: 210.h,
 
-                                              /// lib book width
-                                              // width: 130.w,
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(7.0),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: imagesUrl +
-                                                      bookController.bookMarks
-                                                          .toList()[index]
-                                                          .bookCoverImg,
-                                                  fit: BoxFit.fill,
-                                                  progressIndicatorBuilder:
-                                                      (context, url, downloadProgress) => Padding(
-                                                    padding: const EdgeInsets.all(32.0).add(
-                                                      EdgeInsets.symmetric(
-                                                          horizontal: 32, vertical: 8),
-                                                    ),
-                                                    child: SizedBox(
-                                                      height: 50,
-                                                      width: 50,
-                                                      child: CircularProgressIndicator(
-                                                        value: downloadProgress.progress,
-                                                        color: blueDarkColor,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  errorWidget: (context, url, error) =>
-                                                      Icon(Icons.error),
-                                                ),
-                                                // Image.network(
-                                                //   imagesUrl +
-                                                //       bookController.bookMarks
-                                                //           .toList()[index]
-                                                //           .bookCoverImg,
-                                                //   fit: BoxFit.fill,
-                                                // ),
+                                            /// lib book width
+                                            // width: 130.w,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(7.0),
+                                              child: Image.network(
+                                                imagesUrl +
+                                                    bookController.bookMarks
+                                                        .toList()[index]
+                                                        .bookCoverImg,
+                                                fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 );

@@ -13,10 +13,10 @@ class Helper {
   static Future<String> getDir(String localPath) async {
     String path = '';
     if (Platform.isAndroid) {
-      path = localPath;
+      path = '/sdcard/' + localPath;
     } else {
-      var directory = await getExternalStorageDirectory();
-      path = directory!.path + Platform.pathSeparator + localPath;
+      var directory = await getApplicationDocumentsDirectory();
+      path = directory.path + Platform.pathSeparator + localPath;
     }
     final dir = Directory(path);
     bool hasExist = await dir.exists();
@@ -48,6 +48,7 @@ class Helper {
     return false;
   }
 
+  /// /// /// /// /// /// /// /// /// /// /// /// /// ///
   /// Download File By Dio
   static Future<String> downloadFile(url, savePath) async {
     late String download;
@@ -62,10 +63,12 @@ class Helper {
 
   static Future<String> getFilePath(uniqueFileName) async {
     String path = '';
-    Directory dir = (await getExternalStorageDirectory())!;
+    Directory dir = await getApplicationDocumentsDirectory();
     path = '${dir.path}/$uniqueFileName';
     return path;
   }
+
+  /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
   /// Check Platform
   static String? getPlatform() {
@@ -94,10 +97,9 @@ class zTools {
       var request = await httpClient.getUrl(Uri.parse(url));
       var response = await request.close();
       var bytes = await consolidateHttpClientResponseBytes(response);
-      final dir = await getExternalStorageDirectory();
-
-      File file = File('${dir!.path}/$filename');
-
+      final dir =
+          await getTemporaryDirectory(); //(await getApplicationDocumentsDirectory()).path;
+      File file = File('${dir.path}/$filename');
       await file.writeAsBytes(bytes);
       print('downloaded file path = ${file.path}');
       return file;
@@ -111,13 +113,14 @@ class zTools {
     http.Client _client = http.Client();
     var req = await _client.get(Uri.parse(url));
     var bytes = req.bodyBytes;
-    String dir = (await getExternalStorageDirectory())!.path;
+    String dir = (await getApplicationDocumentsDirectory()).path;
     File file = File('$dir/$filename');
     await file.writeAsBytes(bytes);
     return file;
   }
 
-  static Future<String> downloadFile3(String url, String fileName, String dir) async {
+  static Future<String> downloadFile3(
+      String url, String fileName, String dir) async {
     HttpClient httpClient = HttpClient();
     File file;
     String filePath = '';
@@ -142,7 +145,8 @@ class zTools {
   }
 
   // Share Function
-  static Future<void> share(String title, String text, String linkUrl, String chooserTitle) async {
+  static Future<void> share(
+      String title, String text, String linkUrl, String chooserTitle) async {
     await FlutterShare.share(
         title: title, text: text, linkUrl: linkUrl, chooserTitle: chooserTitle);
   }
@@ -152,12 +156,13 @@ class zTools {
     Directory? directory;
     try {
       if (Platform.isIOS) {
-        directory = await getExternalStorageDirectory();
+        directory = await getApplicationDocumentsDirectory();
       } else {
         directory = Directory('/storage/emulated/0/Download');
         // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
         // ignore: avoid_slow_async_io
-        if (!await directory.exists()) directory = await getExternalStorageDirectory();
+        if (!await directory.exists())
+          directory = await getExternalStorageDirectory();
       }
     } catch (err) {
       print('Cannot get download folder path');
@@ -179,11 +184,32 @@ class PDFApi {
     return _storeFile(url, bytes);
   }
 
+  // static Future<File?> pickFile() async {
+  //   final result = await FilePicker.platform.pickFiles(
+  //     type: FileType.custom,
+  //     allowedExtensions: ['pdf'],
+  //   );
+
+  //   if (result == null) return null;
+  //   return File(result.paths.first.toString());
+  // }
+
+  // static Future<File> loadFirebase(String url) async {
+  //   try {
+  //     final refPDF = FirebaseStorage.instance.ref().child(url);
+  //     final bytes = await refPDF.getData();
+
+  //     return _storeFile(url, bytes);
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+
   static Future<File> _storeFile(String url, List<int> bytes) async {
     final filename = basename(url);
-    final dir = await getExternalStorageDirectory();
+    final dir = await getApplicationDocumentsDirectory();
 
-    final file = File('${dir!.path}/$filename');
+    final file = File('${dir.path}/$filename');
     await file.writeAsBytes(bytes, flush: true);
     return file;
   }
@@ -191,7 +217,7 @@ class PDFApi {
 
 Future<String> getFilePath(fileName) async {
   String path = '';
-  Directory dir = (await getExternalStorageDirectory())!;
+  Directory dir = await getApplicationDocumentsDirectory();
   path = '${dir.path}/$fileName';
   return path;
 }
@@ -201,8 +227,8 @@ Future<String> getDir(String localPath) async {
   if (Platform.isAndroid) {
     path = '/sdcard/' + localPath;
   } else {
-    var directory = await getExternalStorageDirectory();
-    path = directory!.path + Platform.pathSeparator + localPath;
+    var directory = await getApplicationDocumentsDirectory();
+    path = directory.path + Platform.pathSeparator + localPath;
   }
   final dir = Directory(path);
   bool hasExist = await dir.exists();
@@ -211,3 +237,10 @@ Future<String> getDir(String localPath) async {
   }
   return path;
 }
+
+// <uses-permission android:name="android.permission.INTERNET" />
+// <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+// <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+// <application
+// android:requestLegacyExternalStorage="true"
