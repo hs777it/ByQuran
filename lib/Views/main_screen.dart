@@ -103,10 +103,11 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'أبحث هنا',
+                                hintText: 'ابحث هنا',
                                 hintStyle: TextStyle(
                                   fontSize: 16.sp,
-                                  color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                  color: (ThemeProvider.themeOf(context).id ==
+                                          "dark_theme")
                                       ? blueColor
                                       : mainColor,
                                 ),
@@ -370,6 +371,7 @@ class _MainScreenState extends State<MainScreen> {
                                 currentPage = page;
                               });
                             },
+                            reverse: true,
                             viewportFraction: .5,
                             autoPlay: true,
                             aspectRatio: 2.0,
@@ -487,7 +489,7 @@ class _MainScreenState extends State<MainScreen> {
             horizontal: 8.0,
           ),
           child: SizedBox(
-            height: 0.275.sh,
+            height: 0.3.sh,
             child:
                 // Get Random eBook API
                 ListView.builder(
@@ -602,7 +604,7 @@ class _MainScreenState extends State<MainScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4),
           child: Text(
-            'الاقسام',
+            'الأقسام',
             style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w700),
           ),
         ),
@@ -688,13 +690,15 @@ class _MainScreenState extends State<MainScreen> {
               width: 0.5.sw,
               padding: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
-                color: blueDarkColor,
+                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                    ? mainColor
+                    : blueDarkColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
                 child: CustomText(
                   text: "مصحف مجمع الملك فهد",
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   color: Colors.white,
                 ),
               ),

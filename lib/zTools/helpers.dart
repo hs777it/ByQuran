@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter_share/flutter_share.dart';
+// import 'package:flutter_share/flutter_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -142,10 +142,10 @@ class zTools {
   }
 
   // Share Function
-  static Future<void> share(String title, String text, String linkUrl, String chooserTitle) async {
-    await FlutterShare.share(
-        title: title, text: text, linkUrl: linkUrl, chooserTitle: chooserTitle);
-  }
+  // static Future<void> share(String title, String text, String linkUrl, String chooserTitle) async {
+  //   await FlutterShare.share(
+  //       title: title, text: text, linkUrl: linkUrl, chooserTitle: chooserTitle);
+  // }
 
   // Get Download path
   static Future<String?> getDownloadPath() async {

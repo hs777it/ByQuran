@@ -105,7 +105,7 @@ class LibraryScreen extends StatelessWidget {
                                 // Navigator.of(context).push(_createRoute());
                               },
                               child: Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.all(3.0),
                                 child: SizedBox(
                                   height: 0.1.sh,
                                   child: Column(
@@ -114,7 +114,8 @@ class LibraryScreen extends StatelessWidget {
                                         padding: EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: mainColor,
-                                          borderRadius: BorderRadius.circular(7),
+                                          borderRadius:
+                                              BorderRadius.circular(7),
                                         ),
                                         child: Center(
                                           child: Text(
@@ -146,7 +147,10 @@ class LibraryScreen extends StatelessWidget {
                                               progressIndicatorBuilder:
                                                   (context, url, downloadProgress) => Padding(
                                                 padding: const EdgeInsets.all(32.0).add(
-                                                  EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                                                  EdgeInsets.symmetric(
+                                                    horizontal: 32,
+                                                    vertical: 8,
+                                                  ),
                                                 ),
                                                 child: SizedBox(
                                                   height: 50,

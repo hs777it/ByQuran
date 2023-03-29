@@ -59,7 +59,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
     fileUrl = argumentData[5]['bookFile'].toString();
     Future.microtask(
       () async => _fileName = storage.read(
-            argumentData[5]['bookFile'].toString() + argumentData[8]['book'].bookTitle,
+            argumentData[5]['bookFile'].toString() +
+                argumentData[8]['book'].bookTitle,
           ) ??
           await getFilePath(fileUrl),
     );
@@ -163,25 +164,29 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                 /// ------------------------------ Favorite Button ------------------------
                                 Obx(
-                                  () => IconButton(
+                                      () => IconButton(
                                     onPressed: () async {
                                       bool res = false;
                                       if (isFromFavs) {
                                         if (storage.read(
                                                   ctrl.bookList.value
-                                                          .singleWhere((e) => e.id == book.id)
+                                                          .singleWhere((e) =>
+                                                              e.id == book.id)
                                                           .bookTitle +
                                                       ctrl.bookList.value
-                                                          .singleWhere((e) => e.id == book.id)
+                                                          .singleWhere((e) =>
+                                                              e.id == book.id)
                                                           .id,
                                                 ) !=
                                                 null &&
                                             storage.read(
                                               ctrl.bookList.value
-                                                      .singleWhere((e) => e.id == book.id)
+                                                      .singleWhere((e) =>
+                                                          e.id == book.id)
                                                       .bookTitle +
                                                   ctrl.bookList.value
-                                                      .singleWhere((e) => e.id == book.id)
+                                                      .singleWhere((e) =>
+                                                          e.id == book.id)
                                                       .id,
                                             )) {
                                           res = await ctrl.removeEbook(
@@ -194,7 +199,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             ctrl.bookList.value
                                                 .singleWhere(
                                                   (e) => e.id == book.id,
-                                                )
+                                            )
                                                 .id,
                                           );
                                         }
@@ -212,7 +217,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             ctrl.bookList.value
                                                 .singleWhere(
                                                   (e) => e.id == book.id,
-                                                )
+                                            )
                                                 .id,
                                           );
                                         }
@@ -222,22 +227,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     icon: Icon(Icons.favorite),
                                     color: storage.read(
                                                   ctrl.bookList.value
-                                                          .singleWhere((e) => e.id == book.id)
+                                                          .singleWhere((e) =>
+                                                              e.id == book.id)
                                                           .bookTitle +
                                                       ctrl.bookList.value
-                                                          .singleWhere((e) => e.id == book.id)
+                                                          .singleWhere((e) =>
+                                                              e.id == book.id)
                                                           .id,
                                                 ) !=
                                                 null &&
                                             storage.read(
                                               ctrl.bookList.value
-                                                      .singleWhere((e) => e.id == book.id)
+                                                      .singleWhere((e) =>
+                                                          e.id == book.id)
                                                       .bookTitle +
                                                   ctrl.bookList.value
-                                                      .singleWhere((e) => e.id == book.id)
+                                                      .singleWhere((e) =>
+                                                          e.id == book.id)
                                                       .id,
                                             )
-                                        ? (ThemeProvider.themeOf(context).id == "dark_theme")
+                                        ? (ThemeProvider.themeOf(context).id ==
+                                                "dark_theme")
                                             ? blueLightColor
                                             : blueDarkColor
                                         : Colors.grey,
@@ -318,13 +328,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(7.0),
                               child: CachedNetworkImage(
-                                imageUrl: imagesUrl + argumentData[2]['bookCover'].toString(),
+                                imageUrl: imagesUrl +
+                                    argumentData[2]['bookCover'].toString(),
                                 fit: BoxFit.contain,
                                 width: 0.525.sw,
-                                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                    Padding(
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Padding(
                                   padding: const EdgeInsets.all(32.0).add(
-                                    EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                                    EdgeInsets.symmetric(
+                                        horizontal: 32, vertical: 8),
                                   ),
                                   child: SizedBox(
                                     height: 50,
@@ -335,7 +347,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ),
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
                               ),
                               // Image.network(
                               // imagesUrl + argumentData[2]['bookCover'].toString(),
@@ -366,10 +379,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           //   width: 5,
                                           // ),
                                           CustomText(
-                                            text: argumentData[7]['categoryName'].toString(),
+                                            text: argumentData[7]
+                                                    ['categoryName']
+                                                .toString(),
                                             fontSize: 15.sp,
                                             color:
-                                                (ThemeProvider.themeOf(context).id == "dark_theme")
+                                                (ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        "dark_theme")
                                                     ? whiteColor
                                                     : mainColor,
                                           ),
@@ -386,7 +403,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 children: [
                                   (isDownloaded == null || !isDownloaded!)
 
-                                      /// ------------------------------ Download Book ------------------------
+                                  /// ------------------------------ Download Book ------------------------
                                       ? GestureDetector(
                                           onTap: () async {
                                             await Helper.getStoragePermission();
@@ -395,41 +412,55 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           },
                                           child: Container(
                                             height: 50.h,
-                                            padding:
-                                                downloading ? EdgeInsets.zero : EdgeInsets.all(8),
+                                            padding: downloading
+                                                ? EdgeInsets.zero
+                                                : EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: mainColor,
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
                                             child: Center(
                                               child: downloading
                                                   ? Padding(
-                                                      padding: const EdgeInsets.all(8.0),
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
                                                       child: Row(
-                                                        mainAxisSize: MainAxisSize.max,
-                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment.center,
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         children: [
                                                           Padding(
-                                                            padding: const EdgeInsets.symmetric(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .symmetric(
                                                               horizontal: 6.0,
                                                             ),
                                                             child: Text(
                                                               "${progress.isEmpty ? 0 : progress} %",
                                                               style: TextStyle(
-                                                                color: Colors.white,
+                                                                color: Colors
+                                                                    .white,
                                                                 height: 1,
                                                               ),
                                                             ),
                                                           ),
                                                           progress != "100.0"
                                                               ? SizedBox(
-                                                                  child: CircularProgressIndicator(
-                                                                    color: Colors.white,
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    color: Colors
+                                                                        .white,
                                                                   ),
                                                                 )
-                                                              : SizedBox.shrink(),
+                                                              : SizedBox
+                                                                  .shrink(),
                                                         ],
                                                       ),
                                                     )
@@ -452,15 +483,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               arguments: [
                                                 {
                                                   'id': argumentData[0]['id'],
-                                                  'title': argumentData[1]['title'].toString(),
-                                                  'description': argumentData[4]['bookDescription'],
+                                                  'title': argumentData[1]
+                                                          ['title']
+                                                      .toString(),
+                                                  'description': argumentData[4]
+                                                      ['bookDescription'],
                                                   'pdf': _fileName,
-                                                  'author':
-                                                      argumentData[6]['authorName'].toString(),
-                                                  'condition': argumentData[10]["condition"],
-                                                  'book': argumentData[8]["book"],
-                                                  'books': argumentData[9]["books"],
-                                                  "isHorizontal": book.bookTitle.contains("جدول"),
+                                                  'author': argumentData[6]
+                                                          ['authorName']
+                                                      .toString(),
+                                                  'condition': argumentData[10]
+                                                      ["condition"],
+                                                  'book': argumentData[8]
+                                                      ["book"],
+                                                  'books': argumentData[9]
+                                                      ["books"],
+                                                  "isHorizontal": book.bookTitle
+                                                      .contains("جدول"),
                                                   "fileUrl": fileUrl,
                                                 },
                                               ],
@@ -471,7 +510,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: mainColor,
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
                                             child: Center(
                                               child: CustomText(
@@ -488,7 +528,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(
-                                        () => ReadOnlineScreen(fileURL: fileUrl),
+                                        () =>
+                                            ReadOnlineScreen(fileURL: fileUrl),
                                         fullscreenDialog: true,
                                       );
                                     },
@@ -502,7 +543,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       child: Align(
                                         alignment: AlignmentDirectional.center,
                                         child: CustomText(
-                                          text: 'القراءة أونلاين',
+                                          text: 'قراءة بدون تحميل',
                                           fontSize: 18.sp,
                                           color: Colors.white,
                                         ),
@@ -540,11 +581,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: 'اقرأ ايضا',
+                        text: 'اقرأ أيضًا',
                         fontSize: 18.sp,
-                        color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                            ? whiteColor
-                            : mainColor,
+                        color:
+                            (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? whiteColor
+                                : mainColor,
                       ),
                       Icon(
                         Icons.more_horiz_outlined,
@@ -563,7 +605,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           scrollDirection: Axis.horizontal,
                           itemCount: ctrl.popularList.length,
                           itemBuilder: (context, index) {
-                            Ebook book = ctrl.popularList.value[index];
+                            Ebook _book = ctrl.popularList.value[index];
+                            if (_book.id == book.id) {
+                              return SizedBox();
+                            }
                             return GestureDetector(
                               onTap: () {
                                 Get.back();
@@ -571,31 +616,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   () => DetailsScreen(),
                                   arguments: [
                                     {
-                                      'id': book.id,
+                                      'id': _book.id,
                                     },
                                     {
-                                      'title': book.bookTitle,
+                                      'title': _book.bookTitle,
                                     },
                                     {
-                                      'bookCover': book.bookCoverImg,
+                                      'bookCover': _book.bookCoverImg,
                                     },
                                     {
-                                      'bookPages': book.bookPages,
+                                      'bookPages': _book.bookPages,
                                     },
                                     {
-                                      'bookDescription': book.bookDescription,
+                                      'bookDescription': _book.bookDescription,
                                     },
                                     {
-                                      'bookFile': book.bookFileUrl,
+                                      'bookFile': _book.bookFileUrl,
                                     },
                                     {
-                                      'authorName': book.authorName,
+                                      'authorName': _book.authorName,
                                     },
                                     {
-                                      'categoryName': book.categoryName,
+                                      'categoryName': _book.categoryName,
                                     },
                                     {
-                                      "book": book,
+                                      "book": _book,
                                     },
                                     {
                                       "books": ctrl,
@@ -604,7 +649,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       "condition": false,
                                     },
                                     {
-                                      'isHorizontal': book.bookTitle.contains("جدول"),
+                                      'isHorizontal':
+                                          _book.bookTitle.contains("جدول"),
                                     },
                                   ],
                                 );
@@ -616,10 +662,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   children: [
                                     Expanded(
                                       child: CachedNetworkImage(
-                                        imageUrl: imagesUrl + book.bookCoverImg,
+                                        imageUrl:
+                                            imagesUrl + _book.bookCoverImg,
                                         fit: BoxFit.contain,
                                         progressIndicatorBuilder:
-                                            (context, url, downloadProgress) => Padding(
+                                            (context, url, downloadProgress) =>
+                                                Padding(
                                           padding: const EdgeInsets.all(32.0),
                                           child: SizedBox(
                                             height: 50,
@@ -630,7 +678,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             ),
                                           ),
                                         ),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
                                       ),
                                       // Image.network(
                                       //   imagesUrl + book.bookCoverImg,
@@ -638,23 +687,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       // ),
                                     ),
                                     Text(
-                                      book.authorName,
+                                      _book.authorName,
                                       style: TextStyle(
                                         color: blueColor,
                                         fontSize: 12.sp,
                                       ),
                                     ),
                                     Text(
-                                      book.bookTitle.split(" ").length > 4
-                                          ? book.bookTitle.split(" ").getRange(0, 4).join(" ") +
-                                              "\n" +
-                                              book.bookTitle
+                                      _book.bookTitle.split(" ").length > 4
+                                          ? _book.bookTitle
                                                   .split(" ")
-                                                  .getRange(4, book.bookTitle.split(" ").length)
+                                                  .getRange(0, 4)
+                                                  .join(" ") +
+                                              "\n" +
+                                              _book.bookTitle
+                                                  .split(" ")
+                                                  .getRange(
+                                                      4,
+                                                      _book.bookTitle
+                                                          .split(" ")
+                                                          .length)
                                                   .join(" ")
-                                          : book.bookTitle,
+                                          : _book.bookTitle,
                                       style: TextStyle(
-                                        color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                        color: (ThemeProvider.themeOf(context)
+                                                    .id ==
+                                                "dark_theme")
                                             ? whiteColor
                                             : mainColor,
                                         fontSize: 16.sp,
@@ -669,15 +727,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                       )
                     : Container(
-                        color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                            ? blueDarkColor
-                            : null,
+                        color:
+                            (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? blueDarkColor
+                                : null,
                         child: Center(
                           child: CustomText(
                             alignment: TextAlign.center,
                             text: "لا توجد مقترحات",
                             fontSize: 16.sp,
-                            color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                            color: (ThemeProvider.themeOf(context).id ==
+                                    "dark_theme")
                                 ? blueLightColor
                                 : mainColor,
                           ),

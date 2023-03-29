@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../services/services.dart';
+import 'moshaf_screen.dart';
 
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({Key? key}) : super(key: key);
@@ -40,13 +43,16 @@ class ContactUsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "لنحيا بالقران",
+                      'لنحيا بالقرآن\nد.فاطمة بنت عمر نصيف',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 20,
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? null
-                              : mainColor,
-                          fontWeight: FontWeight.w700),
+                        fontSize: 20,
+                        color:
+                            (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? null
+                                : mainColor,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     CustomText(
                       text: "اتصل بنا",
@@ -95,19 +101,32 @@ class ContactUsScreen extends StatelessWidget {
                             ),
                             Icon(
                               Icons.email,
-                              color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                              color: (ThemeProvider.themeOf(context).id ==
+                                      "dark_theme")
                                   ? whiteColor
                                   : blueColor,
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            CustomText(
-                              text: "البريد الالكتروني :\n ${data["app_email"]!}",
-                              color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                  ? whiteColor
-                                  : blueColor,
-                              fontSize: 14.sp,
+                            GestureDetector(
+                              onTap: () {
+                                launchUrl(
+                                  Uri(
+                                    scheme: 'mailto',
+                                    path: data["app_email"]!,
+                                  ),
+                                );
+                              },
+                              child: CustomText(
+                                text:
+                                    "البريد الالكتروني :\n ${data["app_email"]!}",
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
+                                    ? whiteColor
+                                    : blueColor,
+                                fontSize: 14.sp,
+                              ),
                             ),
                           ],
                         ),
@@ -128,22 +147,34 @@ class ContactUsScreen extends StatelessWidget {
                                 width: 10,
                               ),
                               CustomText(
-                                text: "الهاتف المحمول :",
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                text: "الهاتف: ",
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
                                     ? whiteColor
                                     : blueColor,
-                                fontSize: 16.sp,
+                                fontSize: 15.sp,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              CustomText(
-                                textDirection: TextDirection.ltr,
-                                text: data["app_contact"]!,
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                    ? whiteColor
-                                    : blueColor,
-                                fontSize: 16.sp,
+                              GestureDetector(
+                                onTap: () {
+                                  launchUrl(
+                                    Uri(
+                                      scheme: 'tel',
+                                      path: data["app_contact"]!,
+                                    ),
+                                  );
+                                },
+                                child: CustomText(
+                                  textDirection: TextDirection.ltr,
+                                  text: data["app_contact"]!,
+                                  color: (ThemeProvider.themeOf(context).id ==
+                                          "dark_theme")
+                                      ? whiteColor
+                                      : blueColor,
+                                  fontSize: 15.sp,
+                                ),
                               ),
                             ],
                           ),
@@ -155,19 +186,30 @@ class ContactUsScreen extends StatelessWidget {
                             ),
                             Icon(
                               Icons.language_outlined,
-                              color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                              color: (ThemeProvider.themeOf(context).id ==
+                                      "dark_theme")
                                   ? whiteColor
                                   : blueColor,
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            CustomText(
-                              text: "موقع الويب :\n${data["app_website"]!}",
-                              color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                  ? whiteColor
-                                  : blueColor,
-                              fontSize: 14.sp,
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(
+                                  () => MoshafScreen(
+                                    fileURL: data["app_website"]!,
+                                  ),
+                                );
+                              },
+                              child: CustomText(
+                                text: "موقع الويب :\n${data["app_website"]!}",
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
+                                    ? whiteColor
+                                    : blueColor,
+                                fontSize: 14.sp,
+                              ),
                             ),
                           ],
                         ),
@@ -177,21 +219,6 @@ class ContactUsScreen extends StatelessWidget {
                             thickness: 3,
                             color: backgroundColor,
                           ),
-                        ),
-                        CustomText(
-                          text: data["app_name"]!,
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? whiteColor
-                              : mainColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 50.sp,
-                        ),
-                        CustomText(
-                          text: "د. فاطمة بنت عمر نصيف",
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? whiteColor
-                              : blueLightColor,
-                          fontSize: 26.sp,
                         ),
                         CustomText(
                           text: "V${data["app_version"]!}",

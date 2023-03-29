@@ -45,21 +45,27 @@ class CategoryScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 70.h),
-            CustomText(
-              text: cat.categoryName,
-              fontSize: 38.sp,
-              color:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? blueLightColor : mainColor,
+            Center(
+              child: CustomText(
+                text: cat.categoryName,
+                fontSize: 32.sp,
+                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                    ? blueLightColor
+                    : mainColor,
+                alignment: TextAlign.center,
+              ),
             ),
             FutureBuilder<List<Ebook>?>(
               future: DataServices.getEbooksFromCat(cat.cid),
               builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData &&
+                    snapshot.connectionState == ConnectionState.done) {
                   List<Ebook> bookList = snapshot.data ?? [];
                   return bookList.isNotEmpty
                       ? Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 7.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 7.0),
                             child: GridView.builder(
                               padding: EdgeInsets.zero,
                               itemCount: bookList.length,
@@ -153,7 +159,9 @@ class CategoryScreen extends StatelessWidget {
                                                       (context, url, downloadProgress) => Padding(
                                                     padding: const EdgeInsets.all(32.0).add(
                                                       EdgeInsets.symmetric(
-                                                          horizontal: 32, vertical: 8),
+                                                        horizontal: 32,
+                                                        vertical: 8,
+                                                      ),
                                                     ),
                                                     child: SizedBox(
                                                       height: 50,
