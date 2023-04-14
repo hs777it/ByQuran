@@ -94,7 +94,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
             'تفاصيل',
             style: TextStyle(
               fontSize: 24.sp,
-              color: (ThemeProvider.themeOf(context).id == "dark_theme") ? whiteColor : mainColor,
+              color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                  ? whiteColor
+                  : mainColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -104,7 +106,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : whiteColor,
+            color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                ? blueDarkColor
+                : whiteColor,
             // image: (ThemeProvider.themeOf(context).id == "dark_theme")
             //     ? null
             //     : DecorationImage(
@@ -134,9 +138,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: CustomText(
-                                    text: argumentData[1]["title"].toString().split(" ").length > 4
+                                    text: argumentData[1]["title"]
+                                                .toString()
+                                                .split(" ")
+                                                .length >
+                                            4
                                         ? argumentData[1]["title"]
                                                 .toString()
                                                 .split(" ")
@@ -155,7 +164,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 .join(" ")
                                         : argumentData[1]["title"].toString(),
                                     fontSize: 17.sp,
-                                    color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                    color: (ThemeProvider.themeOf(context).id ==
+                                            "dark_theme")
                                         ? whiteColor
                                         : mainColor,
                                     alignment: TextAlign.center,
@@ -164,7 +174,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                 /// ------------------------------ Favorite Button ------------------------
                                 Obx(
-                                      () => IconButton(
+                                  () => IconButton(
                                     onPressed: () async {
                                       bool res = false;
                                       if (isFromFavs) {
@@ -191,7 +201,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             )) {
                                           res = await ctrl.removeEbook(
                                             ctrl.bookMarks.value
-                                                .singleWhere((e) => e.id == book.id)
+                                                .singleWhere(
+                                                    (e) => e.id == book.id)
                                                 .id,
                                           );
                                         } else {
@@ -199,7 +210,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             ctrl.bookList.value
                                                 .singleWhere(
                                                   (e) => e.id == book.id,
-                                            )
+                                                )
                                                 .id,
                                           );
                                         }
@@ -209,7 +220,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             .inFavorites) {
                                           res = await ctrl.removeEbook(
                                             ctrl.bookList.value
-                                                .singleWhere((e) => e.id == book.id)
+                                                .singleWhere(
+                                                    (e) => e.id == book.id)
                                                 .id,
                                           );
                                         } else {
@@ -217,7 +229,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             ctrl.bookList.value
                                                 .singleWhere(
                                                   (e) => e.id == book.id,
-                                            )
+                                                )
                                                 .id,
                                           );
                                         }
@@ -280,7 +292,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               CustomText(
                                 text: 'الصفحات: ',
                                 fontSize: 16.sp,
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
                                     ? whiteColor
                                     : mainColor,
                               ),
@@ -288,7 +301,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               CustomText(
                                 text: argumentData[3]['bookPages'].toString(),
                                 fontSize: 15.sp,
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
                                     ? whiteColor
                                     : mainColor,
                               ),
@@ -310,7 +324,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               CustomText(
                                 text: argumentData[6]['authorName'].toString(),
                                 fontSize: 15.sp,
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
                                     ? whiteColor
                                     : mainColor,
                               ),
@@ -324,7 +339,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(7.0),
                               child: CachedNetworkImage(
@@ -363,9 +379,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             children: [
                               SizedBox(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Row(
@@ -403,7 +421,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 children: [
                                   (isDownloaded == null || !isDownloaded!)
 
-                                  /// ------------------------------ Download Book ------------------------
+                                      /// ------------------------------ Download Book ------------------------
                                       ? GestureDetector(
                                           onTap: () async {
                                             await Helper.getStoragePermission();
@@ -563,7 +581,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                 /// ------------------------------ Divider ------------------------
                 const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 20.0),
                   child: Divider(
                     indent: 1.0,
                     endIndent: 1.0,
@@ -590,9 +609,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       ),
                       Icon(
                         Icons.more_horiz_outlined,
-                        color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                            ? whiteColor
-                            : mainColor,
+                        color:
+                            (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? whiteColor
+                                : mainColor,
                       )
                     ],
                   ),
@@ -754,7 +774,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   Future<String> getFilePath(String url) async {
     String fileName = url.substring(url.lastIndexOf('/') + 1);
-    final dir = await getExternalStorageDirectory();
+    //final dir = await getExternalStorageDirectory();
+    final dir = Platform.isAndroid
+        ? await getExternalStorageDirectory() //FOR ANDROID
+        : await getApplicationSupportDirectory(); //FOR iOS
+
     File file = File('${dir!.path}/$fileName');
     return file.path;
   }
@@ -769,7 +793,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
     try {
       var httpClient = HttpClient();
       String fileName = url.substring(url.lastIndexOf('/') + 1);
-      final dir = await getExternalStorageDirectory();
+      //final dir = await getExternalStorageDirectory();
+      final dir = Platform.isAndroid
+          ? await getExternalStorageDirectory() //FOR ANDROID
+          : await getApplicationSupportDirectory(); //FOR iOS
       await Helper.getStoragePermission();
       setState(() {
         downloading = true;
@@ -798,7 +825,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
       await prefs.setBool(argumentData[8]['book'].bookTitle, true);
       await storage.write(
-        argumentData[5]['bookFile'].toString() + argumentData[8]['book'].bookTitle,
+        argumentData[5]['bookFile'].toString() +
+            argumentData[8]['book'].bookTitle,
         finalFile.path,
       );
       await ctrl.getDownloaded();

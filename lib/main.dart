@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:firebase_app_check/firebase_app_check.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_app_check/firebase_app_check.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -11,10 +11,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:welivewithquran/Views/home_screen.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 
-import 'Controller/auth_controller.dart';
-import 'Views/splash_screen.dart';
+// import 'Controller/auth_controller.dart';
+// import 'Views/splash_screen.dart';
 import 'zTools/tools.dart';
 
 Future<void> main() async {
@@ -22,6 +23,14 @@ Future<void> main() async {
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // Firebase Initialize
+  // await Firebase.initializeApp().then(
+  //       (value) async => await Get.put(
+  //     AuthController(),
+  //   ),
+  // );
+  // await FirebaseAppCheck.instance.activate();
 
   //Remove this method to stop OneSignal Debugging
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
@@ -33,14 +42,6 @@ Future<void> main() async {
     print("Accepted permission: $accepted");
   });
 
-  // Firebase Initialize
-  await Firebase.initializeApp().then(
-    (value) async => await Get.put(
-      AuthController(),
-    ),
-  );
-  await FirebaseAppCheck.instance.activate();
-
   // SSL certification problem on all http requests
   HttpOverrides.global = MyHttpOverrides();
 
@@ -48,7 +49,7 @@ Future<void> main() async {
   // var email = pref.getString('email');
   await GetStorage.init();
   Get.put(await SharedPreferences.getInstance(), permanent: true);
-  await Future.delayed(Duration(seconds: 4));
+  await Future.delayed(Duration(seconds: 2));
   runApp(const MyApp());
 }
 
@@ -113,7 +114,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      child: SplashScreen(),
+      child: HomeScreen(),
     );
   }
 }

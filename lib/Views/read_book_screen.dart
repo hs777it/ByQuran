@@ -19,7 +19,7 @@ import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/zTools/tools.dart';
 
 import '../Controller/ebook_controller.dart';
-import '../models/ebook_org.dart';
+// import '../models/ebook_org.dart';
 
 class ReadBookScreen extends StatefulWidget {
   final bool fromSearch;
@@ -31,7 +31,8 @@ class ReadBookScreen extends StatefulWidget {
 
 enum TtsState { playing, stopped, paused, continued }
 
-class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObserver {
+class _ReadBookScreenState extends State<ReadBookScreen>
+    with WidgetsBindingObserver {
   dynamic argumentData = Get.arguments;
   GetStorage storage = GetStorage();
 
@@ -86,7 +87,7 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
   @override
   initState() {
     WidgetsBinding.instance.addObserver(this);
-    initTts();
+    //initTts();
     if (!widget.fromSearch) {
       BookController ctrl = Get.put(argumentData[0]['books']);
       Future.microtask(
@@ -193,7 +194,8 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
       });
     });
 
-    tts.setProgressHandler((String text, int startOffset, int endOffset, String word) {
+    tts.setProgressHandler(
+        (String text, int startOffset, int endOffset, String word) {
       setState(() {
         end = endOffset;
       });
@@ -261,18 +263,20 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
   Widget build(BuildContext context) {
     bool isHorizontal = argumentData[0]["isHorizontal"];
     String? id = argumentData[0]["id"];
-    int? page = argumentData[0]["page"];
+    // int? page = argumentData[0]["page"];
     // bool isFromFavs = argumentData[0]["condition"] as bool;
-    Ebook? book = argumentData[0]['book'];
+    // Ebook? book = argumentData[0]['book'];
     BookController ctrl = Get.put(argumentData[0]['books'] ?? BookController());
 
     return Scaffold(
-      backgroundColor:
-          (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : backgroundColor,
+      backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+          ? blueDarkColor
+          : backgroundColor,
       extendBodyBehindAppBar: false,
       appBar: AppBar(
-        backgroundColor:
-            (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : mainColor,
+        backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+            ? blueDarkColor
+            : mainColor,
         elevation: 0,
         toolbarHeight: 70.h,
         actions: const [],
@@ -290,12 +294,17 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
           argumentData[0]["title"].toString().split(" ").length > 4
               ? BookTools.appName +
                   ' - ' +
-                  argumentData[0]["title"].toString().split(" ").getRange(0, 4).join(" ") +
+                  argumentData[0]["title"]
+                      .toString()
+                      .split(" ")
+                      .getRange(0, 4)
+                      .join(" ") +
                   "\n" +
                   argumentData[0]["title"]
                       .toString()
                       .split(" ")
-                      .getRange(4, argumentData[0]["title"].toString().split(" ").length)
+                      .getRange(4,
+                          argumentData[0]["title"].toString().split(" ").length)
                       .join(" ")
               : BookTools.appName + ' - ' + argumentData[0]["title"].toString(),
           textAlign: TextAlign.center,
@@ -373,7 +382,8 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -456,7 +466,8 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
                                     // );
                                   },
                                   icon: Icon(Icons.share),
-                                  color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                  color: (ThemeProvider.themeOf(context).id ==
+                                          "dark_theme")
                                       ? blueLightColor
                                       : blueDarkColor
                                   // : Colors.grey,
@@ -465,7 +476,8 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
                           !widget.fromSearch
                               ? IconButton(
                                   onPressed: () async {
-                                    final isBookmarked = await ctrl.isPageBookmarked(
+                                    final isBookmarked =
+                                        await ctrl.isPageBookmarked(
                                       id!,
                                       _controller.pageNumber,
                                     );
@@ -495,7 +507,8 @@ class _ReadBookScreenState extends State<ReadBookScreen> with WidgetsBindingObse
                                   color: savedPages.contains(
                                     _controller.pageNumber,
                                   )
-                                      ? (ThemeProvider.themeOf(context).id == "dark_theme")
+                                      ? (ThemeProvider.themeOf(context).id ==
+                                              "dark_theme")
                                           ? blueLightColor
                                           : blueDarkColor
                                       : blueDarkColor,

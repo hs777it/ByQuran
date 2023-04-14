@@ -16,6 +16,11 @@ class Helper {
       path = localPath;
     } else {
       var directory = await getExternalStorageDirectory();
+
+      // var directory = Platform.isAndroid
+      //     ? await getExternalStorageDirectory() //FOR ANDROID
+      //     : await getApplicationSupportDirectory(); //FOR iOS
+
       path = directory!.path + Platform.pathSeparator + localPath;
     }
     final dir = Directory(path);
@@ -62,7 +67,8 @@ class Helper {
 
   static Future<String> getFilePath(uniqueFileName) async {
     String path = '';
-    Directory dir = (await getExternalStorageDirectory())!;
+    Directory dir =
+        (await getExternalStorageDirectory())!; //getApplicationDocumentsDirectory
     path = '${dir.path}/$uniqueFileName';
     return path;
   }
@@ -94,7 +100,8 @@ class zTools {
       var request = await httpClient.getUrl(Uri.parse(url));
       var response = await request.close();
       var bytes = await consolidateHttpClientResponseBytes(response);
-      final dir = await getExternalStorageDirectory();
+      final dir =
+          await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
 
       File file = File('${dir!.path}/$filename');
 
@@ -111,13 +118,15 @@ class zTools {
     http.Client _client = http.Client();
     var req = await _client.get(Uri.parse(url));
     var bytes = req.bodyBytes;
-    String dir = (await getExternalStorageDirectory())!.path;
+    String dir = (await getExternalStorageDirectory())!
+        .path; //getApplicationDocumentsDirectory
     File file = File('$dir/$filename');
     await file.writeAsBytes(bytes);
     return file;
   }
 
-  static Future<String> downloadFile3(String url, String fileName, String dir) async {
+  static Future<String> downloadFile3(
+      String url, String fileName, String dir) async {
     HttpClient httpClient = HttpClient();
     File file;
     String filePath = '';
@@ -152,12 +161,15 @@ class zTools {
     Directory? directory;
     try {
       if (Platform.isIOS) {
-        directory = await getExternalStorageDirectory();
+        directory =
+            await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
       } else {
         directory = Directory('/storage/emulated/0/Download');
         // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
         // ignore: avoid_slow_async_io
-        if (!await directory.exists()) directory = await getExternalStorageDirectory();
+        if (!await directory.exists())
+          directory =
+              await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
       }
     } catch (err) {
       print('Cannot get download folder path');
@@ -181,7 +193,8 @@ class PDFApi {
 
   static Future<File> _storeFile(String url, List<int> bytes) async {
     final filename = basename(url);
-    final dir = await getExternalStorageDirectory();
+    final dir =
+        await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
 
     final file = File('${dir!.path}/$filename');
     await file.writeAsBytes(bytes, flush: true);
@@ -191,7 +204,8 @@ class PDFApi {
 
 Future<String> getFilePath(fileName) async {
   String path = '';
-  Directory dir = (await getExternalStorageDirectory())!;
+  Directory dir =
+      (await getExternalStorageDirectory())!; //getApplicationDocumentsDirectory
   path = '${dir.path}/$fileName';
   return path;
 }
@@ -201,7 +215,8 @@ Future<String> getDir(String localPath) async {
   if (Platform.isAndroid) {
     path = '/sdcard/' + localPath;
   } else {
-    var directory = await getExternalStorageDirectory();
+    var directory =
+        await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
     path = directory!.path + Platform.pathSeparator + localPath;
   }
   final dir = Directory(path);

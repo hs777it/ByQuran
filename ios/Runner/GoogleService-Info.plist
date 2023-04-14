@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>592593260692-7qhusa9knsftmdod3oc4103b0u6vido9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.592593260692-7qhusa9knsftmdod3oc4103b0u6vido9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>592593260692-56ggvdlk5pdju4fjtk65c2690s8gil78.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCwYwv0S0RNTi9S2T0vZQb36Koe4CoLNAY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>592593260692</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.smart.welivewithquran</string>
+	<key>PROJECT_ID</key>
+	<string>live-by-quran-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>live-by-quran-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:592593260692:ios:7db010010904f0de882481</string>
+</dict>
+</plist>

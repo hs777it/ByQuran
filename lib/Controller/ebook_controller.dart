@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:get/get.dart';
@@ -64,10 +63,11 @@ class BookController extends GetxController {
   Future<List<int>> getSavedPages(String id) async {
     try {
       final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-      List<String>? res =
-          await prefs.getKeys().contains(bookList[index].bookTitle + bookList[index].id + "PAGES")
-              ? prefs.getStringList(bookList[index].bookTitle + bookList[index].id + "PAGES")
-              : null;
+      List<String>? res = await prefs.getKeys().contains(
+              bookList[index].bookTitle + bookList[index].id + "PAGES")
+          ? prefs.getStringList(
+              bookList[index].bookTitle + bookList[index].id + "PAGES")
+          : null;
 
       final pages = res == null
           ? <int>[]
@@ -91,7 +91,9 @@ class BookController extends GetxController {
 
   Future<bool> removeBookmarkPage(String id, int page) async {
     final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-    if (prefs.getKeys().contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
+    if (prefs
+        .getKeys()
+        .contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
       List<int> pages = await getSavedPages(id);
       pages.remove(page);
       await prefs.setStringList(
@@ -110,7 +112,9 @@ class BookController extends GetxController {
 
   Future<bool> bookmarkPage(String id, int page) async {
     final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-    if (prefs.getKeys().contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
+    if (prefs
+        .getKeys()
+        .contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
       List<int> pages = await getSavedPages(id);
       if (!pages.contains(page)) pages.add(page);
       List<String> data = pages.map((e) => e.toString()).toList();
@@ -136,7 +140,10 @@ class BookController extends GetxController {
   }
 
   Future<bool> _save(List<Ebook> books) async {
-    final directory = await getExternalStorageDirectory();
+    //final directory = await getExternalStorageDirectory();
+    final directory = Platform.isAndroid
+        ? await getExternalStorageDirectory() //FOR ANDROID
+        : await getApplicationSupportDirectory(); //FOR iOS
     print(directory!.path);
 
     final file = File('${directory.path}/favs.txt');

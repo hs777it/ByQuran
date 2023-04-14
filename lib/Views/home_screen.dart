@@ -15,7 +15,7 @@ import 'package:welivewithquran/zTools/colors.dart';
 
 import '../custom_widgets/custom_setting_item.dart';
 import '../custom_widgets/custom_text.dart';
-import '../zTools/helpers.dart';
+// import '../zTools/helpers.dart';
 
 class HomeScreen extends StatefulWidget {
   final int? index;
@@ -28,7 +28,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late int currentIndex;
   PageController _pageController = PageController();
-  GlobalKey<DrawerControllerState> drawerKey = GlobalKey<DrawerControllerState>();
+  GlobalKey<DrawerControllerState> drawerKey =
+      GlobalKey<DrawerControllerState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   var appLink = 'https://smartmediakw.com/zbook/app/';
 
@@ -86,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             appBar: AppBar(
               elevation: 0,
               foregroundColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? null : blueDarkColor,
+                  (ThemeProvider.themeOf(context).id == "dark_theme")
+                      ? null
+                      : blueDarkColor,
               backgroundColor: currentIndex == 0
                   ? (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? blueDarkColor
@@ -121,7 +124,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             drawer: FutureBuilder<bool>(
               future: setPushState(),
               builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData &&
+                    snapshot.connectionState == ConnectionState.done) {
                   bool isListening = snapshot.data!;
                   return Drawer(
                     key: drawerKey,
@@ -214,10 +218,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                               children: [
                                 Switch(
                                   activeColor: blueColor,
-                                  value: (ThemeProvider.themeOf(context).id == "dark_theme"),
+                                  value: (ThemeProvider.themeOf(context).id ==
+                                      "dark_theme"),
                                   onChanged: (bool val) {
                                     val
-                                        ? ThemeProvider.controllerOf(context).setTheme("dark_theme")
+                                        ? ThemeProvider.controllerOf(context)
+                                            .setTheme("dark_theme")
                                         : ThemeProvider.controllerOf(context)
                                             .setTheme("light_theme");
                                     // settingController.changeMode();
@@ -264,9 +270,13 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               unselectedFontSize: 15.sp,
               selectedFontSize: 17.sp,
               selectedItemColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? blueColor : blueDarkColor,
+                  (ThemeProvider.themeOf(context).id == "dark_theme")
+                      ? blueColor
+                      : blueDarkColor,
               unselectedItemColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? Colors.white : Colors.grey,
+                  (ThemeProvider.themeOf(context).id == "dark_theme")
+                      ? Colors.white
+                      : Colors.grey,
               onTap: (index) {
                 checkCurrentIndex(index);
               },
@@ -276,12 +286,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
               items: [
                 BottomNavigationBarItem(
                   label: 'الرئيسية',
-                  icon: SvgPicture.asset('assets/icons/main_icon.svg', height: 23),
+                  icon: SvgPicture.asset('assets/icons/main_icon.svg',
+                      height: 23),
                   // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
                 ),
                 BottomNavigationBarItem(
                   label: 'المكتبة',
-                  icon: SvgPicture.asset('assets/icons/library_icon.svg', height: 23),
+                  icon: SvgPicture.asset('assets/icons/library_icon.svg',
+                      height: 23),
                   // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
                 ),
                 const BottomNavigationBarItem(
