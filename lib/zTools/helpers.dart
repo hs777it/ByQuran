@@ -15,13 +15,14 @@ class Helper {
     if (Platform.isAndroid) {
       path = localPath;
     } else {
-      var directory = await getExternalStorageDirectory();
+      //var directory = await getExternalStorageDirectory();
+      var directory = await getApplicationDocumentsDirectory();
 
       // var directory = Platform.isAndroid
       //     ? await getExternalStorageDirectory() //FOR ANDROID
       //     : await getApplicationSupportDirectory(); //FOR iOS
 
-      path = directory!.path + Platform.pathSeparator + localPath;
+      path = directory.path + Platform.pathSeparator + localPath;
     }
     final dir = Directory(path);
     bool hasExist = await dir.exists();
@@ -68,7 +69,7 @@ class Helper {
   static Future<String> getFilePath(uniqueFileName) async {
     String path = '';
     Directory dir =
-        (await getExternalStorageDirectory())!; //getApplicationDocumentsDirectory
+        (await getApplicationDocumentsDirectory()); //getExternalStorageDirectory
     path = '${dir.path}/$uniqueFileName';
     return path;
   }
@@ -101,9 +102,9 @@ class zTools {
       var response = await request.close();
       var bytes = await consolidateHttpClientResponseBytes(response);
       final dir =
-          await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
+          await getApplicationDocumentsDirectory(); //getApplicationDocumentsDirectory
 
-      File file = File('${dir!.path}/$filename');
+      File file = File('${dir.path}/$filename');
 
       await file.writeAsBytes(bytes);
       print('downloaded file path = ${file.path}');
@@ -118,7 +119,7 @@ class zTools {
     http.Client _client = http.Client();
     var req = await _client.get(Uri.parse(url));
     var bytes = req.bodyBytes;
-    String dir = (await getExternalStorageDirectory())!
+    String dir = (await getApplicationDocumentsDirectory())
         .path; //getApplicationDocumentsDirectory
     File file = File('$dir/$filename');
     await file.writeAsBytes(bytes);
@@ -162,14 +163,14 @@ class zTools {
     try {
       if (Platform.isIOS) {
         directory =
-            await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
+            await getApplicationDocumentsDirectory(); //getApplicationDocumentsDirectory
       } else {
         directory = Directory('/storage/emulated/0/Download');
         // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
         // ignore: avoid_slow_async_io
         if (!await directory.exists())
           directory =
-              await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
+              await getApplicationDocumentsDirectory(); //getApplicationDocumentsDirectory
       }
     } catch (err) {
       print('Cannot get download folder path');
@@ -194,9 +195,9 @@ class PDFApi {
   static Future<File> _storeFile(String url, List<int> bytes) async {
     final filename = basename(url);
     final dir =
-        await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
+        await getApplicationDocumentsDirectory(); //getApplicationDocumentsDirectory
 
-    final file = File('${dir!.path}/$filename');
+    final file = File('${dir.path}/$filename');
     await file.writeAsBytes(bytes, flush: true);
     return file;
   }
@@ -205,7 +206,7 @@ class PDFApi {
 Future<String> getFilePath(fileName) async {
   String path = '';
   Directory dir =
-      (await getExternalStorageDirectory())!; //getApplicationDocumentsDirectory
+      (await getApplicationDocumentsDirectory()); //getApplicationDocumentsDirectory
   path = '${dir.path}/$fileName';
   return path;
 }
@@ -216,8 +217,8 @@ Future<String> getDir(String localPath) async {
     path = '/sdcard/' + localPath;
   } else {
     var directory =
-        await getExternalStorageDirectory(); //getApplicationDocumentsDirectory
-    path = directory!.path + Platform.pathSeparator + localPath;
+        await getApplicationDocumentsDirectory(); //getApplicationDocumentsDirectory
+    path = directory.path + Platform.pathSeparator + localPath;
   }
   final dir = Directory(path);
   bool hasExist = await dir.exists();

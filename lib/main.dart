@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
             data: ThemeData(
               // primaryColor: mainColor,
               primaryColor: mainColor,
-              fontFamily: 'Janna',
+              fontFamily: 'Cairo',
               colorScheme: ColorScheme.light().copyWith(
                 background: whiteColor,
               ),
@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
             id: "dark_theme",
             data: ThemeData(
               primaryColor: blueDarkColor,
-              fontFamily: 'Janna',
+              fontFamily: 'Cairo',
               colorScheme: ColorScheme.dark().copyWith(
                 secondary: Colors.white,
               ),

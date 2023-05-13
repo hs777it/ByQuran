@@ -285,30 +285,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        SizedBox(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              CustomText(
-                                text: 'الصفحات: ',
-                                fontSize: 16.sp,
-                                color: (ThemeProvider.themeOf(context).id ==
-                                        "dark_theme")
-                                    ? whiteColor
-                                    : mainColor,
-                              ),
-                              const SizedBox(width: 5),
-                              CustomText(
-                                text: argumentData[3]['bookPages'].toString(),
-                                fontSize: 15.sp,
-                                color: (ThemeProvider.themeOf(context).id ==
-                                        "dark_theme")
-                                    ? whiteColor
-                                    : mainColor,
-                              ),
-                            ],
-                          ),
-                        ),
+                        // SizedBox(
+                        //   child: Row(
+                        //     mainAxisSize: MainAxisSize.min,
+                        //     children: [
+                        //       CustomText(
+                        //         text: 'الصفحات: ',
+                        //         fontSize: 16.sp,
+                        //         color: (ThemeProvider.themeOf(context).id ==
+                        //                 "dark_theme")
+                        //             ? whiteColor
+                        //             : mainColor,
+                        //       ),
+                        //       const SizedBox(width: 5),
+                        //       CustomText(
+                        //         text: argumentData[3]['bookPages'].toString(),
+                        //         fontSize: 15.sp,
+                        //         color: (ThemeProvider.themeOf(context).id ==
+                        //                 "dark_theme")
+                        //             ? whiteColor
+                        //             : mainColor,
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -775,11 +775,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Future<String> getFilePath(String url) async {
     String fileName = url.substring(url.lastIndexOf('/') + 1);
     //final dir = await getExternalStorageDirectory();
-    final dir = Platform.isAndroid
-        ? await getExternalStorageDirectory() //FOR ANDROID
-        : await getApplicationSupportDirectory(); //FOR iOS
-
-    File file = File('${dir!.path}/$fileName');
+    // final dir = Platform.isAndroid
+    //     ? await getExternalStorageDirectory() //FOR ANDROID
+    //     : await getApplicationSupportDirectory(); //FOR iOS
+    final dir = await getApplicationDocumentsDirectory();
+    File file = File('${dir.path}/$fileName');
     return file.path;
   }
 
@@ -794,9 +794,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
       var httpClient = HttpClient();
       String fileName = url.substring(url.lastIndexOf('/') + 1);
       //final dir = await getExternalStorageDirectory();
-      final dir = Platform.isAndroid
-          ? await getExternalStorageDirectory() //FOR ANDROID
-          : await getApplicationSupportDirectory(); //FOR iOS
+      // final dir = Platform.isAndroid
+      //     ? await getExternalStorageDirectory() //FOR ANDROID
+      //     : await getApplicationSupportDirectory(); //FOR iOS
+      final dir = await getApplicationDocumentsDirectory();
       await Helper.getStoragePermission();
       setState(() {
         downloading = true;
@@ -812,7 +813,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           });
         },
       );
-      File file = File('${dir!.path}/$fileName');
+      File file = File('${dir.path}/$fileName');
       final finalFile = await file.writeAsBytes(bytes);
       // File finalFile = await zTools.downloadFile(url, fileName);
       setState(() {
