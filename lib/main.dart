@@ -1,5 +1,4 @@
 import 'dart:io';
-
 // import 'package:firebase_app_check/firebase_app_check.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,9 @@ Future<void> main() async {
 
   OneSignal.shared.setAppId(dotenv.env["ONESIGNAL_APP_ID"]!);
 
-// The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+// The promptForPushNotificationsWithUserResponse function will show the iOS push
+// notification prompt. We recommend removing the following code and instead using
+// an In-App Message to prompt for notification permission
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
     print("Accepted permission: $accepted");
   });
@@ -81,7 +82,7 @@ class _MyAppState extends State<MyApp> {
             data: ThemeData(
               // primaryColor: mainColor,
               primaryColor: mainColor,
-              fontFamily: 'Cairo',
+              fontFamily: 'Tajawal',
               colorScheme: ColorScheme.light().copyWith(
                 background: whiteColor,
               ),
@@ -91,7 +92,7 @@ class _MyAppState extends State<MyApp> {
             id: "dark_theme",
             data: ThemeData(
               primaryColor: blueDarkColor,
-              fontFamily: 'Cairo',
+              fontFamily: 'Tajawal',
               colorScheme: ColorScheme.dark().copyWith(
                 secondary: Colors.white,
               ),

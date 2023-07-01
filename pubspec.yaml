@@ -57,11 +57,11 @@ dependencies:
   # Share
   #flutter_share: 2.0.0
 
-  flutter_screenutil: ^5.6.1
+  flutter_screenutil: ^5.8.4
   carousel_slider: ^4.2.1
   http: ^0.13.5
   flutter_html: 2.2.1
-  theme_provider: ^0.5.0
+  theme_provider: ^0.6.0
   favorite_button: ^0.0.4
   flutter_dotenv: ^5.0.2
   html: ^0.15.0
@@ -165,9 +165,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Cairo
+     - family: Tajawal
        fonts:
-         - asset: assets/fonts/Cairo.ttf
+         - asset: assets/fonts/Tajawal-Regular.ttf
 
   #   - family: Trajan Pro
   #     fonts:
