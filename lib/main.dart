@@ -15,7 +15,6 @@ import 'package:welivewithquran/zTools/colors.dart';
 
 // import 'Controller/auth_controller.dart';
 // import 'Views/splash_screen.dart';
-
 import 'zTools/tools.dart';
 
 Future<void> main() async {
