@@ -78,6 +78,10 @@ android {
         release {
             signingConfig signingConfigs.release
         }
+        // upload Android native debug symbols for release builds
+        ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+        }
     }
 
 
