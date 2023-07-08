@@ -55,7 +55,10 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
-
+        ndkVersion  "25.2.9519653"
+        ndk {
+            debugSymbolLevel 'FULL'
+        }
 
     }
 
@@ -96,3 +99,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
 }
+
+//android.buildTypes.release.ndk.debugSymbolLevel = 'FULL'
