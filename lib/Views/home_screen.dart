@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   GlobalKey<DrawerControllerState> drawerKey =
       GlobalKey<DrawerControllerState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  var appLink = 'https://smartmediakw.com/zbook/app/';
+  var appLink = 'https://livebyquran.net/share/';
 
   Future<bool> setPushState() async {
     var device = await OneSignal.shared.getDeviceState();
