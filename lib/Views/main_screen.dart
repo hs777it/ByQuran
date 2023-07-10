@@ -742,6 +742,7 @@ class _MainScreenState extends State<MainScreen> {
                   text: "مصحف مجمع الملك فهد",
                   fontSize: 16.sp,
                   color: Colors.white,
+                  alignment: TextAlign.center,
                 ),
               ),
             ),
