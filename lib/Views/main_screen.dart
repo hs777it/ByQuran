@@ -495,16 +495,36 @@ class _MainScreenState extends State<MainScreen> {
               ),
 
         /// ------------------------------ Latest Books -----------------------
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+        //   child: Text(
+        //     "المضاف أخيرًا",
+        //     style: TextStyle(
+        //       fontSize: 22,
+        //       fontWeight: FontWeight.w700,
+        //     ),
+        //   ),
+        // ),
+        SizedBox(height: 10.h),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-          child: Text(
-            "المضاف أخيرًا",
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
+          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4),
+          child: Container(
+              decoration:BoxDecoration(
+                borderRadius: BorderRadius.circular(7), //update
+              //color: blueColor.withAlpha(90),
+              ),
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 5),
+              child: Text(
+                'المضاف أخيراً',textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 21.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
-          ),
         ),
+          SizedBox(height: 10.h),
         Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 8.0,
@@ -638,14 +658,23 @@ class _MainScreenState extends State<MainScreen> {
         /// ------------------------------ Categories -----------------------
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4),
-          child: Text(
-            'الأقسام',
-            style: TextStyle(
-              fontSize: 22.sp,
-              fontWeight: FontWeight.w700,
+          child: Container(
+            decoration:BoxDecoration(
+              borderRadius: BorderRadius.circular(7),//update
+            //color: blueColor.withAlpha(90),
+            ),
+            width: double.infinity,
+            padding: EdgeInsets.only(top: 5),
+            child: Text(
+              'الأقسام',textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 21.sp,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
+        SizedBox(height: 10.h),
         SizedBox(
           height: 50.h,
           child: Obx(
@@ -681,7 +710,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                    const EdgeInsets.symmetric(horizontal: 10.0),
                                 child: Center(
                                   child: Text(
                                     cat.categoryName,

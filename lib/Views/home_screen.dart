@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             key: _scaffoldKey,
             extendBodyBehindAppBar: true,
             backgroundColor: backgroundColor,
-
+            
             /// AppBar
             appBar: AppBar(
               elevation: 0,
@@ -265,6 +265,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
             ///BottomNavigationBar
             bottomNavigationBar: BottomNavigationBar(
+              //backgroundColor:Colors.white54, //update
               type: BottomNavigationBarType.fixed,
               currentIndex: currentIndex,
               unselectedFontSize: 15.sp,

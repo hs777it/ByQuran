@@ -35,7 +35,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 33
-
+    ndkVersion "25.2.9519653"
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -55,10 +55,6 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
-        ndkVersion  "25.2.9519653"
-        ndk {
-            debugSymbolLevel 'FULL'
-        }
 
     }
 
@@ -81,10 +77,7 @@ android {
         release {
             signingConfig signingConfigs.release
         }
-        // upload Android native debug symbols for release builds
-        // ndk {
-        //         debugSymbolLevel 'SYMBOL_TABLE'
-        // }
+        
     }
 
 
@@ -100,4 +93,3 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
 }
 
-//android.buildTypes.release.ndk.debugSymbolLevel = 'FULL'
