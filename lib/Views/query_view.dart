@@ -5,7 +5,7 @@ import 'package:html/parser.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Views/read_book_screen.dart';
 import 'package:welivewithquran/models/search_query.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 
 class QueryView extends StatefulWidget {
   final SearchQuery item;

@@ -10,7 +10,7 @@ import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Views/contact_us_screen.dart';
 import 'package:welivewithquran/Views/downloads_view.dart';
 import 'package:welivewithquran/Views/library_screen.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/custom_widgets/custom_setting_item.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 

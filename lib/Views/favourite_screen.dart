@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 
 import '../Controller/ebook_controller.dart';

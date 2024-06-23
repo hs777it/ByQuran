@@ -14,7 +14,7 @@ import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart';
 import 'package:welivewithquran/models/surah.dart';
 import 'package:welivewithquran/services/services.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 
 class MainScreen extends StatefulWidget {

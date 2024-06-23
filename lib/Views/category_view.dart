@@ -7,7 +7,7 @@ import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/Models/category.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 
 class SplashScreen extends StatelessWidget {
   @override

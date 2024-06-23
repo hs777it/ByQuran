@@ -14,9 +14,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Views/widget/just_audio_widget.dart';
+import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
-import 'package:welivewithquran/zTools/colors.dart';
-import 'package:welivewithquran/zTools/tools.dart';
+import 'package:welivewithquran/helpers.dart';
 
 import '../Controller/ebook_controller.dart';
 // import '../models/ebook_org.dart';
@@ -36,7 +36,7 @@ class _ReadBookScreenState extends State<ReadBookScreen>
   dynamic argumentData = Get.arguments;
   GetStorage storage = GetStorage();
 
-  String desc = BookTools.stripHtml(Get.arguments[0]['description']);
+  String desc = Helper.stripHtml(Get.arguments[0]['description']);
 
   FlutterTts tts = FlutterTts();
 
@@ -294,7 +294,7 @@ class _ReadBookScreenState extends State<ReadBookScreen>
         ),
         title: Text(
           argumentData[0]["title"].toString().split(" ").length > 4
-              ? BookTools.appName +
+              ? appName +
                   ' - ' +
                   argumentData[0]["title"]
                       .toString()
@@ -308,7 +308,7 @@ class _ReadBookScreenState extends State<ReadBookScreen>
                       .getRange(4,
                           argumentData[0]["title"].toString().split(" ").length)
                       .join(" ")
-              : BookTools.appName + ' - ' + argumentData[0]["title"].toString(),
+              : appName + ' - ' + argumentData[0]["title"].toString(),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 15.sp,

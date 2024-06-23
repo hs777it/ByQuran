@@ -15,7 +15,7 @@ import 'package:welivewithquran/Views/library_screen.dart';
 import 'package:welivewithquran/Views/main_screen.dart';
 import 'package:welivewithquran/Views/moshaf_screen.dart';
 import 'package:welivewithquran/Views/settings_screen.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 
 import '../custom_widgets/custom_setting_item.dart';
 import '../custom_widgets/custom_text.dart';

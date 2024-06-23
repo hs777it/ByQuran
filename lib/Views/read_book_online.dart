@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-// import 'package:webview_flutter/webview_flutter.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 
 class ReadOnlineScreen extends StatefulWidget {
   final String fileURL;

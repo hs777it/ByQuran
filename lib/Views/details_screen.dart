@@ -17,9 +17,9 @@ import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/read_book_online.dart';
 import 'package:welivewithquran/Views/read_book_screen.dart';
-import 'package:welivewithquran/zTools/colors.dart';
+import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
-import 'package:welivewithquran/zTools/helpers.dart';
+import 'package:welivewithquran/helpers.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 import '../models/ebook_org.dart';
 
@@ -60,7 +60,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             argumentData[5]['bookFile'].toString() +
                 argumentData[8]['book'].bookTitle,
           ) ??
-          await getFilePath(fileUrl),
+          await Helper().getFilePath(fileUrl),
     );
   }
 
@@ -347,8 +347,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         horizontal: 32, vertical: 8),
                                   ),
                                   child: SizedBox(
-                                    height: 50,
-                                    width: 50,
+                                    height: 30,
+                                    width: 30,
                                     child: CircularProgressIndicator(
                                       value: downloadProgress.progress,
                                       color: blueDarkColor,
@@ -769,8 +769,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-
-
   Future<void> downloadFile(String url) async {
     if (url.contains("localhost")) {
       Get.snackbar("خطأ", "لا يمكن تحميل هذا الملف");
@@ -824,7 +822,4 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
     print('Download completed');
   }
-
-
-  
 }

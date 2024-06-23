@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart'; // ^0.9.35
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:welivewithquran/zTools/colors.dart'; // ^2.0.1
+import 'package:welivewithquran/constant.dart';
+
 
 class JustAudio extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
@@ -21,6 +22,12 @@ class _JustAudioState extends State<JustAudio> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     _setupAudioPlayer(widget.audioUrl);
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
   }
 
   @override
