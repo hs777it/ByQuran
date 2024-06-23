@@ -14,7 +14,6 @@ import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart';
 import 'package:welivewithquran/models/surah.dart';
 import 'package:welivewithquran/services/services.dart';
-
 import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 
@@ -51,10 +50,8 @@ class _MainScreenState extends State<MainScreen> {
 
     return Obx(
       () => bookController.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: blueColor,
-              ),
+          ? Center(
+              child: CircularProgressIndicator(color: blueColor),
             )
           : RefreshIndicator(
               onRefresh: bookController.getCats,
@@ -75,9 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 90.h,
-                      ),
+                      SizedBox(height: 90.h),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Container(
@@ -358,9 +353,7 @@ class _MainScreenState extends State<MainScreen> {
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
-                  child: CircularProgressIndicator(
-                    color: blueColor,
-                  ),
+                  child: CircularProgressIndicator(color: blueColor),
                 ),
               )
             : Container(
@@ -430,6 +423,9 @@ class _MainScreenState extends State<MainScreen> {
                                     {
                                       "condition": false,
                                     },
+                                    {
+                                      'audioFile': book.audioFile,
+                                    },
                                   ],
                                 );
                                 // Navigator.of(context).push(_createRoute());
@@ -443,19 +439,18 @@ class _MainScreenState extends State<MainScreen> {
                                       progressIndicatorBuilder:
                                           (context, url, downloadProgress) =>
                                               SizedBox(
-                                        height: 50,
-                                        width: 50,
-                                        child: CircularProgressIndicator(
-                                          value: downloadProgress.progress,
-                                          color: blueDarkColor,
-                                        ),
+                                        width: double.infinity,
+                                        child: LinearProgressIndicator(
+                                            value: downloadProgress.progress,
+                                            color:
+                                                blueDarkColor.withOpacity(0.3)),
                                       ),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only( top: 3),
+                                    padding: const EdgeInsets.only(top: 3),
                                     child: Text(
                                       book.bookTitle,
                                       textAlign: TextAlign.center,
@@ -495,161 +490,143 @@ class _MainScreenState extends State<MainScreen> {
               ),
 
         /// ------------------------------ Latest Books -----------------------
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-        //   child: Text(
-        //     "المضاف أخيرًا",
-        //     style: TextStyle(
-        //       fontSize: 22,
-        //       fontWeight: FontWeight.w700,
-        //     ),
-        //   ),
-        // ),
-        SizedBox(height: 10.h),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4),
-          child: Container(
-              decoration:BoxDecoration(
-                borderRadius: BorderRadius.circular(7), //update
-              //color: blueColor.withAlpha(90),
-              ),
-              width: double.infinity,
-              padding: EdgeInsets.only(top: 5),
-              child: Text(
-                'المضاف أخيراً',textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 21.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+          child: Text(
+            "المضاف أخيرًا",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
             ),
-        ),
-          SizedBox(height: 10.h),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
           ),
-          child: SizedBox(
-            height: 0.3.sh,
-            child:
-                // Get Random eBook API
-                ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: bookController.latestBook.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () => DetailsScreen(),
-                      arguments: [
-                        {
-                          'id': bookController.latestBook[index].id,
-                        },
-                        {
-                          'title': bookController.latestBook[index].bookTitle,
-                        },
-                        {
-                          'bookCover':
-                              bookController.latestBook[index].bookCoverImg,
-                        },
-                        {
-                          'bookPages':
-                              bookController.latestBook[index].bookPages,
-                        },
-                        {
-                          'bookDescription':
-                              bookController.latestBook[index].bookDescription,
-                        },
-                        {
-                          'bookFile':
-                              bookController.latestBook[index].bookFileUrl,
-                        },
-                        {
-                          'authorName':
-                              bookController.latestBook[index].authorName,
-                        },
-                        {
-                          'categoryName':
-                              bookController.latestBook[index].categoryName,
-                        },
-                        {
-                          "book": bookController.latestBook[index],
-                        },
-                        {
-                          "books": bookController,
-                        },
-                        {
-                          "condition": false,
-                        },
-                      ],
-                    );
-                    // Navigator.of(context).push(_createRoute());
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: context.height * 0.2,
-                          width: context.width * 0.65,
-                          child: CachedNetworkImage(
-                            imageUrl: imagesUrl +
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3),
+          child: Padding(
+            padding: EdgeInsets.zero,
+            child: SizedBox(
+              height: 0.3.sh,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: bookController.latestBook.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => DetailsScreen(),
+                        arguments: [
+                          {
+                            'id': bookController.latestBook[index].id,
+                          },
+                          {
+                            'title': bookController.latestBook[index].bookTitle,
+                          },
+                          {
+                            'bookCover':
                                 bookController.latestBook[index].bookCoverImg,
-                            fit: BoxFit.contain,
-                            progressIndicatorBuilder:
-                                (context, url, downloadProgress) => Padding(
-                              padding: const EdgeInsets.all(32.0).add(
-                                EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 8),
-                              ),
-                              child: SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: CircularProgressIndicator(
-                                  value: downloadProgress.progress,
-                                  color: blueDarkColor,
+                          },
+                          {
+                            'bookPages':
+                                bookController.latestBook[index].bookPages,
+                          },
+                          {
+                            'bookDescription': bookController
+                                .latestBook[index].bookDescription,
+                          },
+                          {
+                            'bookFile':
+                                bookController.latestBook[index].bookFileUrl,
+                          },
+                          {
+                            'audioFile':
+                                bookController.latestBook[index].audioFile,
+                          },
+                          {
+                            'authorName':
+                                bookController.latestBook[index].authorName,
+                          },
+                          {
+                            'categoryName':
+                                bookController.latestBook[index].categoryName,
+                          },
+                          {
+                            "book": bookController.latestBook[index],
+                          },
+                          {
+                            "books": bookController,
+                          },
+                          {
+                            "condition": false,
+                          },
+                        ],
+                      );
+                      // Navigator.of(context).push(_createRoute());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: context.height * 0.2,
+                            width: context.width * 0.50, //0.65
+                            child: CachedNetworkImage(
+                              imageUrl: imagesUrl +
+                                  bookController.latestBook[index].bookCoverImg,
+                              fit: BoxFit.fill, // content
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Padding(
+                                padding: const EdgeInsets.all(32.0).add(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 40, vertical: 8),
+                                ),
+                                child: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CircularProgressIndicator(
+                                    value: downloadProgress.progress,
+                                    color: blueDarkColor,
+                                  ),
                                 ),
                               ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                            // Image.network(
+                            //   imagesUrl + bookController.latestBook[index].bookCoverImg,
+                            //   fit: BoxFit.contain,
+                            // ),
                           ),
-                          // Image.network(
-                          //   imagesUrl + bookController.latestBook[index].bookCoverImg,
-                          //   fit: BoxFit.contain,
-                          // ),
-                        ),
-                        Text(
-                          bookController.latestBook[index].bookTitle
-                                      .split(" ")
-                                      .length >
-                                  4
-                              ? bookController.latestBook[index].bookTitle
-                                      .split(" ")
-                                      .getRange(0, 4)
-                                      .join(" ") +
-                                  "\n" +
-                                  bookController.latestBook[index].bookTitle
-                                      .split(" ")
-                                      .getRange(
-                                        4,
-                                        bookController
-                                            .latestBook[index].bookTitle
-                                            .split(" ")
-                                            .length,
-                                      )
-                                      .join(" ")
-                              : bookController.latestBook[index].bookTitle,
-                          style: TextStyle(
-                            fontSize: 14.sp,
+                          Text(
+                            bookController.latestBook[index].bookTitle
+                                        .split(" ")
+                                        .length >
+                                    4
+                                ? bookController.latestBook[index].bookTitle
+                                        .split(" ")
+                                        .getRange(0, 4)
+                                        .join(" ") +
+                                    "\n" +
+                                    bookController.latestBook[index].bookTitle
+                                        .split(" ")
+                                        .getRange(
+                                          4,
+                                          bookController
+                                              .latestBook[index].bookTitle
+                                              .split(" ")
+                                              .length,
+                                        )
+                                        .join(" ")
+                                : bookController.latestBook[index].bookTitle,
+                            style: TextStyle(fontSize: 14.sp),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -658,23 +635,14 @@ class _MainScreenState extends State<MainScreen> {
         /// ------------------------------ Categories -----------------------
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 4),
-          child: Container(
-            decoration:BoxDecoration(
-              borderRadius: BorderRadius.circular(7),//update
-            //color: blueColor.withAlpha(90),
-            ),
-            width: double.infinity,
-            padding: EdgeInsets.only(top: 5),
-            child: Text(
-              'الأقسام',textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 21.sp,
-                fontWeight: FontWeight.w700,
-              ),
+          child: Text(
+            'الأقسام',
+            style: TextStyle(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
-        SizedBox(height: 10.h),
         SizedBox(
           height: 50.h,
           child: Obx(
@@ -710,7 +678,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               child: Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 10.0),
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Center(
                                   child: Text(
                                     cat.categoryName,
@@ -771,7 +739,6 @@ class _MainScreenState extends State<MainScreen> {
                   text: "مصحف مجمع الملك فهد",
                   fontSize: 16.sp,
                   color: Colors.white,
-                  alignment: TextAlign.center,
                 ),
               ),
             ),
@@ -790,5 +757,117 @@ class _MainScreenState extends State<MainScreen> {
     } else {
       return mainWidget();
     }
+  }
+}
+
+class BannerPlaceholder extends StatelessWidget {
+  const BannerPlaceholder({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 200.0,
+      margin: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class TitlePlaceholder extends StatelessWidget {
+  final double width;
+
+  const TitlePlaceholder({
+    Key? key,
+    required this.width,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: width,
+            height: 12.0,
+            color: Colors.white,
+          ),
+          const SizedBox(height: 8.0),
+          Container(
+            width: width,
+            height: 12.0,
+            color: Colors.white,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+enum ContentLineType {
+  twoLines,
+  threeLines,
+}
+
+class ContentPlaceholder extends StatelessWidget {
+  final ContentLineType lineType;
+
+  const ContentPlaceholder({
+    Key? key,
+    required this.lineType,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 96.0,
+            height: 72.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 12.0),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 10.0,
+                  color: Colors.white,
+                  margin: const EdgeInsets.only(bottom: 8.0),
+                ),
+                if (lineType == ContentLineType.threeLines)
+                  Container(
+                    width: double.infinity,
+                    height: 10.0,
+                    color: Colors.white,
+                    margin: const EdgeInsets.only(bottom: 8.0),
+                  ),
+                Container(
+                  width: 100.0,
+                  height: 10.0,
+                  color: Colors.white,
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

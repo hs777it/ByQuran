@@ -1,6 +1,4 @@
 import 'dart:io';
-// import 'package:firebase_app_check/firebase_app_check.dart';
-// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -12,10 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Views/home_screen.dart';
 import 'package:welivewithquran/zTools/colors.dart';
-
+import 'zTools/tools.dart';
+// import 'package:firebase_app_check/firebase_app_check.dart';
+// import 'package:firebase_core/firebase_core.dart';
 // import 'Controller/auth_controller.dart';
 // import 'Views/splash_screen.dart';
-import 'zTools/tools.dart';
+
 
 Future<void> main() async {
   await dotenv.load();
@@ -80,11 +80,10 @@ class _MyAppState extends State<MyApp> {
           AppTheme.light().copyWith(
             id: "light_theme",
             data: ThemeData(
-              // primaryColor: mainColor,
               primaryColor: mainColor,
               fontFamily: 'Tajawal',
               colorScheme: ColorScheme.light().copyWith(
-                background: whiteColor,
+                surface: whiteColor,
               ),
             ),
           ),

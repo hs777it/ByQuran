@@ -259,7 +259,7 @@ SPEC CHECKSUMS:
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   syncfusion_flutter_pdfviewer: bb9998884b864cfedf72628df3503bdf57e397c0
   twitter_login: 2794db69b7640681171b17b3c2c84ad9dfb4a57f

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.5.0+20
+version: 3.4.0+16
 
 environment:
   sdk: ">=2.19.0 <3.0.0"
@@ -34,13 +34,13 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # Login - SignUp
-  firebase_core: ^2.14.0
-  firebase_auth: ^4.6.3
-  firebase_app_check: ^0.1.5
-  google_sign_in: ^5.4.0
-  flutter_login_facebook: ^1.5.0+1
-  flutter_facebook_auth: ^5.0.7
-  twitter_login: ^4.2.3
+  # firebase_core: ^2.14.0
+  # firebase_auth: ^4.6.3
+  # firebase_app_check: ^0.1.5
+  # google_sign_in: ^5.4.0
+  # flutter_login_facebook: ^1.5.0+1
+  # flutter_facebook_auth: ^5.0.7
+  # twitter_login: ^4.2.3
 
   get: ^4.6.5
   get_storage: 2.0.3
@@ -66,19 +66,22 @@ dependencies:
   flutter_dotenv: ^5.0.2
   html: ^0.15.0
   onesignal_flutter: ^3.4.0
-  #shared_preferences: ^2.0.15
-  shared_preferences: ^2.2.0
+  shared_preferences: ^2.0.15
   flutter_pdfview: ^1.2.3
   flutter_native_splash: ^2.2.0
   flutter_lints: ^2.0.1
-  syncfusion_flutter_pdfviewer:
-    git:
-      url: https://github.com/OmarYehiaDev/flutter-widgets
-      path: packages/syncfusion_flutter_pdfviewer
+  syncfusion_flutter_pdfviewer: ^21.1.38
   share_plus: ^6.3.0
   webview_flutter: ^2.8.0
   url_launcher: ^6.1.9
   auto_size_text: ^3.0.0
+  just_audio: ^0.9.38
+  audio_video_progress_bar: ^2.0.1
+  shimmer: ^3.0.0
+  # syncfusion_flutter_pdfviewer:
+  #   git:
+  #     url: https://github.com/OmarYehiaDev/flutter-widgets
+  #     path: packages/syncfusion_flutter_pdfviewer
 
 
 

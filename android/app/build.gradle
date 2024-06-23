@@ -1,14 +1,24 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+    // id "com.onesignal.androidsdk.onesignal-gradle-plugin"
+}
+
+// apply plugin: 'com.android.application'
+// apply plugin: 'com.google.gms.google-services'
+// apply plugin: 'kotlin-android'
+// apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+// apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -21,12 +31,6 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
@@ -34,8 +38,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 33
-    ndkVersion "25.2.9519653"
+    compileSdkVersion 34
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -55,6 +59,10 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
+        ndkVersion  "25.2.9519653"
+        ndk {
+            debugSymbolLevel 'FULL'
+        }
 
     }
 
@@ -77,7 +85,10 @@ android {
         release {
             signingConfig signingConfigs.release
         }
-        
+        // upload Android native debug symbols for release builds
+        // ndk {
+        //         debugSymbolLevel 'SYMBOL_TABLE'
+        // }
     }
 
 
@@ -89,7 +100,7 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:30.2.0')
 }
 
+//android.buildTypes.release.ndk.debugSymbolLevel = 'FULL'

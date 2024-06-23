@@ -40,7 +40,9 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme") ? null : blueDarkColor,
+        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+            ? null
+            : blueDarkColor,
         elevation: 0,
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? blueDarkColor
@@ -52,7 +54,9 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
         width: double.infinity,
         //height: double.infinity,
         decoration: BoxDecoration(
-          color: (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : whiteColor,
+          color: (ThemeProvider.themeOf(context).id == "dark_theme")
+              ? blueDarkColor
+              : whiteColor,
           // image: (ThemeProvider.themeOf(context).id == "dark_theme")
           //     ? null
           //     : DecorationImage(
@@ -66,20 +70,23 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
             CustomText(
               text: "التحميلات",
               fontSize: 38.sp,
-              color:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? blueLightColor : mainColor,
+              color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                  ? blueLightColor
+                  : mainColor,
             ),
             bookSet.isEmpty
                 ? Container(
-                    color:
-                        (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : null,
+                    color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                        ? blueDarkColor
+                        : null,
                     child: Center(
                       child: CustomText(
                         text: "لا توجد تحميلات حتى الآن",
                         fontSize: 26.sp,
-                        color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                            ? blueLightColor
-                            : mainColor,
+                        color:
+                            (ThemeProvider.themeOf(context).id == "dark_theme")
+                                ? blueLightColor
+                                : mainColor,
                       ),
                     ),
                   )
@@ -89,7 +96,8 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                       child: GridView.builder(
                         padding: EdgeInsets.zero,
                         itemCount: bookSet.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, //2
                           childAspectRatio: .9, //.7
                         ),
@@ -106,22 +114,29 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                     'title': bookSet.toList()[index].bookTitle,
                                   },
                                   {
-                                    'bookCover': bookSet.toList()[index].bookCoverImg,
+                                    'bookCover':
+                                        bookSet.toList()[index].bookCoverImg,
                                   },
                                   {
-                                    'bookPages': bookSet.toList()[index].bookPages,
+                                    'bookPages':
+                                        bookSet.toList()[index].bookPages,
                                   },
                                   {
-                                    'bookDescription': bookSet.toList()[index].bookDescription,
+                                    'bookDescription':
+                                        bookSet.toList()[index].bookDescription,
                                   },
                                   {
-                                    'bookFile': bookSet.toList()[index].bookFileUrl,
+                                    'bookFile':
+                                        bookSet.toList()[index].bookFileUrl,
+                                  },
+                                 
+                                  {
+                                    'authorName':
+                                        bookSet.toList()[index].authorName,
                                   },
                                   {
-                                    'authorName': bookSet.toList()[index].authorName,
-                                  },
-                                  {
-                                    'categoryName': bookSet.toList()[index].categoryName,
+                                    'categoryName':
+                                        bookSet.toList()[index].categoryName,
                                   },
                                   {
                                     "book": bookSet.toList()[index],
@@ -131,6 +146,10 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                   },
                                   {
                                     "condition": false,
+                                  },
+                                   {
+                                    'audioFile':
+                                        bookSet.toList()[index].audioFile
                                   },
                                 ],
                               );
@@ -167,26 +186,38 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                         /// lib book width
                                         // width: 130.w,
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(7.0),
+                                          borderRadius:
+                                              BorderRadius.circular(7.0),
                                           child: CachedNetworkImage(
-                                            imageUrl:
-                                                imagesUrl + bookSet.toList()[index].bookCoverImg,
+                                            imageUrl: imagesUrl +
+                                                bookSet
+                                                    .toList()[index]
+                                                    .bookCoverImg,
                                             fit: BoxFit.fill,
-                                            progressIndicatorBuilder:
-                                                (context, url, downloadProgress) => Padding(
-                                              padding: const EdgeInsets.all(32.0).add(
-                                                EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                Padding(
+                                              padding:
+                                                  const EdgeInsets.all(32.0)
+                                                      .add(
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 32,
+                                                    vertical: 8),
                                               ),
                                               child: SizedBox(
                                                 height: 50,
                                                 width: 50,
-                                                child: CircularProgressIndicator(
-                                                  value: downloadProgress.progress,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  value:
+                                                      downloadProgress.progress,
                                                   color: blueDarkColor,
                                                 ),
                                               ),
                                             ),
-                                            errorWidget: (context, url, error) => Icon(Icons.error),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Icon(Icons.error),
                                           ),
                                           // Image.network(
                                           //   imagesUrl + bookSet.toList()[index].bookCoverImg,

@@ -2,7 +2,6 @@
 
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -14,6 +13,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:welivewithquran/Views/widget/just_audio_widget.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/zTools/tools.dart';
@@ -80,6 +80,8 @@ class _ReadBookScreenState extends State<ReadBookScreen>
         break;
       case AppLifecycleState.detached:
         // appLifeCycleState detached
+        break;
+      case AppLifecycleState.hidden:
         break;
     }
   }
@@ -319,12 +321,12 @@ class _ReadBookScreenState extends State<ReadBookScreen>
       body: SafeArea(
         child: Column(
           children: [
-            Text(
-              'المؤلف: ' + argumentData[0]['author'],
-            ),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
+            // Text('المؤلف: ' + argumentData[0]['author']),
+            // SizedBox(height: 5),
+            argumentData[0]['audioFile'].isNotEmpty
+                ? JustAudio(argumentData[0]['audioFile'])
+                : SizedBox(),
             // _btnSection(),
             // ttsState == TtsState.playing ? _progressBar(end) : const Text(''),
             if (savedPages.isNotEmpty)
@@ -392,28 +394,32 @@ class _ReadBookScreenState extends State<ReadBookScreen>
                     Directionality(
                       textDirection: TextDirection.rtl,
                       child: widget.fromSearch
-                          ? SfPdfViewer.network(
-                              argumentData[0]['pdf'],
-                              controller: _controller,
-                              pageLayoutMode: isHorizontal
-                                  ? PdfPageLayoutMode.single
-                                  : PdfPageLayoutMode.continuous,
-                              enableDoubleTapZooming: true,
-                              onDocumentLoadFailed: (details) {
-                                print(details.description);
-                              },
-                              onPageChanged: (details) async {
-                                log(details.newPageNumber.toString() +
-                                    " " +
-                                    _controller.pageNumber.toString());
+                          ? ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                  Colors.white, BlendMode.difference),
+                              child: SfPdfViewer.network(
+                                argumentData[0]['pdf'],
+                                controller: _controller,
+                                pageLayoutMode: isHorizontal
+                                    ? PdfPageLayoutMode.single
+                                    : PdfPageLayoutMode.continuous,
+                                enableDoubleTapZooming: true,
+                                onDocumentLoadFailed: (details) {
+                                  print(details.description);
+                                },
+                                onPageChanged: (details) async {
+                                  log(details.newPageNumber.toString() +
+                                      " " +
+                                      _controller.pageNumber.toString());
 
-                                // setState(() {
-                                //   currentPage = details.newPageNumber;
-                                // });
-                              },
-                              onTextSelectionChanged: (details) {
-                                log(details.selectedText ?? "NULL");
-                              },
+                                  // setState(() {
+                                  //   currentPage = details.newPageNumber;
+                                  // });
+                                },
+                                onTextSelectionChanged: (details) {
+                                  log(details.selectedText ?? "NULL");
+                                },
+                              ),
                             )
                           : SfPdfViewer.file(
                               File(argumentData[0]['pdf']),
@@ -527,113 +533,4 @@ class _ReadBookScreenState extends State<ReadBookScreen>
       ),
     );
   }
-
-  // Widget _progressBar(int end) => Container(
-  //       alignment: Alignment.topCenter,
-  //       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-  //       child: LinearProgressIndicator(
-  //         minHeight: 4,
-  //         backgroundColor: blueDarkColor,
-  //         valueColor: const AlwaysStoppedAnimation<Color>(blueColor),
-  //         value: end / _newVoiceText!.length,
-  //       ),
-  //     );
-
-  // Widget _btnSection() {
-  //   if (isAndroid) {
-  //     return Container(
-  //       height: 60.h,
-  //       width: 130.w,
-  //       padding: const EdgeInsets.symmetric(vertical: 4),
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(10),
-  //         color:
-  //             (ThemeProvider.themeOf(context).id == "dark_theme") ? blueColor : blueBackgroundColor,
-  //       ),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: [
-  //           Container(
-  //             width: 42.w,
-  //             decoration: BoxDecoration(
-  //               color: backgroundColor,
-  //               borderRadius: BorderRadius.circular(10),
-  //             ),
-  //             child: IconButton(
-  //               icon: const Icon(Icons.play_circle),
-  //               color: mainColor,
-  //               // splashColor: Colors.greenAccent,
-  //               onPressed: () => _speak(),
-  //             ),
-  //           ),
-  //           Container(
-  //             width: 42.w,
-  //             decoration: BoxDecoration(
-  //               color: backgroundColor,
-  //               borderRadius: BorderRadius.circular(10),
-  //             ),
-  //             child: IconButton(
-  //               icon: const Icon(Icons.stop_circle),
-  //               color: mainColor,
-  //               onPressed: _stop,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   } else {
-  //     return Container(
-  //       height: 50.h,
-  //       width: 160.w,
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(10),
-  //         color: blueBackgroundColor,
-  //       ),
-  //       child: Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //         children: [
-  //           Container(
-  //             width: 42.w,
-  //             height: 42.h,
-  //             decoration: BoxDecoration(
-  //               color: backgroundColor,
-  //               borderRadius: BorderRadius.circular(10),
-  //             ),
-  //             child: IconButton(
-  //               icon: const Icon(Icons.play_circle),
-  //               color: mainColor,
-  //               onPressed: _speak,
-  //             ),
-  //           ),
-  //           Container(
-  //             width: 42.w,
-  //             height: 42.h,
-  //             decoration: BoxDecoration(
-  //               color: backgroundColor,
-  //               borderRadius: BorderRadius.circular(10),
-  //             ),
-  //             child: IconButton(
-  //               icon: const Icon(Icons.pause_circle),
-  //               color: mainColor,
-  //               onPressed: _pause,
-  //             ),
-  //           ),
-  //           Container(
-  //             width: 42.w,
-  //             height: 42.h,
-  //             decoration: BoxDecoration(
-  //               color: backgroundColor,
-  //               borderRadius: BorderRadius.circular(10),
-  //             ),
-  //             child: IconButton(
-  //               icon: const Icon(Icons.stop_circle),
-  //               color: mainColor,
-  //               onPressed: _stop,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  // }
 }

@@ -26,7 +26,8 @@ List<Ebook> fromJsonString(String str) => List<Ebook>.from(
           ),
     );
 
-String toJson(List<Ebook> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String toJson(List<Ebook> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Ebook {
   Ebook({
@@ -41,6 +42,7 @@ class Ebook {
     required this.bookBgImg,
     required this.bookFileType,
     required this.bookFileUrl,
+    required this.audioFile,
     required this.totalRate,
     required this.rateAvg,
     required this.bookViews,
@@ -63,6 +65,7 @@ class Ebook {
   String bookBgImg;
   String bookFileType;
   String bookFileUrl;
+  String audioFile;
   String totalRate;
   String rateAvg;
   String bookViews;
@@ -86,6 +89,7 @@ class Ebook {
         bookBgImg: json['book_bg_img'].toString(),
         bookFileType: json['book_file_type'],
         bookFileUrl: json['book_file_url'],
+        audioFile: json['audio_file'],
         totalRate: json['total_rate'],
         rateAvg: json['rate_avg'],
         bookViews: json['book_views'],
@@ -110,6 +114,7 @@ class Ebook {
         'book_bg_img': bookBgImg,
         'book_file_type': bookFileType,
         'book_file_url': bookFileUrl,
+        'audio_file': audioFile,
         'total_rate': totalRate,
         'rate_avg': rateAvg,
         'book_views': bookViews,

@@ -14,7 +14,7 @@ import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/custom_widgets/custom_setting_item.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 
-import '../Controller/auth_controller.dart';
+// import '../Controller/auth_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
     // User? user = FirebaseAuth.instance.currentUser;
     return Container(
       decoration: BoxDecoration(
-        color: ThemeProvider.themeOf(context).data.colorScheme.background,
+        color: ThemeProvider.themeOf(context).data.colorScheme.surface,
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -221,9 +221,9 @@ logoutDialog(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      AuthController.instance.logOut();
-                    },
+                    // onTap: () {
+                    //   AuthController.instance.logOut();
+                    // },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,

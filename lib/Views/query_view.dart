@@ -60,12 +60,15 @@ class _QueryViewState extends State<QueryView> {
     final document = parse(widget.item.pageText);
 
     return Scaffold(
-      backgroundColor:
-          (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : whiteColor,
+      backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+          ? blueDarkColor
+          : whiteColor,
       appBar: AppBar(
         title: Text("نتيجة البحث عن كلمة: ${widget.query}"),
         centerTitle: true,
-        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme") ? null : blueDarkColor,
+        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+            ? null
+            : blueDarkColor,
         elevation: 0,
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? blueDarkColor
@@ -81,15 +84,14 @@ class _QueryViewState extends State<QueryView> {
             ),
             ListTile(
               leading: downloading
-                  ? CircularProgressIndicator(
-                      color: blueColor,
-                    )
+                  ? CircularProgressIndicator(color: blueColor)
                   : null,
               title: Text("نتيجة البحث:"),
-              subtitle: Text("\"${parse(document.body?.text).body!.text.trim()}\""),
+              subtitle:
+                  Text("\"${parse(document.body?.text).body!.text.trim()}\""),
               trailing: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(blueColor),
+                  backgroundColor: WidgetStateProperty.all(blueColor),
                 ),
                 child: Text("قراءة"),
                 onPressed: () async {
@@ -102,7 +104,8 @@ class _QueryViewState extends State<QueryView> {
                         'title': widget.item.surahTitle,
                         'id': widget.item.surahNum,
                         'page': int.parse(widget.item.pageNum),
-                        'description': parse(document.body?.text).body!.text.trim(),
+                        'description':
+                            parse(document.body?.text).body!.text.trim(),
                         'pdf': widget.item.pageFile,
                         'author': "د. فاطمة بنت عمر نصيف",
                       },

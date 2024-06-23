@@ -5,22 +5,19 @@ import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart' as sea;
 import 'package:welivewithquran/models/surah.dart';
 
-String baseUrl = 'https://smartmediakw.com/zbook/api.php?';
+String baseURl = 'https://smartmediakw.com/zbook';
+String apiUrl = '$baseURl/api.php?';
+String imagesUrl = '$baseURl/images/';
 
-String baseUrl2 = 'https://smartmediakw.com/zbook/';
-String api = baseUrl2 + 'api.php?';
-String search = baseUrl + "find=";
+String search = apiUrl + "find=";
 String category = "cat_id=";
 String home = "home";
 String surahs = "surah_list";
 String details = "app_details";
-String images = "images/";
-
-String imagesUrl = baseUrl2 + 'images/';
 
 class DataServices {
   static Future<List<Ebook>?> getEbooks(query) async {
-    String url = baseUrl + query;
+    String url = apiUrl + query;
     final response = await http.get(Uri.parse(url), headers: {
       'Accept': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -37,7 +34,7 @@ class DataServices {
   }
 
   static Future<List<Ebook>?> getFeaturedEbooks() async {
-    String url = baseUrl + home;
+    String url = apiUrl + home;
     final response = await http.get(Uri.parse(url), headers: {
       'Accept': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -56,7 +53,7 @@ class DataServices {
   }
 
   static Future<List<Ebook>?> getPopularEbooks() async {
-    String url = baseUrl + home;
+    String url = apiUrl + home;
     final response = await http.get(Uri.parse(url), headers: {
       'Accept': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -75,7 +72,7 @@ class DataServices {
   }
 
   static Future<List<Ebook>?> getRandomEbooks() async {
-    String url = baseUrl + home;
+    String url = apiUrl + home;
     final response = await http.get(Uri.parse(url), headers: {
       'Accept': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -94,7 +91,7 @@ class DataServices {
   }
 
   static Future<List<Ebook>?> getEbooksFromCat(String id) async {
-    String url = baseUrl + category + id;
+    String url = apiUrl + category + id;
     final response = await http.get(Uri.parse(url), headers: {
       'Accept': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -111,8 +108,10 @@ class DataServices {
   }
 
   static getAppInfo() async {
-    final response = await http.get(Uri.parse(baseUrl),
-        headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'});
+    final response = await http.get(Uri.parse(apiUrl), headers: {
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    });
     return fromJson(json.decode(response.body));
   }
 
@@ -134,8 +133,9 @@ class DataServices {
     }
   }
 
-  static Future<List<sea.SearchQuery>?> searchBooksSpecific(String query, Surah surah) async {
-    String url = baseUrl + "srch=$query" + "&surah=${surah.surah}";
+  static Future<List<sea.SearchQuery>?> searchBooksSpecific(
+      String query, Surah surah) async {
+    String url = apiUrl + "srch=$query" + "&surah=${surah.surah}";
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -153,7 +153,7 @@ class DataServices {
   }
 
   static Future<String?> getPageImage(int pageNum, String surah) async {
-    String url = baseUrl + "surah_id=$surah&pid=$pageNum";
+    String url = apiUrl + "surah_id=$surah&pid=$pageNum";
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -171,9 +171,11 @@ class DataServices {
   }
 
   static Future<List<Category>?> getCategories() async {
-    String url = baseUrl + 'cat_list';
-    final response = await http.get(Uri.parse(url),
-        headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'});
+    String url = apiUrl + 'cat_list';
+    final response = await http.get(Uri.parse(url), headers: {
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    });
     if (response.statusCode == 200) {
       ///data successfully
       return fromCatsJson(json.decode(response.body));
@@ -184,10 +186,13 @@ class DataServices {
   }
 
   static Future<List<Surah>?> getSurahs() async {
-    String url = baseUrl + surahs;
+    String url = apiUrl + surahs;
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'},
+      headers: {
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
     );
     if (response.statusCode == 200) {
       ///data successfully
@@ -199,10 +204,13 @@ class DataServices {
   }
 
   static Future<Map<String, String>?> getAppDetails() async {
-    String url = baseUrl + details;
+    String url = apiUrl + details;
     final response = await http.get(
       Uri.parse(url),
-      headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'},
+      headers: {
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
     );
     if (response.statusCode == 200) {
       ///data successfully

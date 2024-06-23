@@ -9,6 +9,7 @@ import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 import 'package:welivewithquran/custom_widgets/custom_text.dart';
 
+
 class LibraryScreen extends StatelessWidget {
   final BookController bookController = Get.put(BookController());
 
@@ -17,10 +18,8 @@ class LibraryScreen extends StatelessWidget {
     print(bookController.bookList.isEmpty);
     return Obx(
       () => bookController.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: blueColor,
-              ),
+          ? Center(
+              child: CircularProgressIndicator(color: blueColor),
             )
           : RefreshIndicator(
               onRefresh: bookController.getAll,
@@ -33,12 +32,12 @@ class LibraryScreen extends StatelessWidget {
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? blueDarkColor
                       : whiteColor,
-                  // image: (ThemeProvider.themeOf(context).id == "dark_theme")
-                  //     ? null
-                  //     : DecorationImage(
-                  //         image: AssetImage('assets/images/main_background1.png'),
-                  //         fit: BoxFit.cover,
-                  //       ),
+                  /* image: (ThemeProvider.themeOf(context).id == "dark_theme")
+                       ? null
+                     : DecorationImage(
+                          image: AssetImage('assets/images/main_background1.png'),
+                           fit: BoxFit.cover,
+                         ),*/
                 ),
                 child: Column(
                   children: [
@@ -56,7 +55,8 @@ class LibraryScreen extends StatelessWidget {
                         child: GridView.builder(
                           padding: EdgeInsets.zero,
                           itemCount: bookController.bookList.length,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, //2
                             childAspectRatio: .9, //.7
                           ),
@@ -70,26 +70,32 @@ class LibraryScreen extends StatelessWidget {
                                       'id': bookController.bookList[index].id,
                                     },
                                     {
-                                      'title': bookController.bookList[index].bookTitle,
+                                      'title': bookController
+                                          .bookList[index].bookTitle,
                                     },
                                     {
-                                      'bookCover': bookController.bookList[index].bookCoverImg,
+                                      'bookCover': bookController
+                                          .bookList[index].bookCoverImg,
                                     },
                                     {
-                                      'bookPages': bookController.bookList[index].bookPages,
+                                      'bookPages': bookController
+                                          .bookList[index].bookPages,
                                     },
                                     {
-                                      'bookDescription':
-                                          bookController.bookList[index].bookDescription,
+                                      'bookDescription': bookController
+                                          .bookList[index].bookDescription,
                                     },
                                     {
-                                      'bookFile': bookController.bookList[index].bookFileUrl,
+                                      'bookFile': bookController
+                                          .bookList[index].bookFileUrl,
                                     },
                                     {
-                                      'authorName': bookController.bookList[index].authorName,
+                                      'authorName': bookController
+                                          .bookList[index].authorName,
                                     },
                                     {
-                                      'categoryName': bookController.bookList[index].categoryName,
+                                      'categoryName': bookController
+                                          .bookList[index].categoryName,
                                     },
                                     {
                                       "book": bookController.bookList[index],
@@ -99,6 +105,10 @@ class LibraryScreen extends StatelessWidget {
                                     },
                                     {
                                       "condition": false,
+                                    },
+                                    {
+                                      'audioFile': bookController
+                                          .bookList[index].audioFile,
                                     },
                                   ],
                                 );
@@ -119,7 +129,8 @@ class LibraryScreen extends StatelessWidget {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            bookController.bookList[index].bookTitle,
+                                            bookController
+                                                .bookList[index].bookTitle,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -139,14 +150,20 @@ class LibraryScreen extends StatelessWidget {
                                           /// lib book width
                                           // width: 130.w,
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(7.0),
+                                            borderRadius:
+                                                BorderRadius.circular(7.0),
                                             child: CachedNetworkImage(
                                               imageUrl: imagesUrl +
-                                                  bookController.bookList[index].bookCoverImg,
+                                                  bookController.bookList[index]
+                                                      .bookCoverImg,
                                               fit: BoxFit.fill,
                                               progressIndicatorBuilder:
-                                                  (context, url, downloadProgress) => Padding(
-                                                padding: const EdgeInsets.all(32.0).add(
+                                                  (context, url,
+                                                          downloadProgress) =>
+                                                      Padding(
+                                                padding:
+                                                    const EdgeInsets.all(32.0)
+                                                        .add(
                                                   EdgeInsets.symmetric(
                                                     horizontal: 32,
                                                     vertical: 8,
@@ -155,14 +172,17 @@ class LibraryScreen extends StatelessWidget {
                                                 child: SizedBox(
                                                   height: 50,
                                                   width: 50,
-                                                  child: CircularProgressIndicator(
-                                                    value: downloadProgress.progress,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    value: downloadProgress
+                                                        .progress,
                                                     color: blueDarkColor,
                                                   ),
                                                 ),
                                               ),
-                                              errorWidget: (context, url, error) =>
-                                                  Icon(Icons.error),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Icon(Icons.error),
                                             ),
                                             // Image.network(
                                             //   imagesUrl +

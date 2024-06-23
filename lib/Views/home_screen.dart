@@ -3,13 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
-
+import 'package:welivewithquran/Controller/ebook_controller.dart';
+import 'package:welivewithquran/Models/category.dart';
+import 'package:welivewithquran/Views/category_view.dart';
 import 'package:welivewithquran/Views/favourite_screen.dart';
 import 'package:welivewithquran/Views/library_screen.dart';
 import 'package:welivewithquran/Views/main_screen.dart';
+import 'package:welivewithquran/Views/moshaf_screen.dart';
 import 'package:welivewithquran/Views/settings_screen.dart';
 import 'package:welivewithquran/zTools/colors.dart';
 
@@ -38,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return !device!.pushDisabled;
   }
 
+  final BookController bookController = Get.put(BookController());
   @override
   void initState() {
     super.initState();
@@ -82,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             key: _scaffoldKey,
             extendBodyBehindAppBar: true,
             backgroundColor: backgroundColor,
-            
+
             /// AppBar
             appBar: AppBar(
               elevation: 0,
@@ -131,9 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     key: drawerKey,
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 30.h,
-                        ),
+                        SizedBox(height: 30.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -204,9 +207,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 4),
                         GestureDetector(
                           onTap: () {},
                           child: Container(
@@ -243,6 +244,89 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           ),
                         ),
                         const SizedBox(height: 4),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: bookController.catList.map(
+                            (Category cat) {
+                              return InkWell(
+                                onTap: () async {
+                                  Get.to(
+                                    () => CategoryScreen(
+                                      cat: cat,
+                                      ctrl: bookController,
+                                    ),
+                                  );
+                                },
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: Container(
+                                    height: 50.h,
+                                    width: 0.5.sw,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          (ThemeProvider.themeOf(context).id ==
+                                                  "dark_theme")
+                                              ? blueLightColor
+                                              : mainColor,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: Center(
+                                        child: Text(
+                                          cat.categoryName,
+                                          style: TextStyle(
+                                            color:
+                                                (ThemeProvider.themeOf(context)
+                                                            .id ==
+                                                        "dark_theme")
+                                                    ? blueDarkColor
+                                                    : Colors.white,
+                                            fontSize: 15.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                        const SizedBox(height: 30),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(
+                              () => MoshafScreen(
+                                fileURL:
+                                    "https://smartmediakw.com/zbook/quran/",
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 50.h,
+                            width: 0.5.sw,
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              color: (ThemeProvider.themeOf(context).id ==
+                                      "dark_theme")
+                                  ? mainColor
+                                  : blueDarkColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: CustomText(
+                                text: "مصحف مجمع الملك فهد",
+                                fontSize: 16.sp,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+
                         // CustomSettingItem(
                         //   image: 'assets/icons/exit.svg',
                         //   title: 'تسجيل خروج',
@@ -265,7 +349,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
             ///BottomNavigationBar
             bottomNavigationBar: BottomNavigationBar(
-              //backgroundColor:Colors.white54, //update
               type: BottomNavigationBarType.fixed,
               currentIndex: currentIndex,
               unselectedFontSize: 15.sp,

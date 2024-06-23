@@ -206,10 +206,21 @@ class PDFApi {
 Future<String> getFilePath(fileName) async {
   String path = '';
   Directory dir =
-      (await getApplicationDocumentsDirectory()); //getApplicationDocumentsDirectory
+      (await getApplicationDocumentsDirectory()); 
   path = '${dir.path}/$fileName';
   return path;
 }
+
+  Future<String> getFilePath2(String url) async {
+    String fileName = url.substring(url.lastIndexOf('/') + 1);
+    //final dir = await getExternalStorageDirectory();
+    // final dir = Platform.isAndroid
+    //     ? await getExternalStorageDirectory() //FOR ANDROID
+    //     : await getApplicationSupportDirectory(); //FOR iOS
+    final dir = await getApplicationDocumentsDirectory();
+    File file = File('${dir.path}/$fileName');
+    return file.path;
+  }
 
 Future<String> getDir(String localPath) async {
   String path = '';

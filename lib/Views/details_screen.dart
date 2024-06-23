@@ -1,7 +1,6 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +50,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    isDownloaded = storage.read(
-          argumentData[8]['book'].bookTitle,
-        ) ??
+
+    isDownloaded = storage.read(argumentData[8]['book'].bookTitle) ??
         prefs.getBool(argumentData[8]['book'].bookTitle) ??
         false;
     fileUrl = argumentData[5]['bookFile'].toString();
@@ -78,18 +76,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           toolbarHeight: 70,
-          leading: const SizedBox(),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: SvgPicture.asset('assets/icons/back_arrow.svg'),
-              ),
-            )
-          ],
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: RotatedBox(
+                quarterTurns: 2,
+                child: SvgPicture.asset('assets/icons/back_arrow.svg')),
+          ),
           title: Text(
             'تفاصيل',
             style: TextStyle(
@@ -318,9 +312,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               //   fontSize: 16.sp,
                               //   color: mainColor,
                               // ),
-                              // const SizedBox(
-                              //   width: 5,
-                              // ),
+                              // const SizedBox( width: 5),
                               CustomText(
                                 text: argumentData[6]['authorName'].toString(),
                                 fontSize: 15.sp,
@@ -519,6 +511,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   "isHorizontal": book.bookTitle
                                                       .contains("جدول"),
                                                   "fileUrl": fileUrl,
+                                                  'audioFile': argumentData[11]
+                                                      ["audioFile"]
                                                 },
                                               ],
                                             );
@@ -654,6 +648,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       'bookFile': _book.bookFileUrl,
                                     },
                                     {
+                                      'audioFile': _book.audioFile,
+                                    },
+                                    {
                                       'authorName': _book.authorName,
                                     },
                                     {
@@ -772,16 +769,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  Future<String> getFilePath(String url) async {
-    String fileName = url.substring(url.lastIndexOf('/') + 1);
-    //final dir = await getExternalStorageDirectory();
-    // final dir = Platform.isAndroid
-    //     ? await getExternalStorageDirectory() //FOR ANDROID
-    //     : await getApplicationSupportDirectory(); //FOR iOS
-    final dir = await getApplicationDocumentsDirectory();
-    File file = File('${dir.path}/$fileName');
-    return file.path;
-  }
+
 
   Future<void> downloadFile(String url) async {
     if (url.contains("localhost")) {
@@ -836,4 +824,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
     print('Download completed');
   }
+
+
+  
 }
