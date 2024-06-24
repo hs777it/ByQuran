@@ -8,7 +8,7 @@ import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/Models/category.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -24,11 +24,11 @@ class CategoryScreen extends StatelessWidget {
         title: Text(cat.categoryName),
         foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? null
-            : blueDarkColor,
+            : kBlueDarkColor,
         elevation: 0,
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? blueDarkColor
-            : blueLightColor,
+            ? kBlueDarkColor
+            : kBlueLightColor,
       ),
       body: Container(
         padding: EdgeInsets.zero,
@@ -36,8 +36,8 @@ class CategoryScreen extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           color: (ThemeProvider.themeOf(context).id == "dark_theme")
-              ? blueDarkColor
-              : whiteColor,
+              ? kBlueDarkColor
+              : kWhiteColor,
           /*
           image: (ThemeProvider.themeOf(context).id == "dark_theme")
               ? null
@@ -144,7 +144,7 @@ class CategoryScreen extends StatelessWidget {
                                           Container(
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: mainColor,
+                                              color: kMainColor,
                                               borderRadius:
                                                   BorderRadius.circular(7),
                                             ),
@@ -197,7 +197,7 @@ class CategoryScreen extends StatelessWidget {
                                                           CircularProgressIndicator(
                                                         value: downloadProgress
                                                             .progress,
-                                                        color: blueDarkColor,
+                                                        color: kBlueDarkColor,
                                                       ),
                                                     ),
                                                   ),
@@ -224,7 +224,7 @@ class CategoryScreen extends StatelessWidget {
                       : Container(
                           color: (ThemeProvider.themeOf(context).id ==
                                   "dark_theme")
-                              ? blueDarkColor
+                              ? kBlueDarkColor
                               : null,
                           child: Center(
                             child: CustomText(
@@ -233,15 +233,15 @@ class CategoryScreen extends StatelessWidget {
                               fontSize: 26.sp,
                               color: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme")
-                                  ? blueLightColor
-                                  : mainColor,
+                                  ? kBlueLightColor
+                                  : kMainColor,
                             ),
                           ),
                         );
                 }
                 return Center(
                   child: CircularProgressIndicator(
-                    color: blueColor,
+                    color: kBlueColor,
                   ),
                 );
               },

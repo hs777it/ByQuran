@@ -3,11 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../services/services.dart';
 import 'moshaf_screen.dart';
+import 'widget/app_version.dart';
 
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({Key? key}) : super(key: key);
@@ -17,20 +18,24 @@ class ContactUsScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme") ? null : blueDarkColor,
+        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+            ? null
+            : kBlueDarkColor,
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      backgroundColor:
-          (ThemeProvider.themeOf(context).id == "dark_theme") ? mainColor : backgroundColor,
+      backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
+          ? kMainColor
+          : kBackgroundColor,
       body: Column(
         children: [
           Container(
             height: 220.h,
             width: double.infinity,
             decoration: BoxDecoration(
-              color:
-                  (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : blueColor,
+              color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                  ? kBlueDarkColor
+                  : kBlueColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
@@ -50,7 +55,7 @@ class ContactUsScreen extends StatelessWidget {
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
                                 ? null
-                                : mainColor,
+                                : kMainColor,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -59,7 +64,7 @@ class ContactUsScreen extends StatelessWidget {
                       fontSize: 24.sp,
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
                           ? Colors.white
-                          : mainColor,
+                          : kMainColor,
                     ),
                   ],
                 ),
@@ -72,7 +77,8 @@ class ContactUsScreen extends StatelessWidget {
           FutureBuilder<Map<String, String>?>(
             future: DataServices.getAppDetails(),
             builder: (context, snapshot) {
-              if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData &&
+                  snapshot.connectionState == ConnectionState.done) {
                 Map<String, String> data = snapshot.data!;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -81,17 +87,18 @@ class ContactUsScreen extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueDarkColor
-                          : whiteColor,
+                          ? kBlueDarkColor
+                          : kWhiteColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
                       children: [
                         CustomText(
                           text: "وسائل الاتصال",
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? whiteColor
-                              : blueColor,
+                          color: (ThemeProvider.themeOf(context).id ==
+                                  "dark_theme")
+                              ? kWhiteColor
+                              : kBlueColor,
                           fontSize: 16.sp,
                         ),
                         Row(
@@ -103,8 +110,8 @@ class ContactUsScreen extends StatelessWidget {
                               Icons.email,
                               color: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme")
-                                  ? whiteColor
-                                  : blueColor,
+                                  ? kWhiteColor
+                                  : kBlueColor,
                             ),
                             SizedBox(
                               width: 10,
@@ -123,8 +130,8 @@ class ContactUsScreen extends StatelessWidget {
                                     "البريد الالكتروني :\n ${data["app_email"]!}",
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? whiteColor
-                                    : blueColor,
+                                    ? kWhiteColor
+                                    : kBlueColor,
                                 fontSize: 14.sp,
                               ),
                             ),
@@ -139,9 +146,10 @@ class ContactUsScreen extends StatelessWidget {
                               ),
                               Icon(
                                 Icons.phone_android_outlined,
-                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                    ? whiteColor
-                                    : blueColor,
+                                color: (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
+                                    ? kWhiteColor
+                                    : kBlueColor,
                               ),
                               SizedBox(
                                 width: 10,
@@ -150,8 +158,8 @@ class ContactUsScreen extends StatelessWidget {
                                 text: "الهاتف: ",
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? whiteColor
-                                    : blueColor,
+                                    ? kWhiteColor
+                                    : kBlueColor,
                                 fontSize: 15.sp,
                               ),
                               SizedBox(
@@ -171,8 +179,8 @@ class ContactUsScreen extends StatelessWidget {
                                   text: data["app_contact"]!,
                                   color: (ThemeProvider.themeOf(context).id ==
                                           "dark_theme")
-                                      ? whiteColor
-                                      : blueColor,
+                                      ? kWhiteColor
+                                      : kBlueColor,
                                   fontSize: 15.sp,
                                 ),
                               ),
@@ -188,8 +196,8 @@ class ContactUsScreen extends StatelessWidget {
                               Icons.language_outlined,
                               color: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme")
-                                  ? whiteColor
-                                  : blueColor,
+                                  ? kWhiteColor
+                                  : kBlueColor,
                             ),
                             SizedBox(
                               width: 10,
@@ -206,34 +214,29 @@ class ContactUsScreen extends StatelessWidget {
                                 text: "موقع الويب :\n${data["app_website"]!}",
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? whiteColor
-                                    : blueColor,
+                                    ? kWhiteColor
+                                    : kBlueColor,
                                 fontSize: 14.sp,
                               ),
                             ),
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 40),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 30.0, horizontal: 40),
                           child: Divider(
                             thickness: 3,
-                            color: backgroundColor,
+                            color: kBackgroundColor,
                           ),
                         ),
-                        CustomText(
-                          text: "V${data["app_version"]!}",
-                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                              ? whiteColor
-                              : blueLightColor,
-                          fontSize: 16.sp,
-                        ),
+                        AppVersion(),
                       ],
                     ),
                   ),
                 );
               }
               return Center(
-                child: CircularProgressIndicator(color: blueColor),
+                child: CircularProgressIndicator(color: kBlueColor),
               );
             },
           ),

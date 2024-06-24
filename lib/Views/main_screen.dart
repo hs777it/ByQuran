@@ -8,14 +8,16 @@ import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Views/category_view.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/Models/category.dart';
-import 'package:welivewithquran/Views/moshaf_screen.dart';
 import 'package:welivewithquran/Views/query_view.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart';
 import 'package:welivewithquran/models/surah.dart';
 import 'package:welivewithquran/services/services.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
+
+import 'widget/custom_divider.dart';
+import 'widget/fahd_moshaf.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -51,18 +53,18 @@ class _MainScreenState extends State<MainScreen> {
     return Obx(
       () => bookController.isLoading.value
           ? Center(
-              child: CircularProgressIndicator(color: blueColor),
+              child: CircularProgressIndicator(color: kBlueColor),
             )
           : RefreshIndicator(
               onRefresh: bookController.getCats,
-              color: blueColor,
+              color: kBlueColor,
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueDarkColor
-                      : whiteColor,
+                      ? kBlueDarkColor
+                      : kWhiteColor,
                   // image:  DecorationImage(
                   //   image:  AssetImage('assets/images/main_background.png'),
                   //   fit: BoxFit.cover,
@@ -95,8 +97,8 @@ class _MainScreenState extends State<MainScreen> {
                               style: TextStyle(
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? blueColor
-                                    : mainColor,
+                                    ? kBlueColor
+                                    : kMainColor,
                               ),
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -105,8 +107,8 @@ class _MainScreenState extends State<MainScreen> {
                                   fontSize: 16.sp,
                                   color: (ThemeProvider.themeOf(context).id ==
                                           "dark_theme")
-                                      ? blueColor
-                                      : mainColor,
+                                      ? kBlueColor
+                                      : kMainColor,
                                 ),
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -114,7 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                                   },
                                   child: const Icon(
                                     Icons.search,
-                                    color: mainColor,
+                                    color: kMainColor,
                                   ),
                                 ),
                               ),
@@ -159,8 +161,8 @@ class _MainScreenState extends State<MainScreen> {
                 text: 'بحث فى الكل',
                 fontSize: 18.sp,
                 color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                    ? blueColor
-                    : mainColor,
+                    ? kBlueColor
+                    : kMainColor,
               )
             ],
           ),
@@ -187,8 +189,8 @@ class _MainScreenState extends State<MainScreen> {
                 text: 'بحث فى سورة',
                 fontSize: 18.sp,
                 color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                    ? blueColor
-                    : mainColor,
+                    ? kBlueColor
+                    : kMainColor,
               ),
               SizedBox(
                 width: 20.w,
@@ -250,7 +252,7 @@ class _MainScreenState extends State<MainScreen> {
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: CircularProgressIndicator(
-                      color: blueColor,
+                      color: kBlueColor,
                     ),
                   );
                 },
@@ -281,7 +283,7 @@ class _MainScreenState extends State<MainScreen> {
               height: 40.h,
               width: 190.w,
               decoration: BoxDecoration(
-                color: blueColor,
+                color: kBlueColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -300,7 +302,7 @@ class _MainScreenState extends State<MainScreen> {
         (isLoading != null && isLoading!)
             ? Center(
                 child: CircularProgressIndicator(
-                  color: blueColor,
+                  color: kBlueColor,
                 ),
               )
             : (data.isEmpty && isLoading == false)
@@ -353,7 +355,7 @@ class _MainScreenState extends State<MainScreen> {
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
-                  child: CircularProgressIndicator(color: blueColor),
+                  child: CircularProgressIndicator(color: kBlueColor),
                 ),
               )
             : Container(
@@ -442,8 +444,8 @@ class _MainScreenState extends State<MainScreen> {
                                         width: double.infinity,
                                         child: LinearProgressIndicator(
                                             value: downloadProgress.progress,
-                                            color:
-                                                blueDarkColor.withOpacity(0.3)),
+                                            color: kBlueDarkColor
+                                                .withOpacity(0.3)),
                                       ),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),
@@ -477,8 +479,8 @@ class _MainScreenState extends State<MainScreen> {
                               child: CircleAvatar(
                                 radius: 8.h,
                                 backgroundColor: currentPage == index
-                                    ? blueColor
-                                    : blueLightColor,
+                                    ? kBlueColor
+                                    : kBlueLightColor,
                               ),
                             );
                           },
@@ -538,10 +540,6 @@ class _MainScreenState extends State<MainScreen> {
                                 bookController.latestBook[index].bookFileUrl,
                           },
                           {
-                            'audioFile':
-                                bookController.latestBook[index].audioFile,
-                          },
-                          {
                             'authorName':
                                 bookController.latestBook[index].authorName,
                           },
@@ -557,6 +555,10 @@ class _MainScreenState extends State<MainScreen> {
                           },
                           {
                             "condition": false,
+                          },
+                          {
+                            'audioFile':
+                                bookController.latestBook[index].audioFile,
                           },
                         ],
                       );
@@ -585,7 +587,7 @@ class _MainScreenState extends State<MainScreen> {
                                   width: 50,
                                   child: CircularProgressIndicator(
                                     value: downloadProgress.progress,
-                                    color: blueDarkColor,
+                                    color: kBlueDarkColor,
                                   ),
                                 ),
                               ),
@@ -649,7 +651,7 @@ class _MainScreenState extends State<MainScreen> {
             () => bookController.isLoading.value
                 ? const Center(
                     child: CircularProgressIndicator(
-                      color: blueColor,
+                      color: kBlueColor,
                     ),
                   )
                 : Row(
@@ -672,8 +674,8 @@ class _MainScreenState extends State<MainScreen> {
                               decoration: BoxDecoration(
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? blueLightColor
-                                    : mainColor,
+                                    ? kBlueLightColor
+                                    : kMainColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
@@ -686,7 +688,7 @@ class _MainScreenState extends State<MainScreen> {
                                       color:
                                           (ThemeProvider.themeOf(context).id ==
                                                   "dark_theme")
-                                              ? blueDarkColor
+                                              ? kBlueDarkColor
                                               : Colors.white,
                                       fontSize: 15.sp,
                                     ),
@@ -702,51 +704,11 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
         // --------------------------------------------------------------------
-        SizedBox(
-          height: 15,
-        ),
-        Divider(
-          indent: 16,
-          endIndent: 16,
-          thickness: 1.25,
-          color: blueColor,
-          height: 16,
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Center(
-          child: GestureDetector(
-            onTap: () {
-              Get.to(
-                () => MoshafScreen(
-                  fileURL: "https://smartmediakw.com/zbook/quran/",
-                ),
-              );
-            },
-            child: Container(
-              height: 50.h,
-              width: 0.5.sw,
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              decoration: BoxDecoration(
-                color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                    ? mainColor
-                    : blueDarkColor,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: CustomText(
-                  text: "مصحف مجمع الملك فهد",
-                  fontSize: 16.sp,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 15),
+        CustomDivider(),
+        SizedBox(height: 15),
+        Center(child: FahdMoshaf()),
+        SizedBox(height: 20),
       ],
     );
   }
@@ -757,117 +719,5 @@ class _MainScreenState extends State<MainScreen> {
     } else {
       return mainWidget();
     }
-  }
-}
-
-class BannerPlaceholder extends StatelessWidget {
-  const BannerPlaceholder({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 200.0,
-      margin: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
-        color: Colors.white,
-      ),
-    );
-  }
-}
-
-class TitlePlaceholder extends StatelessWidget {
-  final double width;
-
-  const TitlePlaceholder({
-    Key? key,
-    required this.width,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: width,
-            height: 12.0,
-            color: Colors.white,
-          ),
-          const SizedBox(height: 8.0),
-          Container(
-            width: width,
-            height: 12.0,
-            color: Colors.white,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-enum ContentLineType {
-  twoLines,
-  threeLines,
-}
-
-class ContentPlaceholder extends StatelessWidget {
-  final ContentLineType lineType;
-
-  const ContentPlaceholder({
-    Key? key,
-    required this.lineType,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 96.0,
-            height: 72.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(width: 12.0),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  height: 10.0,
-                  color: Colors.white,
-                  margin: const EdgeInsets.only(bottom: 8.0),
-                ),
-                if (lineType == ContentLineType.threeLines)
-                  Container(
-                    width: double.infinity,
-                    height: 10.0,
-                    color: Colors.white,
-                    margin: const EdgeInsets.only(bottom: 8.0),
-                  ),
-                Container(
-                  width: 100.0,
-                  height: 10.0,
-                  color: Colors.white,
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
   }
 }

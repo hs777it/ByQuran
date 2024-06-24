@@ -6,8 +6,6 @@ fromSurahsJson(Map<String, dynamic> json) =>
 String toSurahsJson(List<Surah> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-
-
 class Surah {
   Surah({
     required this.id,

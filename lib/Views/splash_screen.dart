@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
-            color: blueDarkColor,
+            color: kBlueDarkColor,
             image: DecorationImage(
               image: AssetImage('assets/images/splash_image.png'),
               fit: BoxFit.fill,

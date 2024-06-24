@@ -11,8 +11,10 @@ import 'package:welivewithquran/Views/contact_us_screen.dart';
 import 'package:welivewithquran/Views/downloads_view.dart';
 import 'package:welivewithquran/Views/library_screen.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_setting_item.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_setting_item.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
+
+import 'widget/app_share.dart';
 
 // import '../Controller/auth_controller.dart';
 
@@ -23,7 +25,8 @@ class SettingsScreen extends StatelessWidget {
   final accountData = GetStorage();
   final String email = '';
 
-  final SettingController settingController = GetInstance().put<SettingController>(
+  final SettingController settingController =
+      GetInstance().put<SettingController>(
     SettingController(),
   );
   final BookController bookController = GetInstance().put<BookController>(
@@ -44,8 +47,9 @@ class SettingsScreen extends StatelessWidget {
               height: 220.h,
               width: double.infinity,
               decoration: BoxDecoration(
-                color:
-                    (ThemeProvider.themeOf(context).id == "dark_theme") ? blueDarkColor : blueColor,
+                color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                    ? kBlueDarkColor
+                    : kBlueColor,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
                   bottomRight: Radius.circular(50),
@@ -58,7 +62,7 @@ class SettingsScreen extends StatelessWidget {
                   child: CustomText(
                     text: "الإعدادات",
                     fontSize: 30,
-                    color: whiteColor,
+                    color: kWhiteColor,
                   ),
                   // child: Row(
                   //   mainAxisAlignment: MainAxisAlignment.center,
@@ -110,8 +114,6 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 50.h),
-
-            /// Menu
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30.0),
               child: Column(
@@ -124,13 +126,17 @@ class SettingsScreen extends StatelessWidget {
                           extendBodyBehindAppBar: true,
                           body: LibraryScreen(),
                           appBar: AppBar(
-                            foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                ? null
-                                : blueDarkColor,
+                            foregroundColor:
+                                (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
+                                    ? null
+                                    : kBlueDarkColor,
                             elevation: 0,
-                            backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-                                ? blueDarkColor
-                                : Colors.transparent,
+                            backgroundColor:
+                                (ThemeProvider.themeOf(context).id ==
+                                        "dark_theme")
+                                    ? kBlueDarkColor
+                                    : Colors.transparent,
                           ),
                         ),
                         preventDuplicates: true,
@@ -138,9 +144,7 @@ class SettingsScreen extends StatelessWidget {
                     },
                     image: 'assets/icons/library_icon.svg',
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  const SizedBox(height: 7),
                   CustomSettingItem(
                     title: 'التحميلات',
                     onPress: () {
@@ -153,9 +157,7 @@ class SettingsScreen extends StatelessWidget {
                     },
                     image: 'assets/icons/down_arrow.svg',
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  const SizedBox(height: 7),
                   CustomSettingItem(
                     title: 'اتصل بنا',
                     onPress: () {
@@ -163,9 +165,8 @@ class SettingsScreen extends StatelessWidget {
                     },
                     image: 'assets/icons/mobile.svg',
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  const SizedBox(height: 7),
+                  AppShare(),
                   // user != null && !user.isAnonymous
                   //     ? CustomSettingItem(
                   //         image: 'assets/icons/exit.svg',
@@ -200,11 +201,11 @@ logoutDialog(BuildContext context) {
       return Dialog(
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: blueColor),
+          borderSide: const BorderSide(color: kBlueColor),
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: blueColor,
+            color: kBlueColor,
             borderRadius: BorderRadius.circular(15),
           ),
           height: 140,
@@ -230,12 +231,12 @@ logoutDialog(BuildContext context) {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: backgroundColor,
+                        color: kBackgroundColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: CustomText(
                         text: 'نعم',
-                        color: blueColor,
+                        color: kBlueColor,
                         fontSize: 14.sp,
                       ),
                     ),
@@ -253,12 +254,12 @@ logoutDialog(BuildContext context) {
                         vertical: 2,
                       ),
                       decoration: BoxDecoration(
-                        color: backgroundColor,
+                        color: kBackgroundColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: CustomText(
                         text: 'لا',
-                        color: blueColor,
+                        color: kBlueColor,
                         fontSize: 14.sp,
                       ),
                     ),

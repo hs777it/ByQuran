@@ -1,5 +1,4 @@
 // ignore_for_file: invalid_use_of_protected_member
-
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
@@ -18,7 +17,7 @@ import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/read_book_online.dart';
 import 'package:welivewithquran/Views/read_book_screen.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 import 'package:welivewithquran/helpers.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 import '../models/ebook_org.dart';
@@ -76,21 +75,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           toolbarHeight: 70,
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: RotatedBox(
-                quarterTurns: 2,
-                child: SvgPicture.asset('assets/icons/back_arrow.svg')),
-          ),
+          // leading: GestureDetector(
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //   },
+          //   child: RotatedBox(
+          //       quarterTurns: 2,
+          //       child: SvgPicture.asset('assets/icons/back_arrow.svg')),
+          // ),
           title: Text(
             'تفاصيل',
             style: TextStyle(
               fontSize: 24.sp,
               color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                  ? whiteColor
-                  : mainColor,
+                  ? kWhiteColor
+                  : kMainColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -101,8 +100,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
           height: double.infinity,
           decoration: BoxDecoration(
             color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                ? blueDarkColor
-                : whiteColor,
+                ? kBlueDarkColor
+                : kWhiteColor,
             // image: (ThemeProvider.themeOf(context).id == "dark_theme")
             //     ? null
             //     : DecorationImage(
@@ -160,8 +159,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     fontSize: 17.sp,
                                     color: (ThemeProvider.themeOf(context).id ==
                                             "dark_theme")
-                                        ? whiteColor
-                                        : mainColor,
+                                        ? kWhiteColor
+                                        : kMainColor,
                                     alignment: TextAlign.center,
                                   ),
                                 ),
@@ -254,8 +253,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             )
                                         ? (ThemeProvider.themeOf(context).id ==
                                                 "dark_theme")
-                                            ? blueLightColor
-                                            : blueDarkColor
+                                            ? kBlueLightColor
+                                            : kBlueDarkColor
                                         : Colors.grey,
                                   ),
                                 ),
@@ -318,8 +317,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 fontSize: 15.sp,
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? whiteColor
-                                    : mainColor,
+                                    ? kWhiteColor
+                                    : kMainColor,
                               ),
                             ],
                           ),
@@ -351,7 +350,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     width: 30,
                                     child: CircularProgressIndicator(
                                       value: downloadProgress.progress,
-                                      color: blueDarkColor,
+                                      color: kBlueDarkColor,
                                     ),
                                   ),
                                 ),
@@ -397,8 +396,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 (ThemeProvider.themeOf(context)
                                                             .id ==
                                                         "dark_theme")
-                                                    ? whiteColor
-                                                    : mainColor,
+                                                    ? kWhiteColor
+                                                    : kMainColor,
                                           ),
                                         ],
                                       ),
@@ -426,7 +425,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 ? EdgeInsets.zero
                                                 : EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: mainColor,
+                                              color: kMainColor,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -521,7 +520,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             height: 50.h,
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: mainColor,
+                                              color: kMainColor,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -549,7 +548,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       height: 50.h,
                                       padding: const EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
-                                        color: mainColor,
+                                        color: kMainColor,
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Align(
@@ -581,7 +580,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     indent: 1.0,
                     endIndent: 1.0,
                     thickness: 2,
-                    color: blueLightColor,
+                    color: kBlueLightColor,
                     height: 8,
                   ),
                 ),
@@ -598,15 +597,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         fontSize: 18.sp,
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
-                                ? whiteColor
-                                : mainColor,
+                                ? kWhiteColor
+                                : kMainColor,
                       ),
                       Icon(
                         Icons.more_horiz_outlined,
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
-                                ? whiteColor
-                                : mainColor,
+                                ? kWhiteColor
+                                : kMainColor,
                       )
                     ],
                   ),
@@ -648,9 +647,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       'bookFile': _book.bookFileUrl,
                                     },
                                     {
-                                      'audioFile': _book.audioFile,
-                                    },
-                                    {
                                       'authorName': _book.authorName,
                                     },
                                     {
@@ -668,6 +664,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     {
                                       'isHorizontal':
                                           _book.bookTitle.contains("جدول"),
+                                    },
+                                    {
+                                      'audioFile': _book.audioFile,
                                     },
                                   ],
                                 );
@@ -691,7 +690,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             width: 50,
                                             child: CircularProgressIndicator(
                                               value: downloadProgress.progress,
-                                              color: blueDarkColor,
+                                              color: kBlueDarkColor,
                                             ),
                                           ),
                                         ),
@@ -706,7 +705,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     Text(
                                       _book.authorName,
                                       style: TextStyle(
-                                        color: blueColor,
+                                        color: kBlueColor,
                                         fontSize: 12.sp,
                                       ),
                                     ),
@@ -730,8 +729,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         color: (ThemeProvider.themeOf(context)
                                                     .id ==
                                                 "dark_theme")
-                                            ? whiteColor
-                                            : mainColor,
+                                            ? kWhiteColor
+                                            : kMainColor,
                                         fontSize: 16.sp,
                                       ),
                                       textAlign: TextAlign.center,
@@ -746,7 +745,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     : Container(
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
-                                ? blueDarkColor
+                                ? kBlueDarkColor
                                 : null,
                         child: Center(
                           child: CustomText(
@@ -755,8 +754,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             fontSize: 16.sp,
                             color: (ThemeProvider.themeOf(context).id ==
                                     "dark_theme")
-                                ? blueLightColor
-                                : mainColor,
+                                ? kBlueLightColor
+                                : kMainColor,
                           ),
                         ),
                       ),

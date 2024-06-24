@@ -10,7 +10,7 @@ import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 
 class DownloadsScreen extends StatefulWidget {
   final BookController ctrl;
@@ -42,10 +42,10 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
       appBar: AppBar(
         foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? null
-            : blueDarkColor,
+            : kBlueDarkColor,
         elevation: 0,
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? blueDarkColor
+            ? kBlueDarkColor
             : Colors.transparent,
       ),
       body: Container(
@@ -55,8 +55,8 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
         //height: double.infinity,
         decoration: BoxDecoration(
           color: (ThemeProvider.themeOf(context).id == "dark_theme")
-              ? blueDarkColor
-              : whiteColor,
+              ? kBlueDarkColor
+              : kWhiteColor,
           // image: (ThemeProvider.themeOf(context).id == "dark_theme")
           //     ? null
           //     : DecorationImage(
@@ -71,13 +71,13 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
               text: "التحميلات",
               fontSize: 38.sp,
               color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                  ? blueLightColor
-                  : mainColor,
+                  ? kBlueLightColor
+                  : kMainColor,
             ),
             bookSet.isEmpty
                 ? Container(
                     color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                        ? blueDarkColor
+                        ? kBlueDarkColor
                         : null,
                     child: Center(
                       child: CustomText(
@@ -85,8 +85,8 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                         fontSize: 26.sp,
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
-                                ? blueLightColor
-                                : mainColor,
+                                ? kBlueLightColor
+                                : kMainColor,
                       ),
                     ),
                   )
@@ -129,7 +129,6 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                     'bookFile':
                                         bookSet.toList()[index].bookFileUrl,
                                   },
-                                 
                                   {
                                     'authorName':
                                         bookSet.toList()[index].authorName,
@@ -147,7 +146,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                   {
                                     "condition": false,
                                   },
-                                   {
+                                  {
                                     'audioFile':
                                         bookSet.toList()[index].audioFile
                                   },
@@ -163,7 +162,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: mainColor,
+                                        color: kMainColor,
                                         borderRadius: BorderRadius.circular(7),
                                       ),
                                       child: Center(
@@ -211,7 +210,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                                     CircularProgressIndicator(
                                                   value:
                                                       downloadProgress.progress,
-                                                  color: blueDarkColor,
+                                                  color: kBlueDarkColor,
                                                 ),
                                               ),
                                             ),

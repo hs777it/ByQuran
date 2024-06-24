@@ -20,7 +20,7 @@ class _MoshafScreenState extends State<MoshafScreen> {
       data: Theme.of(context),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: blueDarkColor,
+          backgroundColor: kMainColor,
           actions: [
             TextButton(
               onPressed: () async {
@@ -35,7 +35,7 @@ class _MoshafScreenState extends State<MoshafScreen> {
               },
               child: Text(
                 "فتح في المتصفح",
-                style: TextStyle(color: whiteColor),
+                style: TextStyle(color: kWhiteColor),
               ),
             ),
           ],

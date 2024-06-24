@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Models/category.dart';
@@ -13,13 +11,14 @@ import 'package:welivewithquran/Views/category_view.dart';
 import 'package:welivewithquran/Views/favourite_screen.dart';
 import 'package:welivewithquran/Views/library_screen.dart';
 import 'package:welivewithquran/Views/main_screen.dart';
-import 'package:welivewithquran/Views/moshaf_screen.dart';
 import 'package:welivewithquran/Views/settings_screen.dart';
 import 'package:welivewithquran/constant.dart';
-
-import '../custom_widgets/custom_setting_item.dart';
-import '../custom_widgets/custom_text.dart';
-// import '../zTools/helpers.dart';
+import 'widget/app_share.dart';
+import 'widget/bottom_navigation.dart';
+import 'widget/custom_divider.dart';
+import 'widget/custom_text.dart';
+import 'widget/fahd_moshaf.dart';
+import 'widget/notify_button.dart';
 
 class HomeScreen extends StatefulWidget {
   final int? index;
@@ -32,10 +31,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late int currentIndex;
   PageController _pageController = PageController();
+
   GlobalKey<DrawerControllerState> drawerKey =
       GlobalKey<DrawerControllerState>();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  var appLink = 'https://livebyquran.net/share/';
 
   Future<bool> setPushState() async {
     var device = await OneSignal.shared.getDeviceState();
@@ -66,14 +66,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     SettingsScreen(),
   ];
 
-  checkCurrentIndex(int index) {
-    setState(() {
-      currentIndex = index;
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.ease);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -86,19 +78,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           child: Scaffold(
             key: _scaffoldKey,
             extendBodyBehindAppBar: true,
-            backgroundColor: backgroundColor,
+            backgroundColor: kBackgroundColor,
 
-            /// AppBar
             appBar: AppBar(
               elevation: 0,
               foregroundColor:
                   (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? null
-                      : blueDarkColor,
+                      : kBlueDarkColor,
               backgroundColor: currentIndex == 0
                   ? (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueDarkColor
-                      : blueBackgroundColor
+                      ? kBlueDarkColor
+                      : kBlueBackgroundColor
                   : Colors.transparent,
               toolbarHeight: 85.h,
               title: Text(
@@ -107,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 style: TextStyle(
                   fontSize: 15.sp,
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueBackgroundColor
-                      : mainColor,
+                      ? kBlueBackgroundColor
+                      : kMainColor,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -124,8 +115,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 )
               ],
             ),
-
-            /// Drawer
             drawer: FutureBuilder<bool>(
               future: setPushState(),
               builder: (context, snapshot) {
@@ -146,8 +135,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                 fontSize: 24.sp,
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? blueLightColor
-                                    : mainColor,
+                                    ? kBlueLightColor
+                                    : kMainColor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -161,89 +150,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             )
                           ],
                         ),
-                        CustomSettingItem(
-                          title: 'مشاركة التطبيق',
-                          // onPress: () {
-                          //   zTools.share(
-                          //     'لنحيا بالقرآن',
-                          //     'لنحيا بالقرآن\n د. فاطمة بنت عمر نصيف',
-                          //     appLink,
-                          //     'مشاركة: لنحيا بالقرآن',
-                          //   );
-                          // },
-                          onPress: () async {
-                            await Share.share(
-                                "لنحيا بالقرآن\n د. فاطمة بنت عمر نصيف\n ${appLink}",
-                                subject: 'لنحيا بالقرآن');
-                          },
-                          image: 'assets/icons/share.svg',
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 55.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Switch(
-                                  activeColor: blueColor,
-                                  value: isListening,
-                                  onChanged: (value) async {
-                                    await OneSignal.shared.disablePush(!value);
-                                    setState(() {});
-                                  },
-                                ),
-                                CustomText(
-                                  text: 'تفعيل الإشعارات',
-                                  color: blueColor,
-                                  fontSize: 17.sp,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 55.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Switch(
-                                  activeColor: blueColor,
-                                  value: (ThemeProvider.themeOf(context).id ==
-                                      "dark_theme"),
-                                  onChanged: (bool val) {
-                                    val
-                                        ? ThemeProvider.controllerOf(context)
-                                            .setTheme("dark_theme")
-                                        : ThemeProvider.controllerOf(context)
-                                            .setTheme("light_theme");
-                                    // settingController.changeMode();
-                                  },
-                                ),
-                                CustomText(
-                                  text: 'الوضع الليلي',
-                                  color: blueColor,
-                                  fontSize: 17.sp,
-                                ),
-                                // Obx(() => CupertinoSwitch(
-                                //     onChanged: (bool _) => settingController.changeMode(),
-                                //     value: settingController.isDark.value,
-                                //   ),),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 30),
+                        // Text(
+                        //   'الاقسام',
+                        //   style: TextStyle(
+                        //     fontSize: 24.sp,
+                        //     color: (ThemeProvider.themeOf(context).id ==
+                        //             "dark_theme")
+                        //         ? kBlueLightColor
+                        //         : kMainColor,
+                        //     fontWeight: FontWeight.w700,
+                        //   ),
+                        // ),
                         Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -268,8 +186,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                       color:
                                           (ThemeProvider.themeOf(context).id ==
                                                   "dark_theme")
-                                              ? blueLightColor
-                                              : mainColor,
+                                              ? kBlueLightColor
+                                              : kMainColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Padding(
@@ -283,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                                 (ThemeProvider.themeOf(context)
                                                             .id ==
                                                         "dark_theme")
-                                                    ? blueDarkColor
+                                                    ? kBlueDarkColor
                                                     : Colors.white,
                                             fontSize: 15.sp,
                                           ),
@@ -296,36 +214,80 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             },
                           ).toList(),
                         ),
-                        const SizedBox(height: 30),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(
-                              () => MoshafScreen(
-                                fileURL:
-                                    "https://smartmediakw.com/zbook/quran/",
-                              ),
-                            );
-                          },
+                        CustomDivider(),
+                        const SizedBox(height: 10),
+                        FahdMoshaf(),
+                        const SizedBox(height: 10),
+                        CustomDivider(),
+
+                        AppShare(),
+                        const SizedBox(height: 4),
+                        /* GestureDetector(
+                          onTap: () {},
                           child: Container(
-                            height: 50.h,
-                            width: 0.5.sw,
-                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            height: 55.h,
                             decoration: BoxDecoration(
-                              color: (ThemeProvider.themeOf(context).id ==
-                                      "dark_theme")
-                                  ? mainColor
-                                  : blueDarkColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Center(
-                              child: CustomText(
-                                text: "مصحف مجمع الملك فهد",
-                                fontSize: 16.sp,
-                                color: Colors.white,
-                              ),
+                            child: Row(
+                              children: [
+                                Switch(
+                                  activeColor: kBlueColor,
+                                  value: isListening,
+                                  onChanged: (value) async {
+                                    await OneSignal.shared.disablePush(!value);
+                                    setState(() {});
+                                  },
+                                ),
+                                CustomText(
+                                  text: 'تفعيل الإشعارات',
+                                  color: kBlueColor,
+                                  fontSize: 17.sp,
+                                )
+                              ],
+                            ),
+                          ),
+                        ), */
+                        NotifyButton(
+                          active: isListening,
+                          onChanged: (value) async {
+                            await OneSignal.shared.disablePush(!value);
+                            setState(() {});
+                          },
+                        ),
+                        const SizedBox(height: 4),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            height: 55.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                Switch(
+                                  activeColor: kBlueColor,
+                                  value: (ThemeProvider.themeOf(context).id ==
+                                      "dark_theme"),
+                                  onChanged: (bool val) {
+                                    val
+                                        ? ThemeProvider.controllerOf(context)
+                                            .setTheme("dark_theme")
+                                        : ThemeProvider.controllerOf(context)
+                                            .setTheme("light_theme");
+                                    // settingController.changeMode();
+                                  },
+                                ),
+                                CustomText(
+                                  text: 'الوضع الليلي',
+                                  color: kBlueColor,
+                                  fontSize: 17.sp,
+                                ),
+                              ],
                             ),
                           ),
                         ),
+                        const SizedBox(height: 10),
 
                         // CustomSettingItem(
                         //   image: 'assets/icons/exit.svg',
@@ -341,63 +303,23 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 }
                 return Center(
                   child: CircularProgressIndicator(
-                    color: blueColor,
+                    color: kBlueColor,
                   ),
                 );
               },
             ),
-
-            ///BottomNavigationBar
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: currentIndex,
-              unselectedFontSize: 15.sp,
-              selectedFontSize: 17.sp,
-              selectedItemColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueColor
-                      : blueDarkColor,
-              unselectedItemColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? Colors.white
-                      : Colors.grey,
-              onTap: (index) {
-                checkCurrentIndex(index);
-              },
-              // selectedItemColor: mainColor,
-
-              /// ----------- Bottom Bar Items ------------------------
-              items: [
-                BottomNavigationBarItem(
-                  label: 'الرئيسية',
-                  icon: SvgPicture.asset('assets/icons/main_icon.svg',
-                      height: 23),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-                BottomNavigationBarItem(
-                  label: 'المكتبة',
-                  icon: SvgPicture.asset('assets/icons/library_icon.svg',
-                      height: 23),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-                const BottomNavigationBarItem(
-                  label: 'المفضلة',
-                  icon: Icon(
-                    Icons.bookmark,
-                    color: Color(0xff305F71),
-                  ),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-                const BottomNavigationBarItem(
-                  label: 'الإعدادات',
-                  icon: Icon(
-                    Icons.settings,
-                    color: Color(0xff305F71),
-                  ),
-                  // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
-                ),
-              ],
-            ),
+            bottomNavigationBar: BottomNavigationBarX(
+                cIndex: currentIndex,
+                func: (index) {
+                  setState(() {
+                    currentIndex = index;
+                    _pageController.animateToPage(
+                      index,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  });
+                }),
             // --------------------------------------------------------
             /// Body
             body: PageView(
@@ -412,4 +334,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       ),
     );
   }
+
+  // checkCurrentIndex(int index) {
+  //   setState(() {
+  //     currentIndex = index;
+  //     _pageController.animateToPage(index,
+  //         duration: Duration(milliseconds: 500), curve: Curves.ease);
+  //   });
+  // }
 }

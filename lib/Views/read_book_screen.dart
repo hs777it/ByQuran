@@ -15,7 +15,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Views/widget/just_audio_widget.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 import 'package:welivewithquran/helpers.dart';
 
 import '../Controller/ebook_controller.dart';
@@ -272,20 +272,20 @@ class _ReadBookScreenState extends State<ReadBookScreen>
 
     return Scaffold(
       backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? blueDarkColor
-          : backgroundColor,
+          ? kBlueDarkColor
+          : kBackgroundColor,
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? blueDarkColor
-            : mainColor,
+            ? kBlueDarkColor
+            : kMainColor,
         elevation: 0,
         toolbarHeight: 70.h,
         actions: const [],
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: backgroundColor,
+            color: kBackgroundColor,
             size: 30.h,
           ),
           onPressed: () {
@@ -312,7 +312,7 @@ class _ReadBookScreenState extends State<ReadBookScreen>
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 15.sp,
-            color: backgroundColor,
+            color: kBackgroundColor,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -359,14 +359,14 @@ class _ReadBookScreenState extends State<ReadBookScreen>
                               margin: EdgeInsets.all(8),
                               padding: EdgeInsets.symmetric(horizontal: 4),
                               decoration: BoxDecoration(
-                                color: blueDarkColor,
+                                color: kBlueDarkColor,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Center(
                                 child: Text(
                                   "$page",
                                   style: TextStyle(
-                                    color: whiteColor,
+                                    color: kWhiteColor,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -474,8 +474,8 @@ class _ReadBookScreenState extends State<ReadBookScreen>
                                   icon: Icon(Icons.share),
                                   color: (ThemeProvider.themeOf(context).id ==
                                           "dark_theme")
-                                      ? blueLightColor
-                                      : blueDarkColor
+                                      ? kBlueLightColor
+                                      : kBlueDarkColor
                                   // : Colors.grey,
                                   )
                               : CircularProgressIndicator(),
@@ -515,9 +515,9 @@ class _ReadBookScreenState extends State<ReadBookScreen>
                                   )
                                       ? (ThemeProvider.themeOf(context).id ==
                                               "dark_theme")
-                                          ? blueLightColor
-                                          : blueDarkColor
-                                      : blueDarkColor,
+                                          ? kBlueLightColor
+                                          : kBlueDarkColor
+                                      : kBlueDarkColor,
                                   // : Colors.grey,
                                 )
                               : SizedBox(),

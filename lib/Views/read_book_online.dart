@@ -19,7 +19,7 @@ class _ReadOnlineScreenState extends State<ReadOnlineScreen> {
       data: Theme.of(context),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: blueDarkColor,
+          backgroundColor: kBlueDarkColor,
         ),
         body: Padding(
             padding: const EdgeInsets.all(24.0),

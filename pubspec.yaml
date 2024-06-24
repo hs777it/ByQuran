@@ -78,6 +78,7 @@ dependencies:
   just_audio: ^0.9.38
   audio_video_progress_bar: ^2.0.1
   shimmer: ^3.0.0
+  
   # syncfusion_flutter_pdfviewer:
   #   git:
   #     url: https://github.com/OmarYehiaDev/flutter-widgets
@@ -169,9 +170,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Tajawal
-       fonts:
-         - asset: assets/fonts/Tajawal-Regular.ttf
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Regular.ttf
 
   #   - family: Trajan Pro
   #     fonts:

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 
 import '../Controller/ebook_controller.dart';
 import '../services/services.dart';
@@ -26,21 +26,21 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       () => bookController.isLoading.value
           ? const Center(
               child: CircularProgressIndicator(
-                color: blueColor,
+                color: kBlueColor,
               ),
             )
           : bookController.bookMarks.isEmpty
               ? Container(
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueDarkColor
-                      : whiteColor,
+                      ? kBlueDarkColor
+                      : kWhiteColor,
                   child: Center(
                     child: CustomText(
                       text: "لا توجد سور مفضلة.",
                       fontSize: 26.sp,
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueLightColor
-                          : mainColor,
+                          ? kBlueLightColor
+                          : kMainColor,
                     ),
                   ),
                 )
@@ -53,8 +53,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     //height: double.infinity,
                     decoration: BoxDecoration(
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueDarkColor
-                          : whiteColor,
+                          ? kBlueDarkColor
+                          : kWhiteColor,
                       // image: (ThemeProvider.themeOf(context).id == "dark_theme")
                       //     ? null
                       //     : DecorationImage(
@@ -70,8 +70,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                           fontSize: 24.sp,
                           color: (ThemeProvider.themeOf(context).id ==
                                   "dark_theme")
-                              ? blueLightColor
-                              : mainColor,
+                              ? kBlueLightColor
+                              : kMainColor,
                         ),
                         Expanded(
                           child: Padding(
@@ -161,7 +161,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                           Container(
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: mainColor,
+                                              color: kMainColor,
                                               borderRadius:
                                                   BorderRadius.circular(
                                                 7,
@@ -219,7 +219,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                           CircularProgressIndicator(
                                                         value: downloadProgress
                                                             .progress,
-                                                        color: blueDarkColor,
+                                                        color: kBlueDarkColor,
                                                       ),
                                                     ),
                                                   ),

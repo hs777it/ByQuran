@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 
 class CustomSettingItem extends StatelessWidget {
   CustomSettingItem({
@@ -10,13 +10,13 @@ class CustomSettingItem extends StatelessWidget {
     this.title,
     this.image,
     this.onPress,
-    this.icon = Icons.arrow_forward_ios,
+    //this.icon = Icons.arrow_forward_ios,
   }) : super(key: key);
 
   final String? image;
   final String? title;
   final Function()? onPress;
-  final IconData? icon;
+  //final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -40,23 +40,23 @@ class CustomSettingItem extends StatelessWidget {
                   ),
                   SvgPicture.asset(
                     image!,
-                    color: blueColor,
+                    color: kBlueColor,
                   ),
                   SizedBox(
                     width: 17.w,
                   ),
                   CustomText(
                     text: title!,
-                    color: blueColor,
+                    color: kBlueColor,
                     fontSize: 17.sp,
                   )
                 ],
               ),
-              Icon(
-                icon,
-                size: 20,
-                color: blueColor,
-              )
+              // Icon(
+              //   icon,
+              //   size: 20,
+              //   color: kBlueColor,
+              // )
             ],
           ),
         ),

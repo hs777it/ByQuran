@@ -7,8 +7,7 @@ import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/constant.dart';
-import 'package:welivewithquran/custom_widgets/custom_text.dart';
-
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 
 class LibraryScreen extends StatelessWidget {
   final BookController bookController = Get.put(BookController());
@@ -19,7 +18,7 @@ class LibraryScreen extends StatelessWidget {
     return Obx(
       () => bookController.isLoading.value
           ? Center(
-              child: CircularProgressIndicator(color: blueColor),
+              child: CircularProgressIndicator(color: kBlueColor),
             )
           : RefreshIndicator(
               onRefresh: bookController.getAll,
@@ -30,8 +29,8 @@ class LibraryScreen extends StatelessWidget {
                 //height: double.infinity,
                 decoration: BoxDecoration(
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? blueDarkColor
-                      : whiteColor,
+                      ? kBlueDarkColor
+                      : kWhiteColor,
                   /* image: (ThemeProvider.themeOf(context).id == "dark_theme")
                        ? null
                      : DecorationImage(
@@ -46,8 +45,8 @@ class LibraryScreen extends StatelessWidget {
                       text: 'المكتبة',
                       fontSize: 38.sp,
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                          ? blueLightColor
-                          : mainColor,
+                          ? kBlueLightColor
+                          : kMainColor,
                     ),
                     Expanded(
                       child: Padding(
@@ -123,7 +122,7 @@ class LibraryScreen extends StatelessWidget {
                                       Container(
                                         padding: EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: mainColor,
+                                          color: kMainColor,
                                           borderRadius:
                                               BorderRadius.circular(7),
                                         ),
@@ -176,7 +175,7 @@ class LibraryScreen extends StatelessWidget {
                                                       CircularProgressIndicator(
                                                     value: downloadProgress
                                                         .progress,
-                                                    color: blueDarkColor,
+                                                    color: kBlueDarkColor,
                                                   ),
                                                 ),
                                               ),

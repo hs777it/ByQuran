@@ -79,21 +79,17 @@ class _MyAppState extends State<MyApp> {
           AppTheme.light().copyWith(
             id: "light_theme",
             data: ThemeData(
-              primaryColor: mainColor,
+              primaryColor: kMainColor,
               fontFamily: 'Tajawal',
-              colorScheme: ColorScheme.light().copyWith(
-                surface: whiteColor,
-              ),
+              colorScheme: ColorScheme.light().copyWith(surface: kWhiteColor),
             ),
           ),
           AppTheme.dark().copyWith(
             id: "dark_theme",
             data: ThemeData(
-              primaryColor: blueDarkColor,
+              primaryColor: kBlueDarkColor,
               fontFamily: 'Tajawal',
-              colorScheme: ColorScheme.dark().copyWith(
-                secondary: Colors.white,
-              ),
+              colorScheme: ColorScheme.dark().copyWith(secondary: Colors.white),
             ),
           ),
         ],

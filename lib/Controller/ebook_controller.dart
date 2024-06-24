@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
@@ -89,27 +88,6 @@ class BookController extends GetxController {
     return pages.contains(page);
   }
 
-  Future<bool> removeBookmarkPage(String id, int page) async {
-    final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-    if (prefs
-        .getKeys()
-        .contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
-      List<int> pages = await getSavedPages(id);
-      pages.remove(page);
-      await prefs.setStringList(
-        bookList[index].bookTitle + bookList[index].id + "PAGES",
-        pages.map((e) => e.toString()).toList(),
-      );
-    }
-    final pages = await getSavedPages(id);
-    if (!pages.contains(page)) {
-      print("Saved");
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   Future<bool> bookmarkPage(String id, int page) async {
     final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
     if (prefs
@@ -139,6 +117,27 @@ class BookController extends GetxController {
     }
   }
 
+  Future<bool> removeBookmarkPage(String id, int page) async {
+    final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
+    if (prefs
+        .getKeys()
+        .contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
+      List<int> pages = await getSavedPages(id);
+      pages.remove(page);
+      await prefs.setStringList(
+        bookList[index].bookTitle + bookList[index].id + "PAGES",
+        pages.map((e) => e.toString()).toList(),
+      );
+    }
+    final pages = await getSavedPages(id);
+    if (!pages.contains(page)) {
+      print("Saved");
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> _save(List<Ebook> books) async {
     //final directory = await getExternalStorageDirectory();
     final directory = await getApplicationDocumentsDirectory();
@@ -149,11 +148,7 @@ class BookController extends GetxController {
 
     final file = File('${directory.path}/favs.txt');
     final text = json.encode(
-      books
-          .map(
-            (e) => e.toJson(),
-          )
-          .toList(),
+      books.map((e) => e.toJson()).toList(),
     );
     File saved = await file.writeAsString(text, mode: FileMode.write);
     if (await saved.exists()) {
@@ -300,7 +295,6 @@ class BookController extends GetxController {
       var cats = await DataServices.getCategories();
       catList.value = cats!.toList();
     } catch (e) {
-      //log('Error while getting data is $e');
       print('Error while getting data is $e');
     } finally {
       isLoading(false);

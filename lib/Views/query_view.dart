@@ -61,17 +61,17 @@ class _QueryViewState extends State<QueryView> {
 
     return Scaffold(
       backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? blueDarkColor
-          : whiteColor,
+          ? kBlueDarkColor
+          : kWhiteColor,
       appBar: AppBar(
         title: Text("نتيجة البحث عن كلمة: ${widget.query}"),
         centerTitle: true,
         foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? null
-            : blueDarkColor,
+            : kBlueDarkColor,
         elevation: 0,
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? blueDarkColor
+            ? kBlueDarkColor
             : Colors.transparent,
       ),
       body: SingleChildScrollView(
@@ -84,14 +84,14 @@ class _QueryViewState extends State<QueryView> {
             ),
             ListTile(
               leading: downloading
-                  ? CircularProgressIndicator(color: blueColor)
+                  ? CircularProgressIndicator(color: kBlueColor)
                   : null,
               title: Text("نتيجة البحث:"),
               subtitle:
                   Text("\"${parse(document.body?.text).body!.text.trim()}\""),
               trailing: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(blueColor),
+                  backgroundColor: WidgetStateProperty.all(kBlueColor),
                 ),
                 child: Text("قراءة"),
                 onPressed: () async {

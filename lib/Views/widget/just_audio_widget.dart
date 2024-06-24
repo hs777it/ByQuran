@@ -3,7 +3,6 @@ import 'package:just_audio/just_audio.dart'; // ^0.9.35
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:welivewithquran/constant.dart';
 
-
 class JustAudio extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   const JustAudio(this.audioUrl, {this.speed = false, this.volume = false});
@@ -73,10 +72,10 @@ class _JustAudioState extends State<JustAudio> {
       stream: _player.positionStream,
       builder: (context, snapshot) {
         return ProgressBar(
-          baseBarColor: mainColor,
-          progressBarColor: blueDarkColor,
-          bufferedBarColor: Colors.grey,
-          thumbColor: blueDarkColor,
+          baseBarColor: kMainColor,
+          progressBarColor: kBlueColor,
+          bufferedBarColor: kBlueColor, //Color.fromARGB(255, 2, 168, 223),
+          thumbColor: kBlueGrey,
           progress: snapshot.data ?? Duration.zero,
           buffered: _player.bufferedPosition,
           total: _player.duration ?? Duration.zero,
@@ -101,7 +100,7 @@ class _JustAudioState extends State<JustAudio> {
               width: 32,
               height: 32,
               child: const CircularProgressIndicator(
-                color: mainColor,
+                color: kMainColor,
               ),
             );
           } else if (playing != true) {
