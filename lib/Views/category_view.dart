@@ -144,7 +144,7 @@ class CategoryScreen extends StatelessWidget {
                                           Container(
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: kMainColor,
+                                              color: kSecondryColor,
                                               borderRadius:
                                                   BorderRadius.circular(7),
                                             ),
@@ -234,14 +234,14 @@ class CategoryScreen extends StatelessWidget {
                               color: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme")
                                   ? kBlueLightColor
-                                  : kMainColor,
+                                  : kSecondryColor,
                             ),
                           ),
                         );
                 }
                 return Center(
                   child: CircularProgressIndicator(
-                    color: kBlueColor,
+                    color: kMainColor,
                   ),
                 );
               },

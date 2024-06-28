@@ -6,8 +6,9 @@ const shareLink = 'https://livebyquran.net/share/';
 const bookHeight = 260;
 const bookWidth = 130;
 
-const kMainColor = Color(0xff305F72);
-const kBlueColor = Color.fromARGB(255, 28, 181, 241);
+const kMainColor = Color(0xFF1CB5F1);
+const kSecondryColor = Color(0xff305F72);
+
 const kBlueDarkColor = Color(0xff054e6c);
 const kBlueLightColor = Color(0xff95d8f5);
 const kBlueBackgroundColor = Color(0xffD7F2FC);

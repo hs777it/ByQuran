@@ -72,9 +72,9 @@ class _JustAudioState extends State<JustAudio> {
       stream: _player.positionStream,
       builder: (context, snapshot) {
         return ProgressBar(
-          baseBarColor: kMainColor,
-          progressBarColor: kBlueColor,
-          bufferedBarColor: kBlueColor, //Color.fromARGB(255, 2, 168, 223),
+          baseBarColor: kSecondryColor,
+          progressBarColor: kMainColor,
+          bufferedBarColor: kMainColor, //Color.fromARGB(255, 2, 168, 223),
           thumbColor: kBlueGrey,
           progress: snapshot.data ?? Duration.zero,
           buffered: _player.bufferedPosition,
@@ -100,7 +100,7 @@ class _JustAudioState extends State<JustAudio> {
               width: 32,
               height: 32,
               child: const CircularProgressIndicator(
-                color: kMainColor,
+                color: kSecondryColor,
               ),
             );
           } else if (playing != true) {

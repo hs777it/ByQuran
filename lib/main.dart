@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
           AppTheme.light().copyWith(
             id: "light_theme",
             data: ThemeData(
-              primaryColor: kMainColor,
+              primaryColor: kSecondryColor,
               fontFamily: 'Tajawal',
               colorScheme: ColorScheme.light().copyWith(surface: kWhiteColor),
             ),

@@ -25,7 +25,7 @@ class ContactUsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? kMainColor
+          ? kSecondryColor
           : kBackgroundColor,
       body: Column(
         children: [
@@ -35,7 +35,7 @@ class ContactUsScreen extends StatelessWidget {
             decoration: BoxDecoration(
               color: (ThemeProvider.themeOf(context).id == "dark_theme")
                   ? kBlueDarkColor
-                  : kBlueColor,
+                  : kMainColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50),
@@ -55,7 +55,7 @@ class ContactUsScreen extends StatelessWidget {
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
                                 ? null
-                                : kMainColor,
+                                : kSecondryColor,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -64,7 +64,7 @@ class ContactUsScreen extends StatelessWidget {
                       fontSize: 24.sp,
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
                           ? Colors.white
-                          : kMainColor,
+                          : kSecondryColor,
                     ),
                   ],
                 ),
@@ -98,7 +98,7 @@ class ContactUsScreen extends StatelessWidget {
                           color: (ThemeProvider.themeOf(context).id ==
                                   "dark_theme")
                               ? kWhiteColor
-                              : kBlueColor,
+                              : kMainColor,
                           fontSize: 16.sp,
                         ),
                         Row(
@@ -111,7 +111,7 @@ class ContactUsScreen extends StatelessWidget {
                               color: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme")
                                   ? kWhiteColor
-                                  : kBlueColor,
+                                  : kMainColor,
                             ),
                             SizedBox(
                               width: 10,
@@ -131,7 +131,7 @@ class ContactUsScreen extends StatelessWidget {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kWhiteColor
-                                    : kBlueColor,
+                                    : kMainColor,
                                 fontSize: 14.sp,
                               ),
                             ),
@@ -149,7 +149,7 @@ class ContactUsScreen extends StatelessWidget {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kWhiteColor
-                                    : kBlueColor,
+                                    : kMainColor,
                               ),
                               SizedBox(
                                 width: 10,
@@ -159,7 +159,7 @@ class ContactUsScreen extends StatelessWidget {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kWhiteColor
-                                    : kBlueColor,
+                                    : kMainColor,
                                 fontSize: 15.sp,
                               ),
                               SizedBox(
@@ -180,7 +180,7 @@ class ContactUsScreen extends StatelessWidget {
                                   color: (ThemeProvider.themeOf(context).id ==
                                           "dark_theme")
                                       ? kWhiteColor
-                                      : kBlueColor,
+                                      : kMainColor,
                                   fontSize: 15.sp,
                                 ),
                               ),
@@ -197,7 +197,7 @@ class ContactUsScreen extends StatelessWidget {
                               color: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme")
                                   ? kWhiteColor
-                                  : kBlueColor,
+                                  : kMainColor,
                             ),
                             SizedBox(
                               width: 10,
@@ -215,7 +215,7 @@ class ContactUsScreen extends StatelessWidget {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kWhiteColor
-                                    : kBlueColor,
+                                    : kMainColor,
                                 fontSize: 14.sp,
                               ),
                             ),
@@ -236,7 +236,7 @@ class ContactUsScreen extends StatelessWidget {
                 );
               }
               return Center(
-                child: CircularProgressIndicator(color: kBlueColor),
+                child: CircularProgressIndicator(color: kMainColor),
               );
             },
           ),

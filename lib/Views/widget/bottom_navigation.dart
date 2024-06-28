@@ -23,7 +23,7 @@ class BottomNavigationBarX extends StatelessWidget {
       selectedFontSize: 17.sp,
       backgroundColor: kBlueBackgroundColor,
       selectedItemColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? kBlueColor
+          ? kMainColor
           : kBlueDarkColor,
       unselectedItemColor: (ThemeProvider.themeOf(context).id == "dark_theme")
           ? kBlueGrey

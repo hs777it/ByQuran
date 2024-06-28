@@ -40,14 +40,14 @@ class CustomSettingItem extends StatelessWidget {
                   ),
                   SvgPicture.asset(
                     image!,
-                    color: kBlueColor,
+                    color: kMainColor,
                   ),
                   SizedBox(
                     width: 17.w,
                   ),
                   CustomText(
                     text: title!,
-                    color: kBlueColor,
+                    color: kMainColor,
                     fontSize: 17.sp,
                   )
                 ],

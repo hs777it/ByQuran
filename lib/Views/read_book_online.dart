@@ -4,6 +4,7 @@ import 'package:welivewithquran/constant.dart';
 
 class ReadOnlineScreen extends StatefulWidget {
   final String fileURL;
+
   const ReadOnlineScreen({super.key, required this.fileURL});
 
   @override
@@ -22,28 +23,16 @@ class _ReadOnlineScreenState extends State<ReadOnlineScreen> {
           backgroundColor: kBlueDarkColor,
         ),
         body: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child:
-                // showWidget
-                //     ?
-                //     WebView(
-                //   initialUrl: "https://docs.google.com/viewer?url=" + widget.fileURL,
-                //   javascriptMode: JavascriptMode.unrestricted,
-                // )
-                SfPdfViewer.network(
-              widget.fileURL,
-              // onDocumentLoaded: (doc) {
-              //   setState(() {
-              //     showWidget = true;
-              //   });
-              // },
-            )
-            // : Center(
-            //     child: CircularProgressIndicator(
-            //       color: blueDarkColor,
-            //     ),
-            //   ),
-            ),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+          child: SfPdfViewer.network(
+            widget.fileURL,
+            // onDocumentLoaded: (doc) {
+            //   setState(() {
+            //     showWidget = true;
+            //   });
+            // },
+          ),
+        ),
       ),
     );
   }

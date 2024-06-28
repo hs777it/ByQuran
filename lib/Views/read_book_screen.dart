@@ -278,7 +278,7 @@ class _ReadBookScreenState extends State<ReadBookScreen>
       appBar: AppBar(
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? kBlueDarkColor
-            : kMainColor,
+            : kSecondryColor,
         elevation: 0,
         toolbarHeight: 70.h,
         actions: const [],
@@ -322,11 +322,15 @@ class _ReadBookScreenState extends State<ReadBookScreen>
         child: Column(
           children: [
             SizedBox(height: 5),
-            // Text('المؤلف: ' + argumentData[0]['author']),
-            // SizedBox(height: 5),
-            argumentData[0]['audioFile'].isNotEmpty
-                ? JustAudio(argumentData[0]['audioFile'])
-                : SizedBox(),
+            (argumentData[0]['audioFile']?.isEmpty ?? true)
+                ? SizedBox()
+                : JustAudio(argumentData[0]['audioFile']),
+        
+            /* (argumentData[0]['audioFile'] == null || argumentData[0]['audioFile'] == "")
+              ? SizedBox()
+              : JustAudio(argumentData[0]['audioFile']),
+            */
+
             // _btnSection(),
             // ttsState == TtsState.playing ? _progressBar(end) : const Text(''),
             if (savedPages.isNotEmpty)

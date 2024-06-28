@@ -24,7 +24,7 @@ class AppVersion extends StatelessWidget {
             );
           } else
             return Center(
-              child: LinearProgressIndicator(color: kBlueColor),
+              child: LinearProgressIndicator(color: kMainColor),
             );
         });
   }

@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: (ThemeProvider.themeOf(context).id == "dark_theme")
                     ? kBlueDarkColor
-                    : kBlueColor,
+                    : kMainColor,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
                   bottomRight: Radius.circular(50),
@@ -201,11 +201,11 @@ logoutDialog(BuildContext context) {
       return Dialog(
         shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: kBlueColor),
+          borderSide: const BorderSide(color: kMainColor),
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: kBlueColor,
+            color: kMainColor,
             borderRadius: BorderRadius.circular(15),
           ),
           height: 140,
@@ -236,7 +236,7 @@ logoutDialog(BuildContext context) {
                       ),
                       child: CustomText(
                         text: 'نعم',
-                        color: kBlueColor,
+                        color: kMainColor,
                         fontSize: 14.sp,
                       ),
                     ),
@@ -259,7 +259,7 @@ logoutDialog(BuildContext context) {
                       ),
                       child: CustomText(
                         text: 'لا',
-                        color: kBlueColor,
+                        color: kMainColor,
                         fontSize: 14.sp,
                       ),
                     ),

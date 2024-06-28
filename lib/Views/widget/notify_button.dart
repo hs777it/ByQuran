@@ -20,7 +20,7 @@ class NotifyButton extends StatelessWidget {
       child: Row(
         children: [
           Switch(
-            activeColor: kBlueColor,
+            activeColor: kMainColor,
             value: active,
             onChanged: onChanged,
             // (value) async {
@@ -30,7 +30,7 @@ class NotifyButton extends StatelessWidget {
           ),
           CustomText(
             text: 'تفعيل الإشعارات',
-            color: kBlueColor,
+            color: kMainColor,
             fontSize: 17.sp,
           )
         ],

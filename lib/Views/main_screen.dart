@@ -53,11 +53,11 @@ class _MainScreenState extends State<MainScreen> {
     return Obx(
       () => bookController.isLoading.value
           ? Center(
-              child: CircularProgressIndicator(color: kBlueColor),
+              child: CircularProgressIndicator(color: kMainColor),
             )
           : RefreshIndicator(
               onRefresh: bookController.getCats,
-              color: kBlueColor,
+              color: kMainColor,
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -97,8 +97,8 @@ class _MainScreenState extends State<MainScreen> {
                               style: TextStyle(
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
-                                    ? kBlueColor
-                                    : kMainColor,
+                                    ? kMainColor
+                                    : kSecondryColor,
                               ),
                               decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -107,8 +107,8 @@ class _MainScreenState extends State<MainScreen> {
                                   fontSize: 16.sp,
                                   color: (ThemeProvider.themeOf(context).id ==
                                           "dark_theme")
-                                      ? kBlueColor
-                                      : kMainColor,
+                                      ? kMainColor
+                                      : kSecondryColor,
                                 ),
                                 suffixIcon: GestureDetector(
                                   onTap: () {
@@ -116,7 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                                   },
                                   child: const Icon(
                                     Icons.search,
-                                    color: kMainColor,
+                                    color: kSecondryColor,
                                   ),
                                 ),
                               ),
@@ -161,8 +161,8 @@ class _MainScreenState extends State<MainScreen> {
                 text: 'بحث فى الكل',
                 fontSize: 18.sp,
                 color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                    ? kBlueColor
-                    : kMainColor,
+                    ? kMainColor
+                    : kSecondryColor,
               )
             ],
           ),
@@ -189,8 +189,8 @@ class _MainScreenState extends State<MainScreen> {
                 text: 'بحث فى سورة',
                 fontSize: 18.sp,
                 color: (ThemeProvider.themeOf(context).id == "dark_theme")
-                    ? kBlueColor
-                    : kMainColor,
+                    ? kMainColor
+                    : kSecondryColor,
               ),
               SizedBox(
                 width: 20.w,
@@ -252,7 +252,7 @@ class _MainScreenState extends State<MainScreen> {
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: CircularProgressIndicator(
-                      color: kBlueColor,
+                      color: kMainColor,
                     ),
                   );
                 },
@@ -283,7 +283,7 @@ class _MainScreenState extends State<MainScreen> {
               height: 40.h,
               width: 190.w,
               decoration: BoxDecoration(
-                color: kBlueColor,
+                color: kMainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
@@ -302,7 +302,7 @@ class _MainScreenState extends State<MainScreen> {
         (isLoading != null && isLoading!)
             ? Center(
                 child: CircularProgressIndicator(
-                  color: kBlueColor,
+                  color: kMainColor,
                 ),
               )
             : (data.isEmpty && isLoading == false)
@@ -355,7 +355,7 @@ class _MainScreenState extends State<MainScreen> {
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(
-                  child: CircularProgressIndicator(color: kBlueColor),
+                  child: CircularProgressIndicator(color: kMainColor),
                 ),
               )
             : Container(
@@ -422,9 +422,9 @@ class _MainScreenState extends State<MainScreen> {
                                     {
                                       "condition": false,
                                     },
-                                    {
-                                      "condition": false,
-                                    },
+                                    // {
+                                    //   "condition": false,
+                                    // },
                                     {
                                       'audioFile': book.audioFile,
                                     },
@@ -479,7 +479,7 @@ class _MainScreenState extends State<MainScreen> {
                               child: CircleAvatar(
                                 radius: 8.h,
                                 backgroundColor: currentPage == index
-                                    ? kBlueColor
+                                    ? kMainColor
                                     : kBlueLightColor,
                               ),
                             );
@@ -651,7 +651,7 @@ class _MainScreenState extends State<MainScreen> {
             () => bookController.isLoading.value
                 ? const Center(
                     child: CircularProgressIndicator(
-                      color: kBlueColor,
+                      color: kMainColor,
                     ),
                   )
                 : Row(
@@ -675,7 +675,7 @@ class _MainScreenState extends State<MainScreen> {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kBlueLightColor
-                                    : kMainColor,
+                                    : kSecondryColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(

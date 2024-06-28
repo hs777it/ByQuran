@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   fontSize: 15.sp,
                   color: (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? kBlueBackgroundColor
-                      : kMainColor,
+                      : kSecondryColor,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kBlueLightColor
-                                    : kMainColor,
+                                    : kSecondryColor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -187,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                           (ThemeProvider.themeOf(context).id ==
                                                   "dark_theme")
                                               ? kBlueLightColor
-                                              : kMainColor,
+                                              : kSecondryColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Padding(
@@ -219,9 +219,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         FahdMoshaf(),
                         const SizedBox(height: 10),
                         CustomDivider(),
-
                         AppShare(),
                         const SizedBox(height: 4),
+
                         /* GestureDetector(
                           onTap: () {},
                           child: Container(
@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             child: Row(
                               children: [
                                 Switch(
-                                  activeColor: kBlueColor,
+                                  activeColor: kMainColor,
                                   value: (ThemeProvider.themeOf(context).id ==
                                       "dark_theme"),
                                   onChanged: (bool val) {
@@ -280,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                 ),
                                 CustomText(
                                   text: 'الوضع الليلي',
-                                  color: kBlueColor,
+                                  color: kMainColor,
                                   fontSize: 17.sp,
                                 ),
                               ],
@@ -303,7 +303,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 }
                 return Center(
                   child: CircularProgressIndicator(
-                    color: kBlueColor,
+                    color: kMainColor,
                   ),
                 );
               },

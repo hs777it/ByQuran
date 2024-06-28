@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
@@ -89,7 +88,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               fontSize: 24.sp,
               color: (ThemeProvider.themeOf(context).id == "dark_theme")
                   ? kWhiteColor
-                  : kMainColor,
+                  : kSecondryColor,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -160,7 +159,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     color: (ThemeProvider.themeOf(context).id ==
                                             "dark_theme")
                                         ? kWhiteColor
-                                        : kMainColor,
+                                        : kSecondryColor,
                                     alignment: TextAlign.center,
                                   ),
                                 ),
@@ -318,7 +317,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 color: (ThemeProvider.themeOf(context).id ==
                                         "dark_theme")
                                     ? kWhiteColor
-                                    : kMainColor,
+                                    : kSecondryColor,
                               ),
                             ],
                           ),
@@ -397,7 +396,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                             .id ==
                                                         "dark_theme")
                                                     ? kWhiteColor
-                                                    : kMainColor,
+                                                    : kSecondryColor,
                                           ),
                                         ],
                                       ),
@@ -425,7 +424,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 ? EdgeInsets.zero
                                                 : EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: kMainColor,
+                                              color: kSecondryColor,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -520,7 +519,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             height: 50.h,
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: kMainColor,
+                                              color: kSecondryColor,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
@@ -539,16 +538,39 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(
-                                        () =>
-                                            ReadOnlineScreen(fileURL: fileUrl),
+                                        () => ReadOnlineScreen(
+                                          fileURL: fileUrl,
+                                        ),
                                         fullscreenDialog: true,
+                                        arguments: [
+                                          {
+                                            'id': argumentData[0]['id'],
+                                            'title': argumentData[1]['title']
+                                                .toString(),
+                                            'description': argumentData[4]
+                                                ['bookDescription'],
+                                            'pdf': _fileName,
+                                            'author': argumentData[6]
+                                                    ['authorName']
+                                                .toString(),
+                                            'condition': argumentData[10]
+                                                ["condition"],
+                                            'book': argumentData[8]["book"],
+                                            'books': argumentData[9]["books"],
+                                            "isHorizontal":
+                                                book.bookTitle.contains("جدول"),
+                                            "fileUrl": fileUrl,
+                                            'audioFile': argumentData[11]
+                                                ["audioFile"]
+                                          },
+                                        ],
                                       );
                                     },
                                     child: Container(
                                       height: 50.h,
                                       padding: const EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
-                                        color: kMainColor,
+                                        color: kSecondryColor,
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Align(
@@ -598,14 +620,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
                                 ? kWhiteColor
-                                : kMainColor,
+                                : kSecondryColor,
                       ),
                       Icon(
                         Icons.more_horiz_outlined,
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
                                 ? kWhiteColor
-                                : kMainColor,
+                                : kSecondryColor,
                       )
                     ],
                   ),
@@ -705,7 +727,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     Text(
                                       _book.authorName,
                                       style: TextStyle(
-                                        color: kBlueColor,
+                                        color: kMainColor,
                                         fontSize: 12.sp,
                                       ),
                                     ),
@@ -730,7 +752,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     .id ==
                                                 "dark_theme")
                                             ? kWhiteColor
-                                            : kMainColor,
+                                            : kSecondryColor,
                                         fontSize: 16.sp,
                                       ),
                                       textAlign: TextAlign.center,
@@ -755,7 +777,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             color: (ThemeProvider.themeOf(context).id ==
                                     "dark_theme")
                                 ? kBlueLightColor
-                                : kMainColor,
+                                : kSecondryColor,
                           ),
                         ),
                       ),

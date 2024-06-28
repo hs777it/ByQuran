@@ -84,14 +84,14 @@ class _QueryViewState extends State<QueryView> {
             ),
             ListTile(
               leading: downloading
-                  ? CircularProgressIndicator(color: kBlueColor)
+                  ? CircularProgressIndicator(color: kMainColor)
                   : null,
               title: Text("نتيجة البحث:"),
               subtitle:
                   Text("\"${parse(document.body?.text).body!.text.trim()}\""),
               trailing: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(kBlueColor),
+                  backgroundColor: WidgetStateProperty.all(kMainColor),
                 ),
                 child: Text("قراءة"),
                 onPressed: () async {

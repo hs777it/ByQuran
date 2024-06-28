@@ -26,7 +26,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       () => bookController.isLoading.value
           ? const Center(
               child: CircularProgressIndicator(
-                color: kBlueColor,
+                color: kMainColor,
               ),
             )
           : bookController.bookMarks.isEmpty
@@ -40,7 +40,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                       fontSize: 26.sp,
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
                           ? kBlueLightColor
-                          : kMainColor,
+                          : kSecondryColor,
                     ),
                   ),
                 )
@@ -71,7 +71,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                           color: (ThemeProvider.themeOf(context).id ==
                                   "dark_theme")
                               ? kBlueLightColor
-                              : kMainColor,
+                              : kSecondryColor,
                         ),
                         Expanded(
                           child: Padding(
@@ -161,7 +161,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                           Container(
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
-                                              color: kMainColor,
+                                              color: kSecondryColor,
                                               borderRadius:
                                                   BorderRadius.circular(
                                                 7,

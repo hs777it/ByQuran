@@ -72,7 +72,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
               fontSize: 38.sp,
               color: (ThemeProvider.themeOf(context).id == "dark_theme")
                   ? kBlueLightColor
-                  : kMainColor,
+                  : kSecondryColor,
             ),
             bookSet.isEmpty
                 ? Container(
@@ -86,7 +86,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                         color:
                             (ThemeProvider.themeOf(context).id == "dark_theme")
                                 ? kBlueLightColor
-                                : kMainColor,
+                                : kSecondryColor,
                       ),
                     ),
                   )
@@ -162,7 +162,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: kMainColor,
+                                        color: kSecondryColor,
                                         borderRadius: BorderRadius.circular(7),
                                       ),
                                       child: Center(

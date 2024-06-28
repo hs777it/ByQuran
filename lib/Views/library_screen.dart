@@ -18,7 +18,7 @@ class LibraryScreen extends StatelessWidget {
     return Obx(
       () => bookController.isLoading.value
           ? Center(
-              child: CircularProgressIndicator(color: kBlueColor),
+              child: CircularProgressIndicator(color: kMainColor),
             )
           : RefreshIndicator(
               onRefresh: bookController.getAll,
@@ -46,7 +46,7 @@ class LibraryScreen extends StatelessWidget {
                       fontSize: 38.sp,
                       color: (ThemeProvider.themeOf(context).id == "dark_theme")
                           ? kBlueLightColor
-                          : kMainColor,
+                          : kSecondryColor,
                     ),
                     Expanded(
                       child: Padding(
@@ -122,7 +122,7 @@ class LibraryScreen extends StatelessWidget {
                                       Container(
                                         padding: EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: kMainColor,
+                                          color: kSecondryColor,
                                           borderRadius:
                                               BorderRadius.circular(7),
                                         ),

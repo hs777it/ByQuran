@@ -5,6 +5,7 @@ import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart' as sea;
 import 'package:welivewithquran/models/surah.dart';
 
+
 //String baseURl = 'https://smartmediakw.com/zbook';
 String baseURl = 'https://livebyquran.net/zbook';
 String apiUrl = '$baseURl/api.php?';
@@ -43,10 +44,9 @@ class DataServices {
       // headers: {'app-id': '6218809df11d1d412af5bac4'}
     });
     if (response.statusCode == 200) {
-      return fromJsonAPI(
-        json.decode(response.body),
-      );
+      return fromJsonAPI(json.decode(response.body));
     } else {
+      print('getFeaturedEbooks');
       return null;
     }
   }
@@ -61,9 +61,7 @@ class DataServices {
     });
     if (response.statusCode == 200) {
       ///data successfully
-      return fromJsonPopularAPI(
-        json.decode(response.body),
-      );
+      return fromJsonPopularAPI(json.decode(response.body));
     } else {
       ///error
       return null;
@@ -220,4 +218,6 @@ class DataServices {
       return null;
     }
   }
+
+
 }

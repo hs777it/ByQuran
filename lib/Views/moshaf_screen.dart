@@ -20,7 +20,7 @@ class _MoshafScreenState extends State<MoshafScreen> {
       data: Theme.of(context),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: kMainColor,
+          backgroundColor: kSecondryColor,
           actions: [
             TextButton(
               onPressed: () async {

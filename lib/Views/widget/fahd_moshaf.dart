@@ -35,7 +35,7 @@ class FahdMoshaf extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
           color: (ThemeProvider.themeOf(context).id == "dark_theme")
-              ? kMainColor
+              ? kSecondryColor
               : kBlueDarkColor,
           borderRadius: BorderRadius.circular(10),
         ),

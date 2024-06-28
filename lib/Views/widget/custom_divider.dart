@@ -13,7 +13,7 @@ class CustomDivider extends StatelessWidget {
         indent: 16,
         endIndent: 16,
         thickness: 1.25,
-        color: kBlueColor,
+        color: kMainColor,
         height: 16);
   }
 }
