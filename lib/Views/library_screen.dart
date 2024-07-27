@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Controller/ebook_controller.dart';
-import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
 import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/Views/widget/custom_text.dart';
+
+import 'widget/appbar_height.dart';
 
 class LibraryScreen extends StatelessWidget {
   final BookController bookController = Get.put(BookController());
@@ -40,7 +41,8 @@ class LibraryScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 70.h),
+                    // SizedBox(height: 70.h),
+                    SizedBoxAppBarMaxHeight(),
                     CustomText(
                       text: 'المكتبة',
                       fontSize: 38.sp,
@@ -54,8 +56,7 @@ class LibraryScreen extends StatelessWidget {
                         child: GridView.builder(
                           padding: EdgeInsets.zero,
                           itemCount: bookController.bookList.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, //2
                             childAspectRatio: .9, //.7
                           ),
@@ -69,32 +70,26 @@ class LibraryScreen extends StatelessWidget {
                                       'id': bookController.bookList[index].id,
                                     },
                                     {
-                                      'title': bookController
-                                          .bookList[index].bookTitle,
+                                      'title': bookController.bookList[index].bookTitle,
                                     },
                                     {
-                                      'bookCover': bookController
-                                          .bookList[index].bookCoverImg,
+                                      'bookCover': bookController.bookList[index].bookCoverImg,
                                     },
                                     {
-                                      'bookPages': bookController
-                                          .bookList[index].bookPages,
+                                      'bookPages': bookController.bookList[index].bookPages,
                                     },
                                     {
-                                      'bookDescription': bookController
-                                          .bookList[index].bookDescription,
+                                      'bookDescription':
+                                          bookController.bookList[index].bookDescription,
                                     },
                                     {
-                                      'bookFile': bookController
-                                          .bookList[index].bookFileUrl,
+                                      'bookFile': bookController.bookList[index].bookFileUrl,
                                     },
                                     {
-                                      'authorName': bookController
-                                          .bookList[index].authorName,
+                                      'authorName': bookController.bookList[index].authorName,
                                     },
                                     {
-                                      'categoryName': bookController
-                                          .bookList[index].categoryName,
+                                      'categoryName': bookController.bookList[index].categoryName,
                                     },
                                     {
                                       "book": bookController.bookList[index],
@@ -106,8 +101,7 @@ class LibraryScreen extends StatelessWidget {
                                       "condition": false,
                                     },
                                     {
-                                      'audioFile': bookController
-                                          .bookList[index].audioFile,
+                                      'audioFile': bookController.bookList[index].audioFile,
                                     },
                                   ],
                                 );
@@ -123,13 +117,11 @@ class LibraryScreen extends StatelessWidget {
                                         padding: EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: kSecondryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(7),
+                                          borderRadius: BorderRadius.circular(7),
                                         ),
                                         child: Center(
                                           child: Text(
-                                            bookController
-                                                .bookList[index].bookTitle,
+                                            bookController.bookList[index].bookTitle,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -149,20 +141,14 @@ class LibraryScreen extends StatelessWidget {
                                           /// lib book width
                                           // width: 130.w,
                                           child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(7.0),
+                                            borderRadius: BorderRadius.circular(7.0),
                                             child: CachedNetworkImage(
                                               imageUrl: imagesUrl +
-                                                  bookController.bookList[index]
-                                                      .bookCoverImg,
+                                                  bookController.bookList[index].bookCoverImg,
                                               fit: BoxFit.fill,
                                               progressIndicatorBuilder:
-                                                  (context, url,
-                                                          downloadProgress) =>
-                                                      Padding(
-                                                padding:
-                                                    const EdgeInsets.all(32.0)
-                                                        .add(
+                                                  (context, url, downloadProgress) => Padding(
+                                                padding: const EdgeInsets.all(32.0).add(
                                                   EdgeInsets.symmetric(
                                                     horizontal: 32,
                                                     vertical: 8,
@@ -171,17 +157,14 @@ class LibraryScreen extends StatelessWidget {
                                                 child: SizedBox(
                                                   height: 50,
                                                   width: 50,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    value: downloadProgress
-                                                        .progress,
+                                                  child: CircularProgressIndicator(
+                                                    value: downloadProgress.progress,
                                                     color: kBlueDarkColor,
                                                   ),
                                                 ),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
+                                              errorWidget: (context, url, error) =>
+                                                  Icon(Icons.error),
                                             ),
                                             // Image.network(
                                             //   imagesUrl +

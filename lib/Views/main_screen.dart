@@ -13,8 +13,9 @@ import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart';
 import 'package:welivewithquran/models/surah.dart';
 import 'package:welivewithquran/services/services.dart';
-import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/Views/widget/custom_text.dart';
+
+import '../constant.dart';
 
 import 'widget/custom_divider.dart';
 import 'widget/fahd_moshaf.dart';
@@ -95,8 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                               },
                               controller: searchController,
                               style: TextStyle(
-                                color: (ThemeProvider.themeOf(context).id ==
-                                        "dark_theme")
+                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
                                     ? kMainColor
                                     : kSecondryColor,
                               ),
@@ -105,8 +105,7 @@ class _MainScreenState extends State<MainScreen> {
                                 hintText: 'ابحث هنا',
                                 hintStyle: TextStyle(
                                   fontSize: 16.sp,
-                                  color: (ThemeProvider.themeOf(context).id ==
-                                          "dark_theme")
+                                  color: (ThemeProvider.themeOf(context).id == "dark_theme")
                                       ? kMainColor
                                       : kSecondryColor,
                                 ),
@@ -198,8 +197,7 @@ class _MainScreenState extends State<MainScreen> {
               FutureBuilder<List<Surah>?>(
                 future: DataServices.getSurahs(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                     List<Surah> surahList = snapshot.data!;
                     return Container(
                       padding: const EdgeInsets.symmetric(
@@ -232,8 +230,7 @@ class _MainScreenState extends State<MainScreen> {
                               );
                             });
                           },
-                          items:
-                              surahList.map<DropdownMenuItem<int>>((valueItem) {
+                          items: surahList.map<DropdownMenuItem<int>>((valueItem) {
                             return DropdownMenuItem(
                               value: int.parse(valueItem.id),
                               child: Text(
@@ -318,8 +315,7 @@ class _MainScreenState extends State<MainScreen> {
                       return GestureDetector(
                         onTap: () {
                           Get.to(
-                            () => QueryView(
-                                item: item, query: searchController.text),
+                            () => QueryView(item: item, query: searchController.text),
                           );
                         },
                         child: Padding(
@@ -328,8 +324,7 @@ class _MainScreenState extends State<MainScreen> {
                             child: Card(
                               child: ListTile(
                                 leading: Text("${item.surahTitle}"),
-                                title: Text(
-                                    "${item.surahTitle} و ترتيبها رقم: ${item.surahNum}"),
+                                title: Text("${item.surahTitle} و ترتيبها رقم: ${item.surahNum}"),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -438,17 +433,14 @@ class _MainScreenState extends State<MainScreen> {
                                     child: CachedNetworkImage(
                                       imageUrl: imagesUrl + book.bookCoverImg,
                                       fit: BoxFit.fill,
-                                      progressIndicatorBuilder:
-                                          (context, url, downloadProgress) =>
-                                              SizedBox(
+                                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                          SizedBox(
                                         width: double.infinity,
                                         child: LinearProgressIndicator(
                                             value: downloadProgress.progress,
-                                            color: kBlueDarkColor
-                                                .withOpacity(0.3)),
+                                            color: kBlueDarkColor.withOpacity(0.3)),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                      errorWidget: (context, url, error) => Icon(Icons.error),
                                     ),
                                   ),
                                   Padding(
@@ -478,9 +470,8 @@ class _MainScreenState extends State<MainScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 2.0.w),
                               child: CircleAvatar(
                                 radius: 8.h,
-                                backgroundColor: currentPage == index
-                                    ? kMainColor
-                                    : kBlueLightColor,
+                                backgroundColor:
+                                    currentPage == index ? kMainColor : kBlueLightColor,
                               ),
                             );
                           },
@@ -524,28 +515,22 @@ class _MainScreenState extends State<MainScreen> {
                             'title': bookController.latestBook[index].bookTitle,
                           },
                           {
-                            'bookCover':
-                                bookController.latestBook[index].bookCoverImg,
+                            'bookCover': bookController.latestBook[index].bookCoverImg,
                           },
                           {
-                            'bookPages':
-                                bookController.latestBook[index].bookPages,
+                            'bookPages': bookController.latestBook[index].bookPages,
                           },
                           {
-                            'bookDescription': bookController
-                                .latestBook[index].bookDescription,
+                            'bookDescription': bookController.latestBook[index].bookDescription,
                           },
                           {
-                            'bookFile':
-                                bookController.latestBook[index].bookFileUrl,
+                            'bookFile': bookController.latestBook[index].bookFileUrl,
                           },
                           {
-                            'authorName':
-                                bookController.latestBook[index].authorName,
+                            'authorName': bookController.latestBook[index].authorName,
                           },
                           {
-                            'categoryName':
-                                bookController.latestBook[index].categoryName,
+                            'categoryName': bookController.latestBook[index].categoryName,
                           },
                           {
                             "book": bookController.latestBook[index],
@@ -557,8 +542,7 @@ class _MainScreenState extends State<MainScreen> {
                             "condition": false,
                           },
                           {
-                            'audioFile':
-                                bookController.latestBook[index].audioFile,
+                            'audioFile': bookController.latestBook[index].audioFile,
                           },
                         ],
                       );
@@ -573,14 +557,11 @@ class _MainScreenState extends State<MainScreen> {
                             height: context.height * 0.2,
                             width: context.width * 0.50, //0.65
                             child: CachedNetworkImage(
-                              imageUrl: imagesUrl +
-                                  bookController.latestBook[index].bookCoverImg,
+                              imageUrl: imagesUrl + bookController.latestBook[index].bookCoverImg,
                               fit: BoxFit.fill, // content
-                              progressIndicatorBuilder:
-                                  (context, url, downloadProgress) => Padding(
+                              progressIndicatorBuilder: (context, url, downloadProgress) => Padding(
                                 padding: const EdgeInsets.all(32.0).add(
-                                  EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 8),
+                                  EdgeInsets.symmetric(horizontal: 40, vertical: 8),
                                 ),
                                 child: SizedBox(
                                   height: 50,
@@ -591,8 +572,7 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                 ),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
                             ),
                             // Image.network(
                             //   imagesUrl + bookController.latestBook[index].bookCoverImg,
@@ -600,10 +580,7 @@ class _MainScreenState extends State<MainScreen> {
                             // ),
                           ),
                           Text(
-                            bookController.latestBook[index].bookTitle
-                                        .split(" ")
-                                        .length >
-                                    4
+                            bookController.latestBook[index].bookTitle.split(" ").length > 4
                                 ? bookController.latestBook[index].bookTitle
                                         .split(" ")
                                         .getRange(0, 4)
@@ -613,8 +590,7 @@ class _MainScreenState extends State<MainScreen> {
                                         .split(" ")
                                         .getRange(
                                           4,
-                                          bookController
-                                              .latestBook[index].bookTitle
+                                          bookController.latestBook[index].bookTitle
                                               .split(" ")
                                               .length,
                                         )
@@ -672,24 +648,20 @@ class _MainScreenState extends State<MainScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: (ThemeProvider.themeOf(context).id ==
-                                        "dark_theme")
+                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
                                     ? kBlueLightColor
                                     : kSecondryColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Center(
                                   child: Text(
                                     cat.categoryName,
                                     style: TextStyle(
-                                      color:
-                                          (ThemeProvider.themeOf(context).id ==
-                                                  "dark_theme")
-                                              ? kBlueDarkColor
-                                              : Colors.white,
+                                      color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                          ? kBlueDarkColor
+                                          : Colors.white,
                                       fontSize: 15.sp,
                                     ),
                                   ),

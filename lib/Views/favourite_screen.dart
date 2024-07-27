@@ -8,7 +8,8 @@ import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/Views/widget/custom_text.dart';
 
 import '../Controller/ebook_controller.dart';
-import '../services/services.dart';
+import 'widget/appbar_height.dart';
+//import '../services/services.dart';
 
 class FavouriteScreen extends StatefulWidget {
   FavouriteScreen({Key? key}) : super(key: key);
@@ -64,24 +65,22 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(height: 70.h),
+                        //SizedBox(height: 70.h),
+                        SizedBoxAppBarMaxHeight(),
                         CustomText(
                           text: 'المفضلة',
                           fontSize: 24.sp,
-                          color: (ThemeProvider.themeOf(context).id ==
-                                  "dark_theme")
+                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
                               ? kBlueLightColor
                               : kSecondryColor,
                         ),
                         Expanded(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 7.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 7.0),
                             child: GridView.builder(
                               padding: EdgeInsets.zero,
                               itemCount: bookController.bookMarks.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2, //2
                                 childAspectRatio: .9, //.7
                               ),
@@ -92,50 +91,39 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                       () => DetailsScreen(),
                                       arguments: [
                                         {
-                                          'id': bookController.bookMarks
-                                              .toList()[index]
-                                              .id,
+                                          'id': bookController.bookMarks.toList()[index].id,
                                         },
                                         {
-                                          'title': bookController.bookMarks
-                                              .toList()[index]
-                                              .bookTitle,
+                                          'title':
+                                              bookController.bookMarks.toList()[index].bookTitle,
                                         },
                                         {
-                                          'bookCover': bookController.bookMarks
-                                              .toList()[index]
-                                              .bookCoverImg,
+                                          'bookCover':
+                                              bookController.bookMarks.toList()[index].bookCoverImg,
                                         },
                                         {
-                                          'bookPages': bookController.bookMarks
-                                              .toList()[index]
-                                              .bookPages,
+                                          'bookPages':
+                                              bookController.bookMarks.toList()[index].bookPages,
                                         },
                                         {
-                                          'bookDescription': bookController
-                                              .bookMarks
+                                          'bookDescription': bookController.bookMarks
                                               .toList()[index]
                                               .bookDescription,
                                         },
                                         {
-                                          'bookFile': bookController.bookMarks
-                                              .toList()[index]
-                                              .bookFileUrl,
+                                          'bookFile':
+                                              bookController.bookMarks.toList()[index].bookFileUrl,
                                         },
                                         {
-                                          'authorName': bookController.bookMarks
-                                              .toList()[index]
-                                              .authorName,
+                                          'authorName':
+                                              bookController.bookMarks.toList()[index].authorName,
                                         },
                                         {
-                                          'categoryName': bookController
-                                              .bookMarks
-                                              .toList()[index]
-                                              .categoryName,
+                                          'categoryName':
+                                              bookController.bookMarks.toList()[index].categoryName,
                                         },
                                         {
-                                          "book": bookController.bookMarks
-                                              .toList()[index],
+                                          "book": bookController.bookMarks.toList()[index],
                                         },
                                         {
                                           "books": bookController,
@@ -144,9 +132,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                           "condition": true,
                                         },
                                         {
-                                          'audioFile': bookController.bookMarks
-                                              .toList()[index]
-                                              .audioFile,
+                                          'audioFile':
+                                              bookController.bookMarks.toList()[index].audioFile,
                                         },
                                       ],
                                     );
@@ -162,16 +149,13 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: kSecondryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(
+                                              borderRadius: BorderRadius.circular(
                                                 7,
                                               ),
                                             ),
                                             child: Center(
                                               child: Text(
-                                                bookController.bookMarks
-                                                    .toList()[index]
-                                                    .bookTitle,
+                                                bookController.bookMarks.toList()[index].bookTitle,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.center,
@@ -191,8 +175,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                               /// lib book width
                                               // width: 130.w,
                                               child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(7.0),
+                                                borderRadius: BorderRadius.circular(7.0),
                                                 child: CachedNetworkImage(
                                                   imageUrl: imagesUrl +
                                                       bookController.bookMarks
@@ -200,13 +183,8 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                           .bookCoverImg,
                                                   fit: BoxFit.fill,
                                                   progressIndicatorBuilder:
-                                                      (context, url,
-                                                              downloadProgress) =>
-                                                          Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                                32.0)
-                                                            .add(
+                                                      (context, url, downloadProgress) => Padding(
+                                                    padding: const EdgeInsets.all(32.0).add(
                                                       EdgeInsets.symmetric(
                                                         horizontal: 32,
                                                         vertical: 8,
@@ -215,17 +193,14 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                                                     child: SizedBox(
                                                       height: 50,
                                                       width: 50,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        value: downloadProgress
-                                                            .progress,
+                                                      child: CircularProgressIndicator(
+                                                        value: downloadProgress.progress,
                                                         color: kBlueDarkColor,
                                                       ),
                                                     ),
                                                   ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
+                                                  errorWidget: (context, url, error) =>
+                                                      Icon(Icons.error),
                                                 ),
                                                 // Image.network(
                                                 //   imagesUrl +

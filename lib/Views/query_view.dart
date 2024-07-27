@@ -60,15 +60,13 @@ class _QueryViewState extends State<QueryView> {
     final document = parse(widget.item.pageText);
 
     return Scaffold(
-      backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? kBlueDarkColor
-          : kWhiteColor,
+      backgroundColor:
+          (ThemeProvider.themeOf(context).id == "dark_theme") ? kBlueDarkColor : kWhiteColor,
       appBar: AppBar(
         title: Text("نتيجة البحث عن كلمة: ${widget.query}"),
         centerTitle: true,
-        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? null
-            : kBlueDarkColor,
+        foregroundColor:
+            (ThemeProvider.themeOf(context).id == "dark_theme") ? null : kBlueDarkColor,
         elevation: 0,
         backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
             ? kBlueDarkColor
@@ -83,12 +81,9 @@ class _QueryViewState extends State<QueryView> {
               trailing: Text("ترتيب السورة: " + widget.item.surahNum),
             ),
             ListTile(
-              leading: downloading
-                  ? CircularProgressIndicator(color: kMainColor)
-                  : null,
+              leading: downloading ? CircularProgressIndicator(color: kMainColor) : null,
               title: Text("نتيجة البحث:"),
-              subtitle:
-                  Text("\"${parse(document.body?.text).body!.text.trim()}\""),
+              subtitle: Text("\"${parse(document.body?.text).body!.text.trim()}\""),
               trailing: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(kMainColor),
@@ -104,10 +99,9 @@ class _QueryViewState extends State<QueryView> {
                         'title': widget.item.surahTitle,
                         'id': widget.item.surahNum,
                         'page': int.parse(widget.item.pageNum),
-                        'description':
-                            parse(document.body?.text).body!.text.trim(),
+                        'description': parse(document.body?.text).body!.text.trim(),
                         'pdf': widget.item.pageFile,
-                        'author': "د. فاطمة بنت عمر نصيف",
+                        'author': "$appSubtitle",
                       },
                     ],
                   );

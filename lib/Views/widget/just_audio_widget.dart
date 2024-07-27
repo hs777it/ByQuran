@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:just_audio/just_audio.dart'; // ^0.9.35
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:welivewithquran/constant.dart';
@@ -40,15 +41,13 @@ class _JustAudioState extends State<JustAudio> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               SizedBox(
                 width: MediaQuery.sizeOf(context).width * 0.7,
-                child: Padding(
-                    padding: EdgeInsets.only(top: 18), child: _progessBar()),
+                child: Padding(padding: EdgeInsets.only(top: 18), child: _progessBar()),
               ),
               _playbackControlButton(),
             ]),
             Row(
               children: [
                 _controlButtons(),
-                //_playbackControlButton(),
               ],
             )
           ]),
@@ -56,8 +55,7 @@ class _JustAudioState extends State<JustAudio> {
   }
 
   Future<void> _setupAudioPlayer(String url) async {
-    _player.playbackEventStream.listen((event) {},
-        onError: (Object e, StackTrace stacktrace) {
+    _player.playbackEventStream.listen((event) {}, onError: (Object e, StackTrace stacktrace) {
       print("A stream error occurred: $e");
     });
     try {
@@ -108,53 +106,75 @@ class _JustAudioState extends State<JustAudio> {
           } else if (processingState != ProcessingState.completed) {
             return customButton(const Icon(Icons.pause), _player.pause);
           } else {
-            return customButton(
-                const Icon(Icons.replay), () => _player.seek(Duration.zero));
+            return customButton(const Icon(Icons.replay), () => _player.seek(Duration.zero));
           }
         });
   }
 
   Widget _controlButtons() {
-    return Column(children: [
-      StreamBuilder(
-          stream: _player.speedStream,
-          builder: (context, snapshot) {
-            if (widget.speed) {
-              return Row(children: [
-                const Icon(Icons.speed),
-                Slider(
-                    min: 1,
-                    max: 3,
-                    value: snapshot.data ?? 1,
-                    divisions: 3,
-                    onChanged: (value) async {
-                      await _player.setSpeed(value);
-                    })
-              ]);
-            } else {
-              return const SizedBox();
-            }
-          }),
-      StreamBuilder(
-          stream: _player.volumeStream,
-          builder: (context, snapshot) {
-            if (widget.volume) {
-              return Row(children: [
-                const Icon(Icons.volume_up),
-                Slider(
-                    min: 0,
-                    max: 5,
-                    value: snapshot.data ?? 1,
-                    divisions: 5,
-                    onChanged: (value) async {
-                      await _player.setVolume(value);
-                    })
-              ]);
-            } else {
-              return const SizedBox();
-            }
-          }),
-    ]);
+    return Expanded(
+      child: Column(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            StreamBuilder(
+                stream: _player.speedStream,
+                builder: (context, snapshot) {
+                  if (widget.speed) {
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text('سرعة الصوت'),
+                          const SizedBox(width: 12),
+                          const Icon(Icons.speed),
+                          Flexible(
+                            child: Slider(
+                                min: 1,
+                                max: 2,
+                                thumbColor: kMainColor,
+                                activeColor: kMainColor,
+                                inactiveColor: kSecondryColor,
+                                secondaryActiveColor: kSecondryColor,
+                                value: snapshot.data ?? 1,
+                                divisions: 5,
+                                onChanged: (value) async {
+                                  await _player.setSpeed(value);
+                                }),
+                          )
+                        ]);
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+            StreamBuilder(
+                stream: _player.volumeStream,
+                builder: (context, snapshot) {
+                  if (widget.volume) {
+                    return Row(children: [
+                      const Text('مستوى الصوت'),
+                      const Icon(Icons.volume_up),
+                      Flexible(
+                        child: Slider(
+                            min: 0,
+                            max: 1,
+                            thumbColor: kMainColor,
+                            activeColor: kMainColor,
+                            inactiveColor: kSecondryColor,
+                            secondaryActiveColor: kSecondryColor,
+                            value: snapshot.data ?? 1,
+                            divisions: 7,
+                            onChanged: (value) async {
+                              await _player.setVolume(value);
+                            }),
+                      )
+                    ]);
+                  } else {
+                    return const SizedBox();
+                  }
+                }),
+          ]),
+    );
   }
 
   customButton(Widget icon, void Function()? func) {

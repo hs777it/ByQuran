@@ -13,30 +13,17 @@ class FahdMoshaf extends StatelessWidget {
     var url = 'https://livebyquran.net/zbook/quran/';
     return GestureDetector(
       onTap: () async {
-        if (!await launchUrl(
-          Uri.parse(url),
-          mode: LaunchMode.externalApplication,
-        )) {
-          throw Exception(
-            'Could not launch ${url}',
-          );
+        if (!await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication)) {
+          throw Exception('Could not launch ${url}');
         }
       },
-      // onTap: () {
-      //   Get.to(
-      //     () => MoshafScreen(
-      //       fileURL: "https://livebyquran.net/zbook/quran/",
-      //     ),
-      //   );
-      // },
       child: Container(
         height: 50.h,
         width: 0.5.sw,
         padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
-          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-              ? kSecondryColor
-              : kBlueDarkColor,
+          color:
+              (ThemeProvider.themeOf(context).id == "dark_theme") ? kSecondryColor : kBlueDarkColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(

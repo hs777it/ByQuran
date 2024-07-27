@@ -22,12 +22,10 @@ class BottomNavigationBarX extends StatelessWidget {
       unselectedFontSize: 15.sp,
       selectedFontSize: 17.sp,
       backgroundColor: kBlueBackgroundColor,
-      selectedItemColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? kMainColor
-          : kBlueDarkColor,
-      unselectedItemColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-          ? kBlueGrey
-          : kBlueGrey,
+      selectedItemColor:
+          (ThemeProvider.themeOf(context).id == "dark_theme") ? kMainColor : kBlueDarkColor,
+      unselectedItemColor:
+          (ThemeProvider.themeOf(context).id == "dark_theme") ? kBlueGrey : kBlueGrey,
       items: [
         BottomNavigationBarItem(
           label: 'الرئيسية',
@@ -39,20 +37,19 @@ class BottomNavigationBarX extends StatelessWidget {
           icon: SvgPicture.asset('assets/icons/library_icon.svg', height: 23),
           // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
         ),
-        const BottomNavigationBarItem(
-          label: 'المفضلة',
-          icon: Icon(
-            Icons.bookmark,
-            color: Color(0xff305F71),
-          ),
+        BottomNavigationBarItem(
+          label: 'الصوتيات',
+          icon: SvgPicture.asset('assets/icons/audio-library.svg', height: 23),
           // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
+        ),
+        BottomNavigationBarItem(
+          label: 'المفضلة',
+          icon: Icon(Icons.bookmark, color: Color(0xff305F71), size: 23),
+          //icon: SvgPicture.asset('assets/icons/explore_colored.svg', height: 23),
         ),
         const BottomNavigationBarItem(
           label: 'الإعدادات',
-          icon: Icon(
-            Icons.settings,
-            color: Color(0xff305F71),
-          ),
+          icon: Icon(Icons.settings, color: Color(0xff305F71)),
           // activeIcon: SvgPicture.asset('assets/icons/explore_colored.svg',
         ),
       ],

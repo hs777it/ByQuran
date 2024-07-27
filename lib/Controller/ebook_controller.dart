@@ -19,6 +19,7 @@ class BookController extends GetxController {
   var popularList = <Ebook>[].obs;
   var downloadedList = Set<Ebook>().obs;
   var bookList = <Ebook>[].obs;
+  var audioList = <Ebook>[].obs;
   var latestBook = <Ebook>[].obs;
   var bookMarks = Set<Ebook>().obs;
   var catList = <Category>[].obs;
@@ -29,6 +30,7 @@ class BookController extends GetxController {
   @override
   void onInit() {
     getAll();
+    getAudio();
     getLatest();
     getCats();
     getBookmarks();
@@ -62,19 +64,12 @@ class BookController extends GetxController {
   Future<List<int>> getSavedPages(String id) async {
     try {
       final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-      List<String>? res = await prefs.getKeys().contains(
-              bookList[index].bookTitle + bookList[index].id + "PAGES")
-          ? prefs.getStringList(
-              bookList[index].bookTitle + bookList[index].id + "PAGES")
-          : null;
+      List<String>? res =
+          await prefs.getKeys().contains(bookList[index].bookTitle + bookList[index].id + "PAGES")
+              ? prefs.getStringList(bookList[index].bookTitle + bookList[index].id + "PAGES")
+              : null;
 
-      final pages = res == null
-          ? <int>[]
-          : res
-              .map(
-                (e) => int.parse(e),
-              )
-              .toList();
+      final pages = res == null ? <int>[] : res.map((e) => int.parse(e)).toList();
       log(pages.runtimeType.toString());
       return pages;
     } catch (e) {
@@ -90,9 +85,7 @@ class BookController extends GetxController {
 
   Future<bool> bookmarkPage(String id, int page) async {
     final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-    if (prefs
-        .getKeys()
-        .contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
+    if (prefs.getKeys().contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
       List<int> pages = await getSavedPages(id);
       if (!pages.contains(page)) pages.add(page);
       List<String> data = pages.map((e) => e.toString()).toList();
@@ -119,9 +112,7 @@ class BookController extends GetxController {
 
   Future<bool> removeBookmarkPage(String id, int page) async {
     final int index = bookList.indexWhere((Ebook ebook) => ebook.id == id);
-    if (prefs
-        .getKeys()
-        .contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
+    if (prefs.getKeys().contains(bookList[index].bookTitle + bookList[index].id + "PAGES")) {
       List<int> pages = await getSavedPages(id);
       pages.remove(page);
       await prefs.setStringList(
@@ -208,7 +199,18 @@ class BookController extends GetxController {
       var ebooks = await DataServices.getEbooks('allbook');
       bookList.value = ebooks!.toList();
     } catch (e) {
-      //log('Error while getting data is $e');
+      print('Error while getting data is $e');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> getAudio() async {
+    isLoading(true);
+    try {
+      var ebooks = await DataServices.getEbooks('audio');
+      audioList.value = ebooks!.toList();
+    } catch (e) {
       print('Error while getting data is $e');
     } finally {
       isLoading(false);

@@ -10,7 +10,7 @@ class AppShare extends StatelessWidget {
       title: 'مشاركة التطبيق',
       onPress: () async {
         await Share.share(
-            "لنحيا بالقرآن\n د. فاطمة بنت عمر نصيف\n ${shareLink}",
+            "$appName - $appSubtitle \n ${shareLink}",
             subject: 'لنحيا بالقرآن');
       },
       image: 'assets/icons/share.svg',

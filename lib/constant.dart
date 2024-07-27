@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
 const appName = 'لنحيا بالقرآن';
-const shareLink = 'https://livebyquran.net/share/';
 
-const bookHeight = 260;
+const appSubtitle = 'د.فاطمة بنت عمر نصيف';
+
+const baseURl = 'https://livebyquran.net';
+
+const apiUrl = '$baseURl/zbook/api.php?';
+
+const imagesUrl = '$baseURl/zbook/images/';
+
+const shareLink = '$baseURl/share/';
+
+const kFontApp = 'Tajawal';
+
+const sookHeight = 260;
 const bookWidth = 130;
 
 const kMainColor = Color(0xFF1CB5F1);

@@ -7,6 +7,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Controller/ebook_controller.dart';
 import 'package:welivewithquran/Models/category.dart';
+import 'package:welivewithquran/Views/audio_library_screen.dart';
 import 'package:welivewithquran/Views/category_view.dart';
 import 'package:welivewithquran/Views/favourite_screen.dart';
 import 'package:welivewithquran/Views/library_screen.dart';
@@ -32,8 +33,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late int currentIndex;
   PageController _pageController = PageController();
 
-  GlobalKey<DrawerControllerState> drawerKey =
-      GlobalKey<DrawerControllerState>();
+  GlobalKey<DrawerControllerState> drawerKey = GlobalKey<DrawerControllerState>();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -62,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   List<Widget> screen = [
     MainScreen(),
     LibraryScreen(),
+    AudioLibraryScreen(),
     FavouriteScreen(),
     SettingsScreen(),
   ];
@@ -83,9 +84,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             appBar: AppBar(
               elevation: 0,
               foregroundColor:
-                  (ThemeProvider.themeOf(context).id == "dark_theme")
-                      ? null
-                      : kBlueDarkColor,
+                  (ThemeProvider.themeOf(context).id == "dark_theme") ? null : kBlueDarkColor,
               backgroundColor: currentIndex == 0
                   ? (ThemeProvider.themeOf(context).id == "dark_theme")
                       ? kBlueDarkColor
@@ -93,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   : Colors.transparent,
               toolbarHeight: 85.h,
               title: Text(
-                'لنحيا بالقرآن\nد.فاطمة بنت عمر نصيف',
+                '$appName  \n $appSubtitle',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 15.sp,
@@ -118,8 +117,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             drawer: FutureBuilder<bool>(
               future: setPushState(),
               builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                   bool isListening = snapshot.data!;
                   return Drawer(
                     key: drawerKey,
@@ -133,8 +131,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                               'لنحيا بالقرآن',
                               style: TextStyle(
                                 fontSize: 24.sp,
-                                color: (ThemeProvider.themeOf(context).id ==
-                                        "dark_theme")
+                                color: (ThemeProvider.themeOf(context).id == "dark_theme")
                                     ? kBlueLightColor
                                     : kSecondryColor,
                                 fontWeight: FontWeight.w700,
@@ -177,30 +174,24 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                   );
                                 },
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
+                                  padding: const EdgeInsets.symmetric(vertical: 5),
                                   child: Container(
                                     height: 50.h,
                                     width: 0.5.sw,
                                     decoration: BoxDecoration(
-                                      color:
-                                          (ThemeProvider.themeOf(context).id ==
-                                                  "dark_theme")
-                                              ? kBlueLightColor
-                                              : kSecondryColor,
+                                      color: (ThemeProvider.themeOf(context).id == "dark_theme")
+                                          ? kBlueLightColor
+                                          : kSecondryColor,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
+                                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
                                       child: Center(
                                         child: Text(
                                           cat.categoryName,
                                           style: TextStyle(
                                             color:
-                                                (ThemeProvider.themeOf(context)
-                                                            .id ==
-                                                        "dark_theme")
+                                                (ThemeProvider.themeOf(context).id == "dark_theme")
                                                     ? kBlueDarkColor
                                                     : Colors.white,
                                             fontSize: 15.sp,
@@ -267,12 +258,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                               children: [
                                 Switch(
                                   activeColor: kMainColor,
-                                  value: (ThemeProvider.themeOf(context).id ==
-                                      "dark_theme"),
+                                  value: (ThemeProvider.themeOf(context).id == "dark_theme"),
                                   onChanged: (bool val) {
                                     val
-                                        ? ThemeProvider.controllerOf(context)
-                                            .setTheme("dark_theme")
+                                        ? ThemeProvider.controllerOf(context).setTheme("dark_theme")
                                         : ThemeProvider.controllerOf(context)
                                             .setTheme("light_theme");
                                     // settingController.changeMode();
