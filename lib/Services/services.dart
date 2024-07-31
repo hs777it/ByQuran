@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:welivewithquran/Models/category.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
@@ -13,7 +14,7 @@ String home = "home";
 String surahs = "surah_list";
 String details = "app_details";
 
-class DataServices {
+class ApiService {
   static Map<String, String> requestHeaders = {
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',

@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Controller/ebook_controller.dart';
-import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/read_book_online.dart';
 import 'package:welivewithquran/Views/read_book_screen.dart';
 import 'package:welivewithquran/constant.dart';

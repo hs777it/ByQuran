@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/constant.dart';
 import 'package:welivewithquran/Views/widget/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../services/services.dart';
+
 import 'moshaf_screen.dart';
 import 'widget/app_version.dart';
 
@@ -71,7 +72,7 @@ class ContactUsScreen extends StatelessWidget {
             height: 50.h,
           ),
           FutureBuilder<Map<String, String>?>(
-            future: DataServices.getAppDetails(),
+            future: ApiService.getAppDetails(),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                 Map<String, String> data = snapshot.data!;

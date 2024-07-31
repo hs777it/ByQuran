@@ -5,18 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:welivewithquran/Controller/ebook_controller.dart';
+import 'package:welivewithquran/Models/category.dart';
+import 'package:welivewithquran/Services/services.dart';
 import 'package:welivewithquran/Views/category_view.dart';
 import 'package:welivewithquran/Views/details_screen.dart';
-import 'package:welivewithquran/Models/category.dart';
 import 'package:welivewithquran/Views/query_view.dart';
+import 'package:welivewithquran/Views/widget/custom_text.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
 import 'package:welivewithquran/models/search_query.dart';
 import 'package:welivewithquran/models/surah.dart';
-import 'package:welivewithquran/services/services.dart';
-import 'package:welivewithquran/Views/widget/custom_text.dart';
 
 import '../constant.dart';
-
 import 'widget/custom_divider.dart';
 import 'widget/fahd_moshaf.dart';
 
@@ -41,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
   int groupVal = 0;
 
   Future<void> setFeatured() async {
-    var list = (await DataServices.getFeaturedEbooks())!;
+    var list = (await ApiService.getFeaturedEbooks())!;
     setState(() {
       featuredList = list;
     });
@@ -195,7 +194,7 @@ class _MainScreenState extends State<MainScreen> {
                 width: 20.w,
               ),
               FutureBuilder<List<Surah>?>(
-                future: DataServices.getSurahs(),
+                future: ApiService.getSurahs(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                     List<Surah> surahList = snapshot.data!;
@@ -262,11 +261,11 @@ class _MainScreenState extends State<MainScreen> {
           child: InkWell(
             onTap: () async {
               List<SearchQuery> list = (groupVal == 0 && surah == null)
-                  ? (await DataServices.searchBooks(
+                  ? (await ApiService.searchBooks(
                         searchController.text.trim(),
                       )) ??
                       []
-                  : (await DataServices.searchBooksSpecific(
+                  : (await ApiService.searchBooksSpecific(
                         searchController.text.trim(),
                         surah!,
                       )) ??

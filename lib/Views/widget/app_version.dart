@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:welivewithquran/services/services.dart';
+import 'package:welivewithquran/Services/services.dart';
 
 import '../../constant.dart';
 import 'custom_text.dart';
@@ -10,10 +10,9 @@ class AppVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, String>?>(
-        future: DataServices.getAppDetails(),
+        future: ApiService.getAppDetails(),
         builder: (context, snapshot) {
-          if (snapshot.hasData &&
-              snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
             Map<String, String> data = snapshot.data!;
 
             return CustomText(

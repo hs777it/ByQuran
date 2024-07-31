@@ -22,22 +22,18 @@ class CategoryScreen extends StatelessWidget {
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         title: Text(cat.categoryName),
-        foregroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? null
-            : kBlueDarkColor,
+        foregroundColor:
+            (ThemeProvider.themeOf(context).id == "dark_theme") ? null : kBlueDarkColor,
         elevation: 0,
-        backgroundColor: (ThemeProvider.themeOf(context).id == "dark_theme")
-            ? kBlueDarkColor
-            : kBlueLightColor,
+        backgroundColor:
+            (ThemeProvider.themeOf(context).id == "dark_theme") ? kBlueDarkColor : kBlueLightColor,
       ),
       body: Container(
         padding: EdgeInsets.zero,
         margin: EdgeInsets.zero,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: (ThemeProvider.themeOf(context).id == "dark_theme")
-              ? kBlueDarkColor
-              : kWhiteColor,
+          color: (ThemeProvider.themeOf(context).id == "dark_theme") ? kBlueDarkColor : kWhiteColor,
           /*
           image: (ThemeProvider.themeOf(context).id == "dark_theme")
               ? null
@@ -64,21 +60,18 @@ class CategoryScreen extends StatelessWidget {
             ), 
             */
             FutureBuilder<List<Ebook>?>(
-              future: DataServices.getEbooksFromCat(cat.cid),
+              future: ApiService.getEbooksFromCat(cat.cid),
               builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
                   List<Ebook> bookList = snapshot.data ?? [];
                   return bookList.isNotEmpty
                       ? Expanded(
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 7.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 7.0),
                             child: GridView.builder(
                               padding: EdgeInsets.zero,
                               itemCount: bookList.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2, //2
                                 childAspectRatio: .9, //.7
                               ),
@@ -95,28 +88,22 @@ class CategoryScreen extends StatelessWidget {
                                           'title': bookList[index].bookTitle,
                                         },
                                         {
-                                          'bookCover':
-                                              bookList[index].bookCoverImg,
+                                          'bookCover': bookList[index].bookCoverImg,
                                         },
                                         {
-                                          'bookPages':
-                                              bookList[index].bookPages,
+                                          'bookPages': bookList[index].bookPages,
                                         },
                                         {
-                                          'bookDescription':
-                                              bookList[index].bookDescription,
+                                          'bookDescription': bookList[index].bookDescription,
                                         },
                                         {
-                                          'bookFile':
-                                              bookList[index].bookFileUrl,
+                                          'bookFile': bookList[index].bookFileUrl,
                                         },
                                         {
-                                          'authorName':
-                                              bookList[index].authorName,
+                                          'authorName': bookList[index].authorName,
                                         },
                                         {
-                                          'categoryName':
-                                              bookList[index].categoryName,
+                                          'categoryName': bookList[index].categoryName,
                                         },
                                         {
                                           "book": bookList[index],
@@ -128,8 +115,7 @@ class CategoryScreen extends StatelessWidget {
                                           "condition": false,
                                         },
                                         {
-                                          'audioFile':
-                                              bookList[index].audioFile,
+                                          'audioFile': bookList[index].audioFile,
                                         },
                                       ],
                                     );
@@ -145,8 +131,7 @@ class CategoryScreen extends StatelessWidget {
                                             padding: EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: kSecondryColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(7),
+                                              borderRadius: BorderRadius.circular(7),
                                             ),
                                             child: Center(
                                               child: Text(
@@ -170,21 +155,14 @@ class CategoryScreen extends StatelessWidget {
                                               /// lib book width
                                               // width: 130.w,
                                               child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(7.0),
+                                                borderRadius: BorderRadius.circular(7.0),
                                                 child: CachedNetworkImage(
-                                                  imageUrl: imagesUrl +
-                                                      bookList[index]
-                                                          .bookCoverImg,
+                                                  imageUrl:
+                                                      imagesUrl + bookList[index].bookCoverImg,
                                                   fit: BoxFit.fill,
                                                   progressIndicatorBuilder:
-                                                      (context, url,
-                                                              downloadProgress) =>
-                                                          Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                                32.0)
-                                                            .add(
+                                                      (context, url, downloadProgress) => Padding(
+                                                    padding: const EdgeInsets.all(32.0).add(
                                                       EdgeInsets.symmetric(
                                                         horizontal: 32,
                                                         vertical: 8,
@@ -193,17 +171,14 @@ class CategoryScreen extends StatelessWidget {
                                                     child: SizedBox(
                                                       height: 50,
                                                       width: 50,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        value: downloadProgress
-                                                            .progress,
+                                                      child: CircularProgressIndicator(
+                                                        value: downloadProgress.progress,
                                                         color: kBlueDarkColor,
                                                       ),
                                                     ),
                                                   ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
+                                                  errorWidget: (context, url, error) =>
+                                                      Icon(Icons.error),
                                                 ),
                                                 // Image.network(
                                                 //   imagesUrl + bookList[index].bookCoverImg,
@@ -222,8 +197,7 @@ class CategoryScreen extends StatelessWidget {
                           ),
                         )
                       : Container(
-                          color: (ThemeProvider.themeOf(context).id ==
-                                  "dark_theme")
+                          color: (ThemeProvider.themeOf(context).id == "dark_theme")
                               ? kBlueDarkColor
                               : null,
                           child: Center(
@@ -231,8 +205,7 @@ class CategoryScreen extends StatelessWidget {
                               alignment: TextAlign.center,
                               text: "لا توجد سور في هذا القسم",
                               fontSize: 26.sp,
-                              color: (ThemeProvider.themeOf(context).id ==
-                                      "dark_theme")
+                              color: (ThemeProvider.themeOf(context).id == "dark_theme")
                                   ? kBlueLightColor
                                   : kSecondryColor,
                             ),

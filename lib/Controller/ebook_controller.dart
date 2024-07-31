@@ -3,14 +3,16 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:welivewithquran/Models/category.dart';
 import 'package:welivewithquran/models/ebook_org.dart';
-import 'package:welivewithquran/services/services.dart';
-import 'package:share_plus/share_plus.dart';
+
+import '../Services/services.dart';
 
 class BookController extends GetxController {
   final prefs = Get.find<SharedPreferences>();
@@ -196,7 +198,7 @@ class BookController extends GetxController {
   Future<void> getAll() async {
     isLoading(true);
     try {
-      var ebooks = await DataServices.getEbooks('allbook');
+      var ebooks = await ApiService.getEbooks('allbook');
       bookList.value = ebooks!.toList();
     } catch (e) {
       print('Error while getting data is $e');
@@ -208,7 +210,7 @@ class BookController extends GetxController {
   Future<void> getAudio() async {
     isLoading(true);
     try {
-      var ebooks = await DataServices.getEbooks('audio');
+      var ebooks = await ApiService.getEbooks('audio');
       audioList.value = ebooks!.toList();
     } catch (e) {
       print('Error while getting data is $e');
@@ -220,7 +222,7 @@ class BookController extends GetxController {
   Future<void> share(int page, String id) async {
     isLoading(true);
     try {
-      var res = await DataServices.getPageImage(page, id);
+      var res = await ApiService.getPageImage(page, id);
       await Share.share("تدبر هذه الصفحة:\n $res");
     } catch (e) {
       //log('Error while getting data is $e');
@@ -234,7 +236,7 @@ class BookController extends GetxController {
   Future<void> getLatest() async {
     isLoading(true);
     try {
-      var ebooks = await DataServices.getEbooks('latest');
+      var ebooks = await ApiService.getEbooks('latest');
       latestBook.value = ebooks!.toList();
     } catch (e) {
       //log('Error while getting data is $e');
@@ -247,7 +249,7 @@ class BookController extends GetxController {
   Future<void> getFeatured() async {
     isLoading(true);
     try {
-      var ebooks = await DataServices.getFeaturedEbooks();
+      var ebooks = await ApiService.getFeaturedEbooks();
       featuredList.value = ebooks!.toList();
     } catch (e) {
       log('Error while getting data is $e');
@@ -260,7 +262,7 @@ class BookController extends GetxController {
   Future<void> getPopular() async {
     isLoading(true);
     try {
-      var ebooks = await DataServices.getPopularEbooks();
+      var ebooks = await ApiService.getPopularEbooks();
       popularList.value = ebooks!.toList();
     } catch (e) {
       log('Error while getting data is $e');
@@ -294,7 +296,7 @@ class BookController extends GetxController {
   Future<void> getCats() async {
     isLoading(true);
     try {
-      var cats = await DataServices.getCategories();
+      var cats = await ApiService.getCategories();
       catList.value = cats!.toList();
     } catch (e) {
       print('Error while getting data is $e');
